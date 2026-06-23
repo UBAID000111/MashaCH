@@ -7,7 +7,10 @@
 
 .navbar{
     width:100%;
-    background:#ffffff;
+     background:linear-gradient(
+        90deg,
+        #e3b761 100%,
+        #c1a23e 0%);
     position:sticky;
     top:0;
     z-index:999;

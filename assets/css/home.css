@@ -1,3 +1,23 @@
+.top-bar{
+    background:linear-gradient(
+        90deg,
+        #BF9E5A 0%,
+        #9B8232 100%
+    );
+
+    color:white;
+
+    text-align:center;
+
+    padding:10px;
+
+    font-size:14px;
+
+    font-weight:600;
+
+    letter-spacing:0.5px;
+}
+
 .hero{
     height:90vh;
     background:url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=2000')
