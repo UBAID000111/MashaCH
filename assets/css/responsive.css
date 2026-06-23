@@ -92,6 +92,33 @@
  .features-grid{
         grid-template-columns:repeat(1fr);
     }
+
+     .newsletter{
+
+        padding:60px 20px;
+    }
+
+    .newsletter h2{
+
+        font-size:30px;
+    }
+
+    .newsletter-box{
+
+        flex-direction:column;
+    }
+
+    .newsletter-box input{
+
+        width:100%;
+        max-width:350px;
+    }
+
+    .newsletter-box button{
+
+        width:100%;
+        max-width:350px;
+    }
 }
 
 @media(max-width:480px){
