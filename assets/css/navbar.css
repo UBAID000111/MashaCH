@@ -37,6 +37,12 @@ html,body{
     color:#111;
 }
 
+.logo img{
+    height:50px;
+    width:auto;
+    display:block;
+    border-radius: 60%;
+}
 .nav-links{
     display:flex;
     gap:35px;
@@ -53,7 +59,7 @@ html,body{
 }
 
 .nav-links a:hover{
-    color:#D4AF37;
+    color:#957819;
 }
 
 .nav-icons{

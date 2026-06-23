@@ -1,4 +1,13 @@
+.top-bar{
+    height: 30px;
+    background-color: #292222;
+    color: #fff9d7;
+    text-align: center;
+    padding: 6px;
+    letter-spacing: 0.5px;
+    font-size: 15px;
 
+}
 .hero{
     height:90vh;
     background:url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=2000')
