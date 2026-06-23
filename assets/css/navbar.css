@@ -16,7 +16,7 @@ body{
 .navbar{
     width:100%;
     height: 50px;
-    background-image: linear-gradient( #920f25, #920f25);
+    background-image: linear-gradient( #7c0a1d, #720c1d);
     position:sticky;
     padding-bottom: 80px;
     top:0;
