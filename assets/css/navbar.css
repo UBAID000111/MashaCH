@@ -12,10 +12,7 @@ html,body{
 
 .navbar{
     width:100%;
-     background:linear-gradient(
-        90deg,
-        #f5c972 100%,
-        #e4c45c 0%);
+    background-color: #f9d86a;
     position:sticky;
     top:0;
     z-index:999;
