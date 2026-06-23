@@ -49,6 +49,17 @@
         grid-template-columns: 1fr;
     }
 
+          .hero-btn{
+
+        padding:10px 25px;
+
+        font-size:13px;
+
+        min-width:140px;
+
+        border-radius:4px;
+
+    }
     
   
 
