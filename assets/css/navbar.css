@@ -12,11 +12,11 @@ html,body{
 
 .navbar{
     width:100%;
-    background-color: #f9d86a;
+    background-image: linear-gradient( #eecc5d, #a08323);
     position:sticky;
     top:0;
     z-index:999;
-    border-bottom:1px solid #f0f0f0;
+    border-bottom:1px solid #BF9E5A;
     box-shadow:0 2px 10px rgba(0,0,0,0.05);
 }
 
@@ -41,6 +41,7 @@ html,body{
     display:flex;
     gap:35px;
     list-style:none;
+    color:#fff;
 }
 
 .nav-links a{
@@ -64,11 +65,13 @@ html,body{
 .nav-icons a{
     text-decoration:none;
     font-size:20px;
+    color: #fff;
 }
 
 .search-icon{
     cursor:pointer;
     font-size:20px;
+    color: #ffff;
 }
 
 .hamburger{
