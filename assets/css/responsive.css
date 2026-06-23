@@ -99,8 +99,16 @@
         padding:0 25px;
     }
 
-    .hero-btn{
-        padding: 5px 200px;
+       .hero-btn{
+
+        padding:10px 25px;
+
+        font-size:13px;
+
+        min-width:140px;
+
+        border-radius:4px;
+
     }
 
     .hero-content h1{
