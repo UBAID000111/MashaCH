@@ -1,12 +1,11 @@
-const hamburger = document.getElementById("hamburger");
-const mobileMenu = document.getElementById("mobileMenu");
+const hamburger =
+document.getElementById("hamburger");
 
-hamburger.addEventListener("click", () => {
+const mobileMenu =
+document.getElementById("mobileMenu");
 
-    if (mobileMenu.style.display === "flex") {
-        mobileMenu.style.display = "none";
-    } else {
-        mobileMenu.style.display = "flex";
-    }
+hamburger.addEventListener("click",()=>{
+
+    mobileMenu.classList.toggle("active");
 
 });
