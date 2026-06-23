@@ -62,8 +62,13 @@
 }
 .hero{
     height:90vh;
-    background:url('https://images.unsplash.com/photo-1523381210434-271e8be1f52b?q=80&w=2000')
+    background:url('https://images.pexels.com/photos/25184999/pexels-photo-25184999.jpeg?cs=srgb&dl=pexels-dhanno-25184999.jpg&fm=jpg')
     center center/cover no-repeat;
+
+    background-position:center top;
+
+    background-size:cover;
+    background-position:center 25%;
 
     display:flex;
     align-items:center;
@@ -101,16 +106,15 @@
 
 .hero-btn{
     display:inline-block;
-    
-    padding:10px 200px;
-    background:#eba818;
-    color:#000;
+    padding:14px 40px;
+    background:#852747;
+    color:white;
     text-decoration:none;
     font-weight:700;
     border-radius:6px;
     transition:.3s;
-    margin-top: 100px;
-    margin-left: 50px;
+    margin-top:30px;
+    margin-left:0;
 }
 
 .hero-btn:hover{

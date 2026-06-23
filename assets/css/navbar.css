@@ -5,15 +5,17 @@
     font-family:'Poppins',sans-serif;
 }
 
-html,body{
-    overflow-x: hidden;
-    width: 100%;
+
+html,
+body{
+    overflow-x:hidden;
+    width:100%;
 }
 
 .navbar{
     width:100%;
     height: 60px;
-    background-image: linear-gradient( #F0A500, #977608);
+    background-image: linear-gradient( #852747, #601a31);
     position:sticky;
     top:0;
     z-index:999;
@@ -54,9 +56,16 @@ html,body{
     color:#fff;
 }
 
+.hero-content h1{
+    font-size:100px;
+    font-weight:800;
+    line-height:1.1;
+    color: #852747;
+}
+
 .nav-links a{
     text-decoration:none;
-    color:#222;
+    color:#ffffff;
     font-size:17px;
     font-weight:500;
     letter-spacing: 0.5px;
@@ -64,7 +73,7 @@ html,body{
 }
 
 .nav-links a:hover{
-    color:#957819;
+    color: #400d1e;
 }
 
 .nav-icons{

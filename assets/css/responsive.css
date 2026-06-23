@@ -2,6 +2,12 @@
     .products-grid{
         grid-template-columns: repeat(3,1fr);
     }
+    
+    .hero-content h1{
+        font-size:80px;
+        color: #852747;
+    }
+
 }
 
 @media (max-width: 900px){
@@ -15,9 +21,15 @@
         grid-template-columns:1fr;
     }
 
+     .hero-content h1{
+        font-size:60px;
+        color: #852747;
+    }
+   
     .shop-header{
         flex-direction:column;
         gap:15px;
+        
     }
         .product-page{
         grid-template-columns:1fr;
@@ -40,6 +52,9 @@
         grid-template-columns:1fr;
     }
 
+
+  
+
     
 
 }
@@ -48,6 +63,8 @@
     .products-grid{
         grid-template-columns: 1fr;
     }
+
+    
 
      .hero-btn{
 
@@ -88,6 +105,9 @@
         display:none;
     }
 
+  
+
+ 
     .hamburger{
         display:block;
     }
@@ -103,36 +123,38 @@
         grid-template-columns:repeat(2,1fr);
     }
 
+    
 }
 @media(max-width:768px){
 
-    .hero-content{
-        padding:0 25px;
+        .hero{
+        height:70vh;
+        
     }
 
-       .hero-btn{
+   
 
-        padding:10px 50px;
-
-        font-size:13px;
-
-        min-width:140px;
-
-        border-radius:4px;
-
+    .hero-content{
+        padding:0 20px;
+        text-align:center;
     }
 
     .hero-content h1{
-        font-size:50px;
-
-        font-family: 'Cinzel', serif;
+        font-size:36px;
+        line-height:1.1;
+        color: #852747;
     }
 
-     .products-grid{
-        grid-template-columns:1fr;
-    }
     .hero-content p{
-        font-size:18px;
+        font-size:16px;
+        margin-bottom:25px;
+    }
+
+    .hero-btn{
+        padding:12px 28px;
+        font-size:14px;
+        font-family:'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
+        margin-top:15px;
     }
 
 
