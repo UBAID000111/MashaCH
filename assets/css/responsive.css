@@ -49,7 +49,7 @@
         grid-template-columns: 1fr;
     }
 
-          .hero-btn{
+     .hero-btn{
 
         padding:10px 25px;
 
@@ -145,15 +145,7 @@
      .order-body{
         flex-direction:column;
     }
-        .hero-btn{
-
-        padding:12px 120px;
-        margin-left: 50px;
-
-
-        font-size:15px;
-
-    }
+     
 
 
 }
