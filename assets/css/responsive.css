@@ -99,6 +99,10 @@
         padding:0 25px;
     }
 
+    .hero-btn{
+        padding: 10px 200px;
+    }
+
     .hero-content h1{
         font-size:30px;
     }
