@@ -7,6 +7,10 @@
         font-size:80px;
         color: #852747;
     }
+        .hero-content span{
+        display:block;
+        font-weight: 400;
+    }
 
 }
 
@@ -20,11 +24,15 @@
         .shop-container{
         grid-template-columns:1fr;
     }
+       .hero-content span{
+        display:block;
+    }
 
      .hero-content h1{
         font-size:60px;
         color: #852747;
     }
+
    
     .shop-header{
         flex-direction:column;
@@ -68,7 +76,7 @@
         font-size:30px;
         line-height:1.1;
         color: #852747;
-         margin-bottom: 20px;
+        
     }
 
     
@@ -112,6 +120,10 @@
         display:none;
     }
 
+        .hero-content span{
+        display:block;
+        font-weight: 400;
+    }
   
 
  
@@ -144,18 +156,24 @@
     .hero-content{
         padding:0 20px;
         text-align:center;
+        margin-bottom: 300px;
+        margin-left: 60px;
+        
     }
 
     .hero-content h1{
         font-size:30px;
-        line-height:1.1;
-        color: #852747;
-        margin-bottom: 20px;
+        color: #b9122e;
+        margin-top: 200px;
+        
+       
+       
     }
 
     .hero-content p{
         font-size:16px;
-        margin-bottom:25px;
+      
+        
     }
 
     .hero-btn{

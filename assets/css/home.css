@@ -85,23 +85,25 @@
 
 .hero-content{
     max-width:1400px;
-    margin:auto;
     padding:0 50px;
     color:white;
 }
 
 .hero-content h1{
-    font-size:100px;
-    font-weight:800;
-    margin-bottom:20px;
-    font-family: serif;
+    
+    font-size:60px;
+    font-weight:1;
+    font-family:serif;
     text-transform:uppercase;
 }
 
 .hero-content p{
     font-size:22px;
+   
+    margin-top: 200px;
     margin-bottom:50px;
     max-width:600px;
+    color: #aa7304;
 }
 
 .hero-btn{
