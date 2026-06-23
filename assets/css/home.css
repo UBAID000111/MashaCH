@@ -91,9 +91,10 @@
 
 .hero-content h1{
     
-    font-size:60px;
-    font-weight:1;
-    font-family:serif;
+    font-size:80px;
+    margin-left: 30px;
+    font-weight:600;
+    font-family:'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
     text-transform:uppercase;
 }
 

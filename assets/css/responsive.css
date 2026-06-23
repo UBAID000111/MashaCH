@@ -73,7 +73,8 @@
     }
 
        .hero-content h1{
-        font-size:25px;
+        font-size:60px;
+        font-display: block;
         line-height:1.1;
         color: #852747;
         
@@ -162,7 +163,7 @@
     }
 
     .hero-content h1{
-        font-size:25px;
+        font-size:60px;
         color: #b9122e;
         margin-top: 200px;
         
