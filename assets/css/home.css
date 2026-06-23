@@ -86,9 +86,10 @@
 }
 
 .hero-content h1{
-    font-size:70px;
+    font-size:100px;
     font-weight:800;
     margin-bottom:20px;
+    font-family: serif;
     text-transform:uppercase;
 }
 
