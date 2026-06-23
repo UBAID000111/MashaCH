@@ -1,11 +1,63 @@
 .top-bar{
-    height: 30px;
-    background-color: #292222;
-    color: #fff9d7;
-    text-align: center;
-    padding: 6px;
-    letter-spacing: 0.5px;
-    font-size: 15px;
+    height:32px;
+    overflow:hidden;
+
+    background-image:linear-gradient(
+        #121212,
+        #1c1c1c
+    );
+
+    color:rgb(215, 205, 142);
+
+    position:relative;
+}
+
+.top-bar-slider{
+
+    display:flex;
+    flex-direction:column;
+
+    animation:slideMessages 12s infinite;
+}
+
+.top-bar-slider span{
+
+    height:38px;
+
+    display:flex;
+
+    align-items:center;
+
+    justify-content:center;
+
+    font-size:13px;
+
+    font-family:'Lucida Sans', 'Lucida Sans Regular', 'Lucida Grande', 'Lucida Sans Unicode', Geneva, Verdana, sans-serif;
+
+    font-weight:600;
+}
+
+@keyframes slideMessages{
+
+    0%,20%{
+        transform:translateY(0);
+    }
+
+    25%,45%{
+        transform:translateY(-40px);
+    }
+
+    50%,70%{
+        transform:translateY(-80px);
+    }
+
+    75%,95%{
+        transform:translateY(-120px);
+    }
+
+    100%{
+        transform:translateY(0);
+    }
 
 }
 .hero{
@@ -42,19 +94,22 @@
 
 .hero-content p{
     font-size:22px;
-    margin-bottom:30px;
+    margin-bottom:50px;
     max-width:600px;
 }
 
 .hero-btn{
     display:inline-block;
-    padding:16px 40px;
+    
+    padding:10px 200px;
     background:#D4AF37;
     color:#000;
     text-decoration:none;
     font-weight:700;
-    border-radius:4px;
+    border-radius:6px;
     transition:.3s;
+    margin-top: 100px;
+    margin-left: 50px;
 }
 
 .hero-btn:hover{

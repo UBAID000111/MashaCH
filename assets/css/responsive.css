@@ -39,12 +39,18 @@
     .address-row{
         grid-template-columns:1fr;
     }
+
+    
+
 }
 
 @media (max-width: 600px){
     .products-grid{
         grid-template-columns: 1fr;
     }
+
+    
+  
 
     .product-image img{
         height: 320px;
@@ -94,7 +100,7 @@
     }
 
     .hero-content h1{
-        font-size:42px;
+        font-size:30px;
     }
 
      .products-grid{
@@ -103,6 +109,8 @@
     .hero-content p{
         font-size:18px;
     }
+
+
 
     .category-grid{
         grid-template-columns:1fr;
@@ -113,6 +121,15 @@
     }
      .order-body{
         flex-direction:column;
+    }
+        .hero-btn{
+
+        padding:12px 120px;
+        margin-left: 50px;
+
+
+        font-size:15px;
+
     }
 
 
