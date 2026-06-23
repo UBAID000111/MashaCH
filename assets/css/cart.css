@@ -1,0 +1,120 @@
+.cart-banner{
+    background:#111;
+    color:white;
+    text-align:center;
+    padding:80px 20px;
+}
+
+.cart-banner h1{
+    font-size:50px;
+}
+
+.cart-container{
+    max-width:1400px;
+    margin:50px auto;
+    padding:20px;
+
+    display:grid;
+    grid-template-columns:2fr 1fr;
+    gap:30px;
+}
+
+.cart-item{
+    display:flex;
+    gap:20px;
+
+    background:white;
+
+    padding:20px;
+
+    border-radius:12px;
+
+    margin-bottom:20px;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+.cart-item img{
+    width:140px;
+    border-radius:10px;
+}
+
+.item-info{
+    flex:1;
+}
+
+.quantity{
+    display:flex;
+    gap:10px;
+    margin-top:15px;
+}
+
+.quantity button{
+    width:35px;
+    height:35px;
+    border:none;
+    cursor:pointer;
+}
+
+.remove-btn{
+    border:none;
+    background:red;
+    color:white;
+
+    padding:10px 15px;
+
+    border-radius:6px;
+
+    cursor:pointer;
+}
+
+.cart-summary{
+    background:white;
+
+    padding:25px;
+
+    border-radius:12px;
+
+    height:fit-content;
+
+    box-shadow:0 5px 15px rgba(0,0,0,0.05);
+}
+
+.summary-row,
+.summary-total{
+    display:flex;
+    justify-content:space-between;
+
+    margin:15px 0;
+}
+
+.coupon-box{
+    display:flex;
+    gap:10px;
+    margin:20px 0;
+}
+
+.coupon-box input{
+    flex:1;
+    padding:12px;
+}
+
+.coupon-box button{
+    padding:12px 20px;
+}
+
+.checkout-btn{
+    width:100%;
+
+    border:none;
+
+    background:black;
+
+    color:white;
+
+    padding:15px;
+
+    cursor:pointer;
+
+    border-radius:8px;
+}
