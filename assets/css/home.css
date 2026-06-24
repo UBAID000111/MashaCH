@@ -64,8 +64,8 @@
 
 .hero{
     height:90vh;
-    background:url('YOUR_IMAGE_URL');
-    background-size:cover;
+    background:url('https://www.wholesalesalwar.com/blog/wp-content/uploads/2023/09/Long-Pakistani-Salwar-Kameez-768x1056.jpg');
+    background-size:p;
     background-position:center 25%;
     background-repeat:no-repeat;
 }
@@ -152,10 +152,9 @@
 
 .category-card img{
     width:100%;
-    height:400px;
-    display:block;
+    height:450px;
     object-fit:cover;
-    transition:0.4s;
+    display:block;
 }
 
 .category-card:hover img{
@@ -227,9 +226,9 @@
 
 .product-image img{
     width:100%;
-    height:420px;
+    aspect-ratio: 3/4;
     object-fit:cover;
-    display:block;
+    
 }
 
 .sale-badge{

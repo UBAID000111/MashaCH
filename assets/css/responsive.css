@@ -63,6 +63,7 @@
     }
     .category-grid{
         grid-template-columns:1fr;
+        
     }
 
     .products-grid{
@@ -74,13 +75,15 @@
     }
 
     .product-card{
-        max-width:400px;
+        max-width:420px;
         margin:auto;
     
     }
-     .category-card img{
-        height:320px;
+       .category-card img{
+        height:450px;
     }
+
+
 
       .top-bar{
         height:36px;
@@ -89,9 +92,7 @@
      .product-image img{
         height:350px;
 }
- .features-grid{
-        grid-template-columns:repeat(1fr);
-    }
+
 
      .newsletter{
 
