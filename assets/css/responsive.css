@@ -158,6 +158,31 @@ font-weight:600;
         max-width:350px;
     }
 
+      .custom-color-box{
+
+        flex-direction:column;
+        align-items:stretch;
+
+    }
+
+    #customColor{
+
+        width:100%;
+        height:50px;
+
+    }
+
+    #customColorName{
+
+        width:100%;
+
+    }
+
+    .custom-color-box button{
+
+        width:100%;
+
+    }
 }
 
 @media(max-width:576px){
