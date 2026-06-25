@@ -55,6 +55,11 @@ aspect-ratio:3/4;
 
 @media(max-width:768px){
 
+    html,
+    body{
+    overflow-x:hidden;
+}
+
     .hero{
         height:70vh;
         background-position:center center;
@@ -245,6 +250,11 @@ font-weight:600;
 
     padding:0 10px;
 
+}
+
+html,
+body{
+    overflow-x:hidden;
 }
 
 .logo img{
