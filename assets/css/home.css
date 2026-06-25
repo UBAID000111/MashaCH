@@ -146,6 +146,7 @@
     position:relative;
     overflow:hidden;
     border-radius:12px;
+
     cursor:pointer;
     background:#f4f0e3;
 }
