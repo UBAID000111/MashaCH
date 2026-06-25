@@ -6,12 +6,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>My Account - MashaCH</title>
+    <title>My Account | MashaCH</title>
 
     <link rel="stylesheet" href="assets/css/navbar.css">
     <link rel="stylesheet" href="assets/css/profile.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
-    <link rel="stylesheet" href="assets/css/footer.css">
 
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
@@ -19,106 +18,39 @@
 
 <body>
 
-    <!-- Navbar Here -->
+    <section class="profile-section">
 
-    <section class="profile-banner">
+        <div class="profile-card">
 
-        <h1>My Account</h1>
+            <div class="profile-avatar">
+                👤
+            </div>
 
-        <p>
-            Manage your profile and orders
-        </p>
+            <h2 id="userName">Loading...</h2>
 
-    </section>
+            <p id="userEmail"></p>
 
-    <section class="profile-container">
+            <div class="profile-menu">
 
-        <!-- Sidebar -->
+                <a href="my-orders.html">📦 My Orders</a>
 
-        <div class="profile-sidebar">
+                <a href="wishlist.html">❤️ Wishlist</a>
 
-            <div class="user-card">
+                <a href="cart.html">🛒 Cart</a>
 
-                <div class="user-avatar">
-                    U
-                </div>
-
-                <h3>Ubaid</h3>
-
-                <p>user@email.com</p>
+                <a href="#">📍 Saved Address</a>
 
             </div>
 
-            <a href="#">My Profile</a>
-
-            <a href="my-orders.html">My Orders</a>
-
-            <a href="wishlist.html">Wishlist</a>
-
-            <a href="#">Saved Addresses</a>
-
-            <a href="#">Coupons</a>
-
-            <a href="#">Settings</a>
-
-            <a href="#">Logout</a>
-
-        </div>
-
-        <!-- Content -->
-
-        <div class="profile-content">
-
-            <div class="profile-card">
-
-                <h2>Profile Information</h2>
-
-                <div class="info-row">
-
-                    <label>Name</label>
-
-                    <input
-                        type="text"
-                        value="Mohd Ubaid"
-                    >
-
-                </div>
-
-                <div class="info-row">
-
-                    <label>Email</label>
-
-                    <input
-                        type="email"
-                        value="user@email.com"
-                    >
-
-                </div>
-
-                <div class="info-row">
-
-                    <label>Phone</label>
-
-                    <input
-                        type="text"
-                        value="+91 9876543210"
-                    >
-
-                </div>
-
-                <button class="save-btn">
-                    Save Changes
-                </button>
-
-            </div>
+            <button id="logoutBtn">
+                Logout
+            </button>
 
         </div>
 
     </section>
 
-    <!-- Footer Here -->
-
-    <script src="assets/js/profile.js"></script>
+    <script type="module" src="assets/js/profile.js"></script>
 
 </body>
 
