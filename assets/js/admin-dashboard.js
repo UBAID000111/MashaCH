@@ -89,6 +89,12 @@ function startDashboard() {
 
         contentArea.innerHTML = await response.text();
 
+        if(file === "admin/products.html"){
+
+    import("./products.js");
+
+}
+
     }
 
     // Dashboard

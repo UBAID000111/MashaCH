@@ -152,7 +152,7 @@ async function googleAuth() {
 
         }
 
-        const ADMIN_EMAIL = "mashaclothinghub@gmail.com";
+        const ADMIN_EMAIL = "mashaweblink@gmail.com";
 
 if (result.user.email === ADMIN_EMAIL) {
 
