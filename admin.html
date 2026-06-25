@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Panel | MashaCH</title>
+
+<link rel="stylesheet" href="assets/css/navbar.css">
+<link rel="stylesheet" href="assets/css/admin.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<section class="admin">
+
+    <div class="admin-card">
+
+        <h1>Add New Product</h1>
+
+        <form id="productForm">
+
+            <input
+            type="text"
+            id="name"
+            placeholder="Product Name"
+            required>
+
+            <input
+            type="text"
+            id="category"
+            placeholder="Category"
+            required>
+
+            <input
+            type="number"
+            id="price"
+            placeholder="Price"
+            required>
+
+            <input
+            type="number"
+            id="oldPrice"
+            placeholder="Old Price">
+
+            <input
+            type="number"
+            id="stock"
+            placeholder="Stock">
+
+            <textarea
+            id="description"
+            placeholder="Description"></textarea>
+
+            <input
+            type="text"
+            id="sizes"
+            placeholder="Sizes (S,M,L,XL)">
+
+            <input
+            type="text"
+            id="colors"
+            placeholder="Colors (Black,White)">
+
+            <input
+            type="file"
+            id="image"
+            accept="image/*">
+
+            <div class="checks">
+
+                <label>
+                    <input type="checkbox" id="newArrival">
+                    New Arrival
+                </label>
+
+                <label>
+                    <input type="checkbox" id="bestSeller">
+                    Best Seller
+                </label>
+
+                <label>
+                    <input type="checkbox" id="featured">
+                    Featured
+                </label>
+
+            </div>
+
+            <button type="submit">
+
+                Add Product
+
+            </button>
+
+        </form>
+
+    </div>
+
+</section>
+
+<script type="module" src="assets/firebase/admin.js"></script>
+
+</body>
+
+</html>

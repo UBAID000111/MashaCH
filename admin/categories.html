@@ -1,0 +1,157 @@
+<section class="content">
+
+    <div class="section-header">
+
+        <h2>Category Management</h2>
+
+        <button class="btn btn-primary" id="addCategoryBtn">
+
+            + Add Category
+
+        </button>
+
+    </div>
+
+    <form id="categoryForm">
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label>Category Name</label>
+
+                <input
+                    type="text"
+                    id="categoryName"
+                    required>
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Slug</label>
+
+                <input
+                    type="text"
+                    id="categorySlug"
+                    readonly>
+
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label>Category Card Image</label>
+
+                <input
+                    type="file"
+                    id="categoryImage"
+                    accept=".jpg,.jpeg,.png,.webp">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Category Banner Image</label>
+
+                <input
+                    type="file"
+                    id="categoryBanner"
+                    accept=".jpg,.jpeg,.png,.webp">
+
+            </div>
+
+        </div>
+
+        <div class="form-row">
+
+            <div class="form-group">
+
+                <label>Display Order</label>
+
+                <input
+                    type="number"
+                    id="displayOrder"
+                    value="1">
+
+            </div>
+
+            <div class="form-group">
+
+                <label>Status</label>
+
+                <select id="categoryStatus">
+
+                    <option value="Active">Active</option>
+
+                    <option value="Inactive">Inactive</option>
+
+                </select>
+
+            </div>
+
+        </div>
+
+        <div class="checkbox">
+
+            <input
+                type="checkbox"
+                id="showHome"
+                checked>
+
+            <label for="showHome">
+
+                Show on Homepage
+
+            </label>
+
+        </div>
+
+        <button
+            class="btn btn-primary"
+            type="submit">
+
+            Save Category
+
+        </button>
+
+    </form>
+
+</section>
+
+<div class="table-box">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Image</th>
+
+<th>Name</th>
+
+<th>Slug</th>
+
+<th>Status</th>
+
+<th>Order</th>
+
+<th>Home</th>
+
+<th>Actions</th>
+
+</tr>
+
+</thead>
+
+<tbody id="categoryTable">
+
+</tbody>
+
+</table>
+
+</div>
