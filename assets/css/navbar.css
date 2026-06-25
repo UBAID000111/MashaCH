@@ -56,10 +56,24 @@ width:100%;
 }
 
 .logo{
+    display: flex;
+    align-items: center;
     color:white;
     text-decoration:none;
     font-size:28px;
     font-weight:700;
+}
+
+.logo img{
+    width: auto;
+    height: 58px;
+    display: block;
+    object-fit: contain;
+    transition: 0.3s ease;
+}
+
+.logo image:hover{
+    transform: scale(1.05);
 }
 
 .nav-links{

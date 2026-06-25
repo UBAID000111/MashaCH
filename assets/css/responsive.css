@@ -12,6 +12,9 @@
         grid-template-columns:repeat(3,minmax(260px,1fr));
     }
 
+    .logo img{
+        height: 50px;
+    }
 }
 
 @media(max-width:992px){
@@ -75,6 +78,15 @@ aspect-ratio:3/4;
         padding:12px 28px;
         font-size:14px;
     }
+    
+    .logo img{
+        height: 44px;
+        
+    }
+    
+     .nav-container{
+        padding: 12px 18px;
+     }
 
     .category-grid{
         grid-template-columns:repeat(2,1fr);
@@ -208,6 +220,10 @@ font-weight:600;
 
     padding:0 10px;
 
+}
+
+.logo img{
+    height: 38px;
 }
 
 .products-grid{

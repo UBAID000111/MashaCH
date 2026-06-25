@@ -73,6 +73,8 @@ if (signupForm) {
 
 const loginForm = document.getElementById("loginForm");
 
+const ADMIN_EMAIL = "mashaweblink@gmail.com"; // Replace with your admin email
+
 if (loginForm) {
 
     loginForm.addEventListener("submit", async (e) => {
@@ -84,7 +86,7 @@ if (loginForm) {
 
         try {
 
-            await signInWithEmailAndPassword(
+            const userCredential = await signInWithEmailAndPassword(
                 auth,
                 email,
                 password
@@ -92,7 +94,16 @@ if (loginForm) {
 
             alert("Login Successful");
 
-            window.location.href = "profile.html";
+            // Admin Login
+            if (userCredential.user.email === ADMIN_EMAIL) {
+
+                window.location.href = "admin-dashboard.html";
+
+            } else {
+
+                window.location.href = "profile.html";
+
+            }
 
         } catch (error) {
 
@@ -141,7 +152,17 @@ async function googleAuth() {
 
         }
 
-        window.location.href = "profile.html";
+        const ADMIN_EMAIL = "mashaclothinghub@gmail.com";
+
+if (result.user.email === ADMIN_EMAIL) {
+
+    window.location.href = "admin-dashboard.html";
+
+} else {
+
+    window.location.href = "profile.html";
+
+}
 
     } catch (error) {
 

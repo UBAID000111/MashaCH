@@ -113,6 +113,58 @@ body{
     padding:30px;
 }
 
+/*Mobile Menu*/
+
+/* MOBILE MENU */
+
+.menu-btn{
+
+    display:none;
+
+    width:45px;
+
+    height:45px;
+
+    border:none;
+
+    background:#852747;
+
+    color:white;
+
+    border-radius:8px;
+
+    font-size:22px;
+
+    cursor:pointer;
+
+}
+
+.overlay{
+
+    position:fixed;
+
+    top:0;
+
+    left:0;
+
+    width:100%;
+
+    height:100%;
+
+    background:rgba(0,0,0,.45);
+
+    z-index:998;
+
+    display:none;
+
+}
+
+.overlay.active{
+
+    display:block;
+
+}
+
 /* ===========================
    TOPBAR
 =========================== */
@@ -374,10 +426,10 @@ table tr:hover{
 }
 
 /* ===========================
-   RESPONSIVE
+        RESPONSIVE
 =========================== */
 
-@media(max-width:1100px){
+@media(max-width:1200px){
 
 .cards{
 
@@ -387,7 +439,9 @@ grid-template-columns:repeat(2,1fr);
 
 }
 
-@media(max-width:900px){
+/* TABLET */
+
+@media(max-width:992px){
 
 .sidebar{
 
@@ -422,57 +476,191 @@ margin-left:85px;
 
 }
 
+.cards{
+
+grid-template-columns:repeat(2,1fr);
+
 }
+
+}
+
+/* MOBILE */
 
 @media(max-width:768px){
 
-.cards{
+.dashboard{
 
-grid-template-columns:1fr;
-
-}
-
-.form-row{
-
-grid-template-columns:1fr;
+display:block;
 
 }
 
-.topbar{
+/* Sidebar */
 
-flex-direction:column;
+.sidebar{
 
-gap:15px;
+position:fixed;
 
-align-items:flex-start;
+left:-270px;
+
+top:0;
+
+width:260px;
+
+height:100vh;
+
+transition:.35s;
+
+z-index:999;
 
 }
 
+.sidebar.active{
+
+left:0;
+
 }
 
-@media(max-width:500px){
+/* Main */
 
 .main-content{
+
+margin-left:0;
 
 padding:15px;
 
 }
 
-.topbar h1{
+/* Topbar */
 
-font-size:24px;
+.topbar{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+flex-direction:row;
+
+padding:15px;
+
+gap:10px;
+
+}
+
+.menu-btn{
+
+display:flex;
+
+align-items:center;
+
+justify-content:center;
+
+}
+
+/* Cards */
+
+.cards{
+
+grid-template-columns:1fr;
+
+gap:15px;
+
+}
+
+.card{
+
+padding:20px;
 
 }
 
 .card h2{
 
-font-size:28px;
+font-size:30px;
+
+}
+
+/* Forms */
+
+.form-row{
+
+grid-template-columns:1fr;
+
+gap:10px;
+
+}
+
+/* Tables */
+
+.table-box{
+
+overflow-x:auto;
+
+}
+
+table{
+
+min-width:750px;
+
+}
+
+/* Buttons */
+
+.btn{
+
+width:100%;
+
+padding:14px;
+
+}
+
+}
+
+/* SMALL PHONE */
+
+@media(max-width:480px){
+
+.topbar{
+
+padding:12px;
+
+}
+
+.topbar h1{
+
+font-size:22px;
+
+}
+
+.admin-user{
+
+font-size:12px;
+
+padding:8px 14px;
+
+}
+
+.card{
+
+padding:18px;
+
+}
+
+.card h2{
+
+font-size:26px;
 
 }
 
 .content{
 
-padding:20px;
+padding:18px;
+
+}
+
+.logo h2{
+
+font-size:26px;
 
 }
 
