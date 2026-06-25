@@ -854,19 +854,14 @@ display:block;
 
 .sidebar{
 
-position:fixed;
+width:230px;
 
-left:-270px;
+left:-230px;
 
-top:0;
+transition:.3s;
 
-width:260px;
+z-index:1000;
 
-height:100vh;
-
-transition:.35s;
-
-z-index:999;
 
 }
 
@@ -880,9 +875,45 @@ left:0;
 
 .main-content{
 
+width:100%;
+
 margin-left:0;
 
 padding:15px;
+
+}
+
+.sidebar ul li a{
+
+display:flex;
+
+align-items:center;
+
+gap:12px;
+
+padding:14px 18px;
+
+font-size:15px;
+
+}
+
+.sidebar ul li a i{
+
+width:22px;
+
+text-align:center;
+
+font-size:18px;
+
+}
+
+.sidebar .logo{
+
+padding:18px;
+
+font-size:22px;
+
+text-align:center;
 
 }
 
@@ -1028,6 +1059,17 @@ table{
 
 min-width:850px;
 
+}
+
+.hamburger{
+
+display:block;
+
+font-size:26px;
+
+cursor:pointer;
+
+margin-right:15px;
 }
 
 
