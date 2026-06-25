@@ -1,3 +1,32 @@
+import {
+    CLOUD_NAME,
+    UPLOAD_PRESET
+} from "../js/cloudinary.js";
+
+async function uploadImage(file){
+
+    const formData = new FormData();
+
+    formData.append("file", file);
+
+    formData.append("upload_preset", UPLOAD_PRESET);
+
+    const response = await fetch(
+
+        `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+
+        {
+            method:"POST",
+            body:formData
+        }
+
+    );
+
+    const data = await response.json();
+
+    return data.secure_url;
+
+}
 import { db } from "../firebase/firebase-config.js";
 
 import {
@@ -86,6 +115,22 @@ ${data.name}
 
 saveBtn.onclick = async () => {
 
+     let imageUrl = "";
+
+    const file = document.getElementById("mainImage").files[0];
+
+    if(file){
+
+        imageUrl = await uploadImage(file);
+
+    }
+
+    
+
+else{
+    imageUrl = document.querySelector("#productTable img").src;
+}
+
     const product = {
 
         name: document.getElementById("productName").value.trim(),
@@ -120,7 +165,7 @@ saveBtn.onclick = async () => {
 
         status: document.getElementById("productStatus").value,
 
-        image: "",
+        image: imageUrl,
 
         createdAt: serverTimestamp()
 
