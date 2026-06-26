@@ -256,6 +256,10 @@ font-weight:600;
 
 }
 
+.navbar{
+    height: 75px;
+}
+
 html,
 body{
     overflow-x:hidden;
