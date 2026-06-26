@@ -16,6 +16,10 @@
 
 <body>
 
+    <button class="back-btn" onclick="history.back()">
+    ← Back
+</button>
+
     
 
     <!-- Navbar -->
@@ -59,45 +63,57 @@
 
             <h3>Filters</h3>
 
-            <div class="filter-group">
+<div class="filter-group">
 
-                <h4>Category</h4>
+<h4>Category</h4>
 
-                <label><input type="checkbox"> Oversized</label>
+<div id="categoryFilters"></div>
 
-                <label><input type="checkbox"> Men</label>
+</div>
 
-                <label><input type="checkbox"> Women</label>
+<div class="filter-group">
 
-                <label><input type="checkbox"> Hoodies</label>
+<h4>Size</h4>
 
-            </div>
+<div id="sizeFilters"></div>
 
-            <div class="filter-group">
+</div>
 
-                <h4>Size</h4>
+<div class="filter-group">
 
-                <label><input type="checkbox"> S</label>
+<h4>Color</h4>
 
-                <label><input type="checkbox"> M</label>
+<div id="colorFilters"></div>
 
-                <label><input type="checkbox"> L</label>
+</div>
 
-                <label><input type="checkbox"> XL</label>
+<div class="filter-group">
 
-            </div>
+<h4>Price</h4>
 
-            <div class="filter-group">
+<div id="priceFilters">
 
-                <h4>Price</h4>
+<select id="priceSelect">
 
-                <label><input type="checkbox"> ₹499 - ₹999</label>
+<option value="">All Prices</option>
 
-                <label><input type="checkbox"> ₹999 - ₹1499</label>
+<option value="0-999">Under ₹999</option>
 
-                <label><input type="checkbox"> ₹1499+</label>
+<option value="1000-1999">₹1000 - ₹1999</option>
 
-            </div>
+<option value="2000-2999">₹2000 - ₹2999</option>
+
+<option value="3000">₹3000+</option>
+
+</select>
+
+</div>
+
+</div>
+
+</select>
+
+</div>
 
         </aside>
 
@@ -109,17 +125,27 @@
 
                 <h2 id="shopTitle">All Products</h2>
 
-                <select>
+              <select id="sortProducts">
 
-                    <option>Newest</option>
+                
 
-                    <option>Price Low To High</option>
+<option value="newest">Newest</option>
 
-                    <option>Price High To Low</option>
+<option value="low">Price Low to High</option>
 
-                    <option>Best Selling</option>
+<option value="high">Price High to Low</option>
 
-                </select>
+<option value="name">Name A-Z</option>
+
+</select>
+
+<button
+class="clear-btn"
+onclick="clearFilters()">
+
+Clear Filters
+
+</button>
 
             </div>
                 <div class="products-grid" id="productsGrid">
