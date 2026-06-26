@@ -352,6 +352,58 @@ body{
     gap: 10px;
 }
 
+.mobile-menu{
+
+position:absolute;
+
+top:80px;
+
+left:0;
+
+width:100%;
+
+background:#fff;
+
+display:none;
+
+flex-direction:column;
+
+box-shadow:0 8px 25px rgba(0,0,0,.15);
+
+z-index:999;
+
+}
+
+.mobile-menu.active{
+
+display:flex;
+
+}
+
+.mobile-menu a{
+
+padding:16px 20px;
+
+border-bottom:1px solid #eee;
+
+text-decoration:none;
+
+color:#333;
+
+font-size:16px;
+
+font-weight:500;
+
+}
+
+.mobile-menu a:hover{
+
+background:#f8f8f8;
+
+color:#cd104d;
+
+}
+
 
 
 }
