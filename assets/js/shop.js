@@ -676,3 +676,6 @@ oldRender(products);
 updateProductCount();
 
 }
+
+document.getElementById("clearFiltersBtn")
+.addEventListener("click",clearFilters);
