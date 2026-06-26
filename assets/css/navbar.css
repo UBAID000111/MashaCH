@@ -38,7 +38,12 @@ width:100%;
 }
 
 .navbar{
-    background:linear-gradient(#932438, #761829);
+    height: 80px;
+    
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    background:linear-gradient(#F67E7D, #c75e5e);
     position:sticky;
     top:0;
     z-index:999;
@@ -66,7 +71,7 @@ width:100%;
 
 .logo img{
     width: auto;
-    height: 58px;
+    height: 70px;
     display: block;
     object-fit: contain;
     transition: 0.3s ease;

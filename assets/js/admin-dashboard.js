@@ -95,6 +95,10 @@ function startDashboard() {
 
 }
 
+    if(file == "admin/categories.html"){
+        import("./categories.js");
+    }
+
     }
 
     // Dashboard

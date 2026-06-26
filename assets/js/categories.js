@@ -44,9 +44,9 @@ let editId="";
 CLOUDINARY
 =========================== */
 
-const CLOUD_NAME="YOUR_CLOUD_NAME";
+const CLOUD_NAME="dsg1xbls";
 
-const UPLOAD_PRESET="YOUR_UPLOAD_PRESET";
+const UPLOAD_PRESET="MashaCH";
 
 /* ===========================
 UPLOAD IMAGE
