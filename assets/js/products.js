@@ -379,6 +379,40 @@ alert(err.message);
 };
 
 /* ===========================
+LOAD CATEGORY DROPDOWN
+=========================== */
+
+async function loadCategories(){
+
+const select=document.getElementById("productCategory");
+
+select.innerHTML=`<option value="">Select Category</option>`;
+
+const snapshot=await getDocs(collection(db,"categories"));
+
+snapshot.forEach(docSnap=>{
+
+const c=docSnap.data();
+
+if(c.status==="Active"){
+
+select.innerHTML+=`
+
+<option value="${c.name}">
+
+${c.name}
+
+</option>
+
+`;
+
+}
+
+});
+
+}
+
+/* ===========================
 LOAD PRODUCTS
 =========================== */
 
@@ -638,5 +672,9 @@ row.style.display=row.innerText.toLowerCase().includes(key) ? "" : "none";
 START
 =========================== */
 
+loadCategories();
+
 loadProducts();
+
+
 

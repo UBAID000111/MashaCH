@@ -31,7 +31,7 @@ body{
 
 .sidebar{
     width:270px;
-    background:linear-gradient(180deg,#b09246,#b18d33);
+    background:linear-gradient(180deg,#cd104d,#a00c3b);
     color:#fff;
     position:fixed;
     top:0;
@@ -49,13 +49,13 @@ body{
 
 .logo h2{
     font-size:30px;
-    color:#e4ad08;
+    color:#fff8e5;
     margin-bottom:6px;
 }
 
 .logo span{
     font-size:14px;
-    color:#eee;
+    color:#000000;
 }
 
 .menu{
@@ -95,7 +95,7 @@ body{
 
 .menu li.active{
 
-    background:rgba(255,255,255,.12);
+    background:rgba(0, 0, 0, 0.12);
 
     border-left:4px solid #D4AF37;
 
@@ -133,7 +133,7 @@ body{
 
     border:none;
 
-    background:#b09246;
+    background:#cd104d;
 
     color:white;
 
@@ -203,7 +203,7 @@ body{
 
 .admin-user{
 
-    background:#b09246;
+    background:#cd104d;
 
     color:#fff;
 
@@ -251,7 +251,7 @@ body{
 
     font-size:38px;
 
-    color:#b09246;
+    color:#cd104d;
 
     margin-bottom:10px;
 }
@@ -318,7 +318,7 @@ table{
 
 table th{
 
-    background:#b09246;
+    background:#cd104d;
 
     color:white;
 
@@ -358,7 +358,7 @@ table tr:hover{
 
 .btn-primary{
 
-    background:#b09246;
+    background:#cd104d;
 
     color:white;
 }
@@ -469,7 +469,7 @@ table tr:hover{
 
 #searchProduct:focus{
 
-    border-color:#b09246;
+    border-color:#cd104d;
 
 }
 
@@ -489,7 +489,7 @@ table tr:hover{
 
 .product-form h3{
 
-    color:#b09247;
+    color:#cd104d;
 
     margin-bottom:20px;
 
@@ -601,7 +601,7 @@ table{
 
 table th{
 
-    background:#b09246;
+    background:#cd104d;
 
     color:#fff;
 
@@ -731,7 +731,7 @@ input[type=file]{
 
 input[type=file]:hover{
 
-    border-color:#b09246;
+    border-color:#cd104d;
 
 }
 
@@ -745,7 +745,7 @@ textarea{
 .form-group textarea:focus,
 .form-group select:focus{
 
-    border-color:#b09246;
+    border-color:#cd104d;
 
     box-shadow:0 0 6px rgba(133,39,71,.2);
 
