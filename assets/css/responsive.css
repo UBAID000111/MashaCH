@@ -242,6 +242,10 @@ font-weight:600;
 
 }
 
+.logo img{
+    height: 70px;
+}
+
 }
 
 @media(max-width:480px){
