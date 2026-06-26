@@ -2,104 +2,266 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Product - MashaCH</title>
+<meta charset="UTF-8">
 
-    <link rel="stylesheet" href="assets/css/navbar.css">
-    <link rel="stylesheet" href="assets/css/product.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Product Details | MashaCH</title>
+
+<link rel="stylesheet" href="assets/css/navbar.css">
+<link rel="stylesheet" href="assets/css/product.css">
+<link rel="stylesheet" href="assets/css/footer.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
-    <section class="product-page">
+    <button class="back-btn" onclick="history.back()">
 
-    <div class="product-gallery">
+← Back
 
-        <div class="thumbnail-images">
+</button>
 
-            <img src="https://picsum.photos/100/120">
-            <img src="https://picsum.photos/100/121">
-            <img src="https://picsum.photos/100/122">
-            <img src="https://picsum.photos/100/123">
+<div id="pageLoader">
 
-        </div>
+<div class="loader-spinner"></div>
 
-        <div class="main-image">
+</div>
 
-            <img
-                src="https://picsum.photos/600/800"
-                id="mainProductImage"
-            >
+<!-- NAVBAR -->
+<!-- Paste your navbar here -->
 
-        </div>
+<section class="product-section">
 
-    </div>
+<div class="product-container">
 
-    <div class="product-details">
+<!-- LEFT -->
 
-        <h1>
-            Premium Oversized T-Shirt
-        </h1>
+<div class="left-side">
 
-        <div class="product-price">
+<div class="thumbnail-list" id="thumbnailList">
 
-            <span class="current-price">
-                ₹999
-            </span>
+</div>
 
-            <span class="old-price">
-                ₹1499
-            </span>
+<div class="main-image-box">
 
-        </div>
+<div id="imageLoader" class="image-loader"></div>
 
-        <p class="product-description">
+<img
+id="mainImage"
+src=""
+alt=""
+style="display:none;">
 
-            Premium cotton oversized t-shirt
-            designed for comfort and style.
+</div>
 
-        </p>
+</div>
 
-        <h3>Select Size</h3>
+<!-- RIGHT -->
 
-        <div class="size-selector">
+<div class="right-side">
 
-            <button>S</button>
-            <button>M</button>
-            <button>L</button>
-            <button>XL</button>
+<h1 id="productName"></h1>
 
-        </div>
+<p class="product-category" id="productCategory"></p>
 
-        <h3>Select Color</h3>
+<div class="price-box">
 
-        <div class="color-selector">
+<span
+class="current-price"
+id="productPrice">
 
-            <span class="black"></span>
-            <span class="white"></span>
-            <span class="red"></span>
+</span>
 
-        </div>
+<del
+class="old-price"
+id="oldPrice">
 
-        <div class="product-actions">
+</del>
 
-            <button class="add-cart-btn">
-                Add To Cart
-            </button>
+</div>
 
-            <button class="buy-now-btn">
-                Buy Now
-            </button>
+<p
+class="description"
+id="productDescription">
 
-        </div>
+</p>
 
-    </div>
+<hr>
+
+<h3>Select Color</h3>
+
+<div
+class="color-list"
+id="colorList">
+
+</div>
+
+<hr>
+
+<h3>Available Sizes</h3>
+
+<div
+class="size-list"
+id="sizeList">
+
+</div>
+
+<hr>
+
+<p>
+
+<strong>
+
+Stock :
+
+</strong>
+
+<span id="stock">
+
+</span>
+
+</p>
+
+<div class="button-group">
+
+<button
+class="add-cart">
+
+Add To Cart
+
+</button>
+
+<button
+class="buy-now">
+
+Buy Now
+
+</button>
+
+</div>
+
+</div>
+
+</div>
 
 </section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<div class="footer-grid">
+
+<div>
+
+<h3>MashaCH</h3>
+
+<p>
+
+Premium Clothing Brand
+
+</p>
+
+</div>
+
+<div>
+
+<h3>
+
+Quick Links
+
+</h3>
+
+<a href="shop.html">
+
+Shop
+
+</a>
+
+<a href="#">
+
+Track Order
+
+</a>
+
+<a href="#">
+
+Contact
+
+</a>
+
+</div>
+
+<div>
+
+<h3>
+
+Policies
+
+</h3>
+
+<a href="#">
+
+Privacy Policy
+
+</a>
+
+<a href="#">
+
+Refund Policy
+
+</a>
+
+</div>
+
+<div>
+
+<h3>
+
+Follow Us
+
+</h3>
+
+<a href="#">
+
+Instagram
+
+</a>
+
+<a href="#">
+
+Facebook
+
+</a>
+
+</div>
+
+</div>
+
+</footer>
+
+<script>
+
+window.addEventListener("load",()=>{
+
+document.getElementById("pageLoader").style.opacity="0";
+
+setTimeout(()=>{
+
+document.getElementById("pageLoader").style.display="none";
+
+},400);
+
+});
+
+</script>
+
+<script type="module" src="assets/js/product.js"></script>
 
 </body>
 

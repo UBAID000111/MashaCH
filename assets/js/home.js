@@ -21,6 +21,8 @@ if(c.status==="Active" && c.showHome){
 
 grid.innerHTML+=`
 
+
+
 <div class="category-card" onclick="location.href='shop.html?category=${encodeURIComponent(c.name)}'">
 
 <img src="${c.image}" alt="${c.name}">
@@ -30,6 +32,8 @@ grid.innerHTML+=`
 </div>
 
 `;
+
+
 
 }
 
