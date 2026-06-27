@@ -62,27 +62,15 @@ return;
 
 }
 
-for(const wish of wishSnapshot.docs){
+wishSnapshot.forEach(doc=>{
 
-const productId=wish.id;
+const data=doc.data();
 
-const productSnap=await getDoc(
+data.id=doc.id;
 
-doc(db,"products",productId)
+allProducts.push(data);
 
-);
-
-if(productSnap.exists()){
-
-const p=productSnap.data();
-
-p.id=productSnap.id;
-
-allProducts.push(p);
-
-}
-
-}
+});
 
 renderWishlist(allProducts);
 
@@ -100,19 +88,23 @@ grid.innerHTML="";
 
 products.forEach(product=>{
 
-if (!product.variants || product.variants.length === 0) return;
 
-const variant = product.variants[0];
+
+const image=product.image;
+
+const price=product.price;
+
+const oldPrice=product.oldPrice;
 
 grid.innerHTML+=`
 
 <div class="wishlist-card">
 
-<img src="${variant.image}">
+<img src="${image}">
 
 <div class="card-content">
 
-<h3>${product.name}</h3>
+<h3>${product.productName}</h3>
 
 <div class="card-category">
 
@@ -124,13 +116,13 @@ ${product.category}
 
 <span class="current">
 
-₹${variant.price}
+₹${price}
 
 </span>
 
 <del class="old">
 
-₹${variant.oldPrice}
+₹${oldPrice}
 
 </del>
 
@@ -210,7 +202,7 @@ const key=search.value.toLowerCase();
 
 const filtered=allProducts.filter(product=>
 
-product.name.toLowerCase().includes(key)
+product.productName.toLowerCase().includes(key)
 
 ||
 

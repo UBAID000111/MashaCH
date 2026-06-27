@@ -99,6 +99,8 @@ function loadColorButtons(){
 
         dot.className="color-dot";
 
+        dot.dataset.index=index;
+
         if(index===0){
 
             dot.classList.add("active");
@@ -382,20 +384,17 @@ mobileWishlist.classList.toggle("active",active);
 
 async function toggleWishlist(){
 
-console.log("Current User:", currentUser);
-console.log("Product ID:", productId);
-
 if(!currentUser){
 
-alert("User is not logged in");
+alert("Please login first.");
+
+window.location.href="login.html";
 
 return;
 
 }
 
-try{
-
-const ref = doc(
+const ref=doc(
 db,
 "users",
 currentUser.uid,
@@ -403,19 +402,38 @@ currentUser.uid,
 productId
 );
 
-const userSnap = await getDoc(
+try{
+
+const snap=await getDoc(ref);
+
+if(snap.exists()){
+
+await deleteDoc(ref);
+
+setWishlistUI(false);
+
+console.log("Removed from wishlist");
+
+return;
+
+}
+
+const userSnap=await getDoc(
 doc(db,"users",currentUser.uid)
 );
 
-const userData = userSnap.data();
+const userData=userSnap.data();
 
-const selectedVariant = productData.variants.find(v =>
-v.color.hex === document.querySelector(".color-dot.active")?.style.backgroundColor
-) || productData.variants[0];
 
-const discount = Math.round(
-((selectedVariant.oldPrice-selectedVariant.price)/
-selectedVariant.oldPrice)*100
+const selectedVariantIndex=
+document.querySelector(".color-dot.active")?.dataset.index || 0;
+
+const selectedVariant=
+productData.variants[selectedVariantIndex];
+
+const discount=Math.round(
+((selectedVariant.oldPrice-selectedVariant.price)
+/selectedVariant.oldPrice)*100
 );
 
 await setDoc(ref,{
@@ -448,11 +466,15 @@ userName:userData.name,
 
 userEmail:userData.email,
 
+userPhone: userData.phone,
+
 addedAt:serverTimestamp()
 
 });
 
-console.log("Wishlist Saved!");
+setWishlistUI(true);
+
+console.log("Added to wishlist");
 
 }catch(err){
 

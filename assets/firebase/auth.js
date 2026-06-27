@@ -28,14 +28,25 @@ if (signupForm) {
         e.preventDefault();
 
         const name = document.getElementById("signupName").value.trim();
-        const email = document.getElementById("signupEmail").value.trim();
-        const password = document.getElementById("signupPassword").value;
+const email = document.getElementById("signupEmail").value.trim();
+
+const phone = document.getElementById("signupPhone").value.trim();
+
+const password = document.getElementById("signupPassword").value;
         const confirm = document.getElementById("confirmPassword").value;
 
         if (password !== confirm) {
             alert("Passwords do not match");
             return;
         }
+
+        if(!/^[6-9]\d{9}$/.test(phone)){
+
+alert("Enter a valid 10-digit mobile number.");
+
+return;
+
+}
 
         try {
 
@@ -46,14 +57,15 @@ if (signupForm) {
                     password
                 );
 
-            await setDoc(
-                doc(db, "users", userCredential.user.uid),
-                {
-                    name,
-                    email,
-                    createdAt: serverTimestamp()
-                }
-            );
+           await setDoc(
+doc(db,"users",userCredential.user.uid),
+{
+name,
+email,
+phone,
+createdAt:serverTimestamp()
+}
+);
 
             alert("Account Created Successfully!");
 
@@ -140,15 +152,12 @@ async function googleAuth() {
 
         if (!snap.exists()) {
 
-            await setDoc(ref, {
-
-                name: result.user.displayName,
-
-                email: result.user.email,
-
-                createdAt: serverTimestamp()
-
-            });
+         await setDoc(ref,{
+name: result.user.displayName,
+email: result.user.email,
+phone: "",
+createdAt: serverTimestamp()
+});
 
         }
 
