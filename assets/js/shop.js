@@ -1,9 +1,8 @@
 import { db } from "../firebase/firebase-config.js";
 
-import {
-collection,
-getDocs
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+import { getProducts } from "./services/productService.js";
+
+import { optimizeImage } from "./services/imageService.js";
 
 /* ==========================================
 DOM
@@ -64,17 +63,7 @@ productsGrid.innerHTML=`
 
 allProducts=[];
 
-const snapshot=await getDocs(collection(db,"products"));
-
-snapshot.forEach(docSnap=>{
-
-const p=docSnap.data();
-
-p.id=docSnap.id;
-
-allProducts.push(p);
-
-});
+allProducts = await getProducts();
 
 filteredProducts=[...allProducts];
 
@@ -142,7 +131,7 @@ const colorDots=product.variants.map((variant,index)=>`
 <span
 class="color-dot ${index===0?"active":""}"
 style="background:${variant.color.hex};"
-data-image="${variant.image}"
+data-image="${optimizeImage(variant.image,500)}"
 data-price="${variant.price}"
 data-oldprice="${variant.oldPrice}">
 
@@ -158,7 +147,7 @@ productsGrid.innerHTML+=`
 
 <img
 class="product-image"
-src="${firstVariant.image}"
+src="${optimizeImage(firstVariant.image,500)}"
 alt="${product.name}">
 
 </a>

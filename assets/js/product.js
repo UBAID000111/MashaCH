@@ -1,5 +1,9 @@
 import { db } from "../firebase/firebase-config.js";
 
+import { optimizeImage } from "./services/imageService.js";
+
+import { getProduct } from "./services/productService.js";
+
 import {
 doc,
 getDoc,
@@ -59,17 +63,19 @@ LOAD PRODUCT
 
 async function loadProduct(){
 
-const snap = await getDoc(doc(db,"products",productId));
+productData = await getProduct(productId);
 
-if(!snap.exists()){
+if(!productData){
 
-document.body.innerHTML="<h2 style='padding:50px;text-align:center;'>Product Not Found</h2>";
+document.body.innerHTML = `
+<h2 style="padding:50px;text-align:center;">
+Product Not Found
+</h2>
+`;
 
 return;
 
 }
-
-productData = snap.data();
 
 productName.innerText = productData.name;
 
@@ -153,7 +159,10 @@ mainImage.style.display="block";
 
 };
 
-mainImage.src=variant.image;
+mainImage.src = optimizeImage(
+    variant.image,
+    900
+);
 
 productPrice.innerText = "₹"+variant.price;
 
@@ -261,7 +270,7 @@ thumbnailList.innerHTML="";
 thumbnailList.innerHTML+=`
 
 <img
-src="${variant.image}"
+src="${optimizeImage(variant.image,150)}"
 class="active"
 onclick="changeMainImage(this,'${variant.image}')">
 
@@ -272,7 +281,7 @@ variant.gallery.forEach(img=>{
 thumbnailList.innerHTML+=`
 
 <img
-src="${img}"
+src="${optimizeImage(img,150)}"
 onclick="changeMainImage(this,'${img}')">
 
 `;
@@ -303,7 +312,10 @@ mainImage.style.display="block";
 
 };
 
-mainImage.src=image;
+mainImage.src = optimizeImage(
+    image,
+    900
+);
 
 document.querySelectorAll(".thumbnail-list img").forEach(img=>{
 

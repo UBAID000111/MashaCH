@@ -1,5 +1,7 @@
 import { db, auth } from "../firebase/firebase-config.js";
 
+import { optimizeImage } from "./services/imageService.js";
+
 import {
 collection,
 doc,
@@ -100,7 +102,10 @@ grid.innerHTML+=`
 
 <div class="wishlist-card">
 
-<img src="${image}">
+<img
+loading="lazy"
+decoding="async"
+src="${optimizeImage(image,500)}">
 
 <div class="card-content">
 
