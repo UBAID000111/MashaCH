@@ -965,6 +965,18 @@ height:180px;
 
 }
 
+.icon-btn.active{
+
+background:#cd104d;
+
+color:#fff;
+
+transform:scale(1.1);
+
+box-shadow:0 10px 25px rgba(205,16,77,.25);
+
+}
+
 /* ==========================================
 TITLE
 ========================================== */
