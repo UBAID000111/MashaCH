@@ -271,6 +271,62 @@ margin-bottom:20px;
 font-size:16px;
 
 }
+
+@media (max-width:768px){
+
+.about-container{
+    display:flex;
+    flex-direction:column;
+    gap:28px;
+    padding:25px 18px;
+}
+
+.about-image{
+    width:100%;
+}
+
+.about-image img{
+    width:100%;
+    height:320px;
+    object-fit:cover;
+    border-radius:20px;
+}
+
+.about-content{
+    width:100%;
+}
+
+.about-content h2{
+    font-size:36px;
+    line-height:1.25;
+}
+
+.about-content p{
+    font-size:15px;
+    line-height:1.9;
+}
+
+.stats{
+    display:grid;
+    grid-template-columns:repeat(3,1fr);
+    gap:12px;
+    margin-top:25px;
+}
+
+.stat-card{
+    padding:18px 10px;
+}
+
+.stat-card h3{
+    font-size:28px;
+}
+
+.explore-btn{
+    width:100%;
+    margin-top:25px;
+}
+
+}
 }
 
 @media(max-width:480px){
@@ -348,7 +404,7 @@ text-align:center;
         <div class="about-content">
 
             <span class="about-tag">
-                ABOUT MASHA<span style="color:#D4AF37;">Clothing Hub</span>
+                ABOUT MASHA<span style="color:#D4AF37;"> Clothing Hub</span>
             </span>
 
             <h2>
