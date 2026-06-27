@@ -553,3 +553,197 @@ background-position:-100% 0;
 
     transform:translateY(-2px);
 }
+
+/* ==========================================
+TABLET
+========================================== */
+
+@media (max-width:992px){
+
+.hero-content{
+    padding:0 30px;
+}
+
+.hero-content h1{
+    font-size:58px;
+}
+
+.hero-content p{
+    font-size:18px;
+}
+
+.category-grid{
+    grid-template-columns:repeat(2,1fr);
+}
+
+.products-grid{
+    grid-template-columns:repeat(2,1fr);
+}
+
+.features-grid{
+    grid-template-columns:repeat(2,1fr);
+}
+
+}
+
+/* ==========================================
+MOBILE
+========================================== */
+
+@media (max-width:768px){
+
+.top-bar-slider span{
+    font-size:12px;
+    padding:0 10px;
+}
+
+.hero{
+    height:65vh;
+    background-position:center;
+}
+
+.hero-content{
+    padding:0 20px;
+    text-align:center;
+}
+
+.hero-content h1{
+    font-size:40px;
+}
+
+.hero-content p{
+    font-size:15px;
+    margin:15px auto 25px;
+}
+
+.hero-btn{
+    padding:13px 28px;
+}
+
+.categories,
+.products-section,
+.features-section{
+
+margin:50px auto;
+
+padding:0 15px;
+
+}
+
+.section-title h2{
+    font-size:30px;
+}
+
+.category-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.category-card img{
+    aspect-ratio:1/1;
+    object-fit:cover;
+}
+
+.category-card h3{
+    left:12px;
+    bottom:12px;
+    font-size:16px;
+}
+
+.products-grid{
+    grid-template-columns:repeat(2,1fr);
+    gap:15px;
+}
+
+.product-info{
+    padding:12px;
+}
+
+.product-info h3{
+    font-size:15px;
+}
+
+.current-price{
+    font-size:18px;
+}
+
+.old-price{
+    font-size:13px;
+}
+
+.size-box{
+    flex-wrap:wrap;
+}
+
+.features-grid{
+    grid-template-columns:1fr;
+}
+
+.newsletter{
+    padding:60px 20px;
+}
+
+.newsletter h2{
+    font-size:28px;
+}
+
+.newsletter-box{
+    flex-direction:column;
+}
+
+.newsletter-box input{
+    width:100%;
+}
+
+.newsletter-box button{
+    width:100%;
+}
+
+}
+
+/* ==========================================
+SMALL MOBILE
+========================================== */
+
+@media (max-width:480px){
+
+.hero{
+    height:55vh;
+}
+
+.hero-content h1{
+    font-size:32px;
+}
+
+.hero-content p{
+    font-size:14px;
+}
+
+.category-grid{
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.products-grid{
+    grid-template-columns:1fr 1fr;
+    gap:12px;
+}
+
+.category-card h3{
+    font-size:14px;
+}
+
+.product-info h3{
+    font-size:14px;
+}
+
+.current-price{
+    font-size:16px;
+}
+
+.cart-btn{
+    padding:12px;
+    font-size:13px;
+}
+
+}
