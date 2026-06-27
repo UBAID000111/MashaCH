@@ -3,185 +3,111 @@
 
 <head>
 
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-    <title>Wishlist - MashaCH</title>
+<title>My Wishlist | MashaCH</title>
 
-    <link rel="stylesheet" href="assets/css/navbar.css">
-    <link rel="stylesheet" href="assets/css/wishlist.css">
-    <link rel="stylesheet" href="assets/css/responsive.css">
-    <link rel="stylesheet" href="assets/css/footer.css">
+<link rel="stylesheet" href="assets/css/navbar.css">
+<link rel="stylesheet" href="assets/css/footer.css">
+<link rel="stylesheet" href="assets/css/wishlist.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
-    <!-- Navbar Here -->
+<!-- Navbar -->
 
-    <section class="wishlist-banner">
+<button class="back-btn" onclick="history.back()">
+←
+</button>
 
-        <h1>My Wishlist</h1>
+<section class="wishlist-header">
 
-        <p>
-            Save your favorite products for later
-        </p>
+<h1>My Wishlist</h1>
 
-    </section>
+<p>Products you love ❤️</p>
 
-    <section class="wishlist-container">
+</section>
 
-        <div class="wishlist-grid">
+<section class="wishlist-section">
 
-            <!-- Product Card -->
+<div class="wishlist-top">
 
-            <div class="wishlist-card">
+<input
+type="text"
+id="wishlistSearch"
+placeholder="Search wishlist...">
 
-                <img
-                    src="https://picsum.photos/300/400"
-                    alt=""
-                >
+<span id="wishlistCount">
+0 Items
+</span>
 
-                <div class="wishlist-info">
+</div>
 
-                    <h3>Premium Oversized Tee</h3>
+<div
+class="wishlist-grid"
+id="wishlistGrid">
 
-                    <p>₹999</p>
+<div class="wishlist-loader"></div>
+<div class="wishlist-loader"></div>
+<div class="wishlist-loader"></div>
+<div class="wishlist-loader"></div>
 
-                    <button class="move-cart-btn">
-                        Move To Cart
-                    </button>
+</div>
 
-                    <button class="remove-btn">
-                        Remove
-                    </button>
+</section>
 
-                </div>
+<footer class="footer">
 
-            </div>
+<div class="footer-grid">
 
-            <!-- Duplicate 3 more cards -->
-                         <!-- Product Card -->
+<div>
 
-            <div class="wishlist-card">
+<h3>MashaCH</h3>
 
-                <img
-                    src="https://picsum.photos/300/400"
-                    alt=""
-                >
+<p>Premium Clothing Brand</p>
 
-                <div class="wishlist-info">
+</div>
 
-                    <h3>Premium Oversized Tee</h3>
+<div>
 
-                    <p>₹999</p>
+<h3>Quick Links</h3>
 
-                    <button class="move-cart-btn">
-                        Move To Cart
-                    </button>
+<a href="shop.html">Shop</a>
 
-                    <button class="remove-btn">
-                        Remove
-                    </button>
+<a href="#">Contact</a>
 
-                </div>
+</div>
 
-            </div>
+<div>
 
-                        <!-- Product Card -->
+<h3>Policies</h3>
 
-            <div class="wishlist-card">
+<a href="#">Privacy</a>
 
-                <img
-                    src="https://picsum.photos/300/400"
-                    alt=""
-                >
+<a href="#">Refund</a>
 
-                <div class="wishlist-info">
+</div>
 
-                    <h3>Premium Oversized Tee</h3>
+<div>
 
-                    <p>₹999</p>
+<h3>Follow</h3>
 
-                    <button class="move-cart-btn">
-                        Move To Cart
-                    </button>
+<a href="#">Instagram</a>
 
-                    <button class="remove-btn">
-                        Remove
-                    </button>
+<a href="#">Facebook</a>
 
-                </div>
+</div>
 
-            </div>
-
-                        <!-- Product Card -->
-
-            <div class="wishlist-card">
-
-                <img
-                    src="https://picsum.photos/300/400"
-                    alt=""
-                >
-
-                <div class="wishlist-info">
-
-                    <h3>Premium Oversized Tee</h3>
-
-                    <p>₹999</p>
-
-                    <button class="move-cart-btn">
-                        Move To Cart
-                    </button>
-
-                    <button class="remove-btn">
-                        Remove
-                    </button>
-
-                </div>
-
-            </div>
-
-        </div>
-
-    </section>
-
-    <!-- Footer Here -->
-     <footer class="footer">
-
-    <div class="footer-grid">
-
-        <div>
-            <h3>MashaCH</h3>
-            <p>Premium Clothing Brand.</p>
-        </div>
-
-        <div>
-            <h3>Quick Links</h3>
-            <a href="#">Shop</a>
-            <a href="#">Track Order</a>
-            <a href="#">Contact</a>
-        </div>
-
-        <div>
-            <h3>Policies</h3>
-            <a href="#">Privacy Policy</a>
-            <a href="#">Terms</a>
-            <a href="#">Refund Policy</a>
-        </div>
-
-        <div>
-            <h3>Follow Us</h3>
-            <a href="#">Instagram</a>
-            <a href="#">Facebook</a>
-            <a href="#">WhatsApp</a>
-        </div>
-
-    </div>
+</div>
 
 </footer>
 
-    <script src="assets/js/wishlist.js"></script>
+<script type="module" src="assets/js/wishlist.js"></script>
 
 </body>
 

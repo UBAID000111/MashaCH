@@ -977,6 +977,12 @@ box-shadow:0 10px 25px rgba(205,16,77,.25);
 
 }
 
+#mobileWishlist.active{
+    background: #cd104d;
+    color: #fff;
+    border: none;
+}
+
 /* ==========================================
 TITLE
 ========================================== */

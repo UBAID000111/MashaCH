@@ -2,8 +2,19 @@ import { db } from "../firebase/firebase-config.js";
 
 import {
 doc,
-getDoc
+getDoc,
+setDoc,
+deleteDoc,
+serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+import {
+auth
+} from "../firebase/firebase-config.js";
+
+import {
+onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 /* ===========================
 GET PRODUCT ID
@@ -36,6 +47,11 @@ const thumbnailList = document.getElementById("thumbnailList");
 const stock = document.getElementById("stock");
 
 let productData;
+
+let currentUser = null;
+
+const wishlistBtn = document.getElementById("wishlistBtn");
+const mobileWishlist = document.getElementById("mobileWishlist");
 
 /* ===========================
 LOAD PRODUCT
@@ -307,67 +323,8 @@ document.getElementById("imageCount").innerText=
 
 };
 
-document.getElementById("shareBtn")?.addEventListener("click",async()=>{
 
-if(navigator.share){
 
-navigator.share({
-
-title:productData.name,
-
-url:window.location.href
-
-});
-
-}else{
-
-navigator.clipboard.writeText(window.location.href);
-
-alert("Product link copied!");
-
-}
-
-});
-const wishlistBtn = document.getElementById("wishlistBtn");
-
-if (wishlistBtn) {
-
-const key = "wishlist";
-
-let wishlist = JSON.parse(localStorage.getItem(key)) || [];
-
-if (wishlist.includes(productId)) {
-
-wishlistBtn.innerHTML = "❤";
-wishlistBtn.classList.add("active");
-
-}
-
-wishlistBtn.addEventListener("click", () => {
-
-let wishlist = JSON.parse(localStorage.getItem(key)) || [];
-
-if (wishlist.includes(productId)) {
-
-wishlist = wishlist.filter(id => id !== productId);
-
-wishlistBtn.innerHTML = "♡";
-wishlistBtn.classList.remove("active");
-
-} else {
-
-wishlist.push(productId);
-
-wishlistBtn.innerHTML = "❤";
-wishlistBtn.classList.add("active");
-
-}
-
-localStorage.setItem(key, JSON.stringify(wishlist));
-
-});
-
-}
 
 const shareBtn = document.getElementById("shareBtn");
 
@@ -402,3 +359,151 @@ shareBtn.addEventListener("click", async () => {
 });
 
 }
+
+function setWishlistUI(active){
+
+if(wishlistBtn){
+
+wishlistBtn.innerHTML=active?"❤":"♡";
+
+wishlistBtn.classList.toggle("active",active);
+
+}
+
+if(mobileWishlist){
+
+mobileWishlist.innerHTML=active?"❤":"♡";
+
+mobileWishlist.classList.toggle("active",active);
+
+}
+
+}
+
+async function toggleWishlist(){
+
+console.log("Current User:", currentUser);
+console.log("Product ID:", productId);
+
+if(!currentUser){
+
+alert("User is not logged in");
+
+return;
+
+}
+
+try{
+
+const ref = doc(
+db,
+"users",
+currentUser.uid,
+"wishlist",
+productId
+);
+
+const userSnap = await getDoc(
+doc(db,"users",currentUser.uid)
+);
+
+const userData = userSnap.data();
+
+const selectedVariant = productData.variants.find(v =>
+v.color.hex === document.querySelector(".color-dot.active")?.style.backgroundColor
+) || productData.variants[0];
+
+const discount = Math.round(
+((selectedVariant.oldPrice-selectedVariant.price)/
+selectedVariant.oldPrice)*100
+);
+
+await setDoc(ref,{
+
+productId,
+
+productName:productData.name,
+
+category:productData.category,
+
+description:productData.description,
+
+image:selectedVariant.image,
+
+price:selectedVariant.price,
+
+oldPrice:selectedVariant.oldPrice,
+
+discount,
+
+stock:selectedVariant.stock,
+
+color:selectedVariant.color,
+
+sizes:selectedVariant.sizes,
+
+slug:productData.slug,
+
+userName:userData.name,
+
+userEmail:userData.email,
+
+addedAt:serverTimestamp()
+
+});
+
+console.log("Wishlist Saved!");
+
+}catch(err){
+
+console.error(err);
+
+alert(err.message);
+
+}
+
+}
+
+async function checkWishlist(){
+
+if(!currentUser) return;
+
+const wishDoc=await getDoc(
+
+doc(
+db,
+"users",
+currentUser.uid,
+"wishlist",
+productId
+)
+
+);
+
+if(wishDoc.exists()){
+
+setWishlistUI(true);
+
+}else{
+
+setWishlistUI(false);
+
+}
+
+}
+
+onAuthStateChanged(auth, async(user)=>{
+
+currentUser=user;
+
+if(user){
+
+checkWishlist();
+
+}
+
+});
+
+wishlistBtn?.addEventListener("click",toggleWishlist);
+
+mobileWishlist?.addEventListener("click",toggleWishlist);
