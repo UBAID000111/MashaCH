@@ -10,6 +10,8 @@ import {
     signOut
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
+import { showToast } from "../js/services/toastService.js";
+
 import {
     doc,
     setDoc,
@@ -36,13 +38,13 @@ const password = document.getElementById("signupPassword").value;
         const confirm = document.getElementById("confirmPassword").value;
 
         if (password !== confirm) {
-            alert("Passwords do not match");
+            showToast("Passwords do not match");
             return;
         }
 
         if(!/^[6-9]\d{9}$/.test(phone)){
 
-alert("Enter a valid 10-digit mobile number.");
+showToast("Enter a valid 10-digit mobile number.");
 
 return;
 
@@ -67,13 +69,13 @@ createdAt:serverTimestamp()
 }
 );
 
-            alert("Account Created Successfully!");
+            showToast("Account Created Successfully!");
 
             window.location.href = "profile.html";
 
         } catch (error) {
 
-            alert(error.message);
+            showToast(error.message);
 
         }
 
@@ -104,7 +106,7 @@ if (loginForm) {
                 password
             );
 
-            alert("Login Successful");
+            showToast("Login Successful");
 
             // Admin Login
             if (userCredential.user.email === ADMIN_EMAIL) {
@@ -119,7 +121,7 @@ if (loginForm) {
 
         } catch (error) {
 
-            alert(error.message);
+            showToast(error.message);
 
         }
 
@@ -175,7 +177,7 @@ if (result.user.email === ADMIN_EMAIL) {
 
     } catch (error) {
 
-        alert(error.message);
+        showToast(error.message);
 
     }
 
@@ -203,7 +205,7 @@ if (forgot) {
 
         if (!email) {
 
-            alert("Enter your email first.");
+            showToast("Enter your email first.");
 
             return;
 
@@ -213,11 +215,11 @@ if (forgot) {
 
             await sendPasswordResetEmail(auth, email);
 
-            alert("Password reset email sent.");
+            showToast("Password reset email sent.");
 
         } catch (error) {
 
-            alert(error.message);
+            showToast(error.message);
 
         }
 

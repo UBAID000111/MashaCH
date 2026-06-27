@@ -5,6 +5,8 @@ import {
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
 
+import { showToast } from "./services/toastService.js";
+
 // ===============================
 // Admin Authentication
 // ===============================
@@ -22,7 +24,7 @@ onAuthStateChanged(auth, (user) => {
 
     if (user.email !== ADMIN_EMAIL) {
 
-        alert("Access Denied");
+        showToast("Access Denied");
 
         window.location.href = "index.html";
 

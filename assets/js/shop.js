@@ -4,6 +4,8 @@ import { getProducts } from "./services/productService.js";
 
 import { optimizeImage } from "./services/imageService.js";
 
+import { showToast } from "./services/toastService.js";
+
 /* ==========================================
 DOM
 ========================================== */
@@ -40,9 +42,13 @@ shopTitle.innerText=selectedCategory;
 GLOBAL VARIABLES
 ========================================== */
 
-let allProducts=[];
+let allProducts = [];
 
-let filteredProducts=[];
+let filteredProducts = [];
+
+let currentPage = 1;
+
+const PRODUCTS_PER_PAGE = 24;
 
 /* ==========================================
 LOAD PRODUCTS
@@ -90,7 +96,15 @@ loadProducts();
 RENDER PRODUCTS
 ========================================== */
 
+
+
 function renderProducts(products){
+
+productsGrid.innerHTML = "";
+
+const end = currentPage * PRODUCTS_PER_PAGE;
+
+const visibleProducts = products.slice(0, end);
 
 productsGrid.innerHTML="";
 
@@ -110,7 +124,7 @@ return;
 
 }
 
-products.forEach(product=>{
+visibleProducts.forEach(product=>{
 
 if(selectedCategory && product.category!==selectedCategory){
 
@@ -403,7 +417,9 @@ break;
 
 }
 
-filteredProducts=products;
+filteredProducts = products;
+
+currentPage = 1;
 
 renderProducts(filteredProducts);
 
@@ -548,21 +564,13 @@ document.getElementById("colorSelect")
 PRICE
 ========================================== */
 
-document.querySelectorAll("input[name='price']")
 
-.forEach(radio=>{
-
-radio.addEventListener("change",applyFilters);
-
-});
 
 /* ==========================================
 CLEAR FILTERS
 ========================================== */
 
 function clearFilters(){
-
-window.clearFilters=function(){
 
 searchInput.value="";
 
@@ -577,8 +585,6 @@ document.getElementById("colorSelect").selectedIndex=0;
 document.getElementById("priceSelect").selectedIndex=0;
 
 applyFilters();
-
-}
 
 }
 
@@ -668,3 +674,39 @@ updateProductCount();
 
 document.getElementById("clearFiltersBtn")
 .addEventListener("click",clearFilters);
+
+/* ===========================
+INFINITE SCROLL
+=========================== */
+
+let loadingMore = false;
+
+window.addEventListener("scroll", () => {
+
+    if (loadingMore) return;
+
+    if (
+        window.innerHeight + window.scrollY >=
+        document.body.offsetHeight - 500
+    ) {
+
+        if (
+            currentPage * PRODUCTS_PER_PAGE >=
+            filteredProducts.length
+        ) {
+
+            return;
+
+        }
+
+        loadingMore = true;
+
+        currentPage++;
+
+        renderProducts(filteredProducts);
+
+        loadingMore = false;
+
+    }
+
+});

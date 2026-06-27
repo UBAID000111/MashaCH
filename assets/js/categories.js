@@ -20,6 +20,8 @@ serverTimestamp
 
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
+import { showToast } from "./services/toastService.js";
+
 /* ===========================
 DOM
 =========================== */
@@ -192,7 +194,7 @@ createdAt:serverTimestamp()
 
 await addDoc(collection(db,"categories"),category);
 
-alert("Category Saved Successfully");
+showToast("Category Saved Successfully");
 
 form.reset();
 
@@ -392,7 +394,7 @@ image
 
 });
 
-alert("Category Updated");
+showToast("Category Updated");
 
 form.reset();
 
@@ -410,7 +412,7 @@ loadCategories();
 
 }catch(err){
 
-alert(err.message);
+showToast(err.message);
 
 }
 

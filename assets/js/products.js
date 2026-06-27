@@ -1,5 +1,11 @@
 import { db } from "../firebase/firebase-config.js";
 
+import { clearProductCache } from "../js/services/productService.js";
+
+import { clearCategoryCache } from "../js/services/categoryService.js";
+
+import { showToast } from "./services/toastService.js";
+
 import {
 
 collection,
@@ -352,6 +358,8 @@ createdAt:serverTimestamp()
 
 await addDoc(collection(db,"products"),product);
 
+clearProductCache();
+
 alert("Product Saved");
 
 form.reset();
@@ -598,6 +606,8 @@ product
 
 );
 
+clearProductCache();
+
 alert("Product Updated");
 
 saveBtn.style.display="inline-block";
@@ -624,7 +634,7 @@ loadProducts();
 
 console.error(err);
 
-alert(err.message);
+showToast(err.message);
 
 }
 
@@ -643,6 +653,8 @@ btn.onclick=async()=>{
 if(!confirm("Delete Product?")) return;
 
 await deleteDoc(doc(db,"products",btn.dataset.id));
+
+clearProductCache();
 
 loadProducts();
 

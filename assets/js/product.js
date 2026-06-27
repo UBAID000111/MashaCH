@@ -4,6 +4,8 @@ import { optimizeImage } from "./services/imageService.js";
 
 import { getProduct } from "./services/productService.js";
 
+import { showToast } from "./services/toastService.js";
+
 import {
 doc,
 getDoc,

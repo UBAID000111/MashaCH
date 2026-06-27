@@ -2,6 +2,8 @@ import { db, auth } from "../firebase/firebase-config.js";
 
 import { optimizeImage } from "./services/imageService.js";
 
+import { showToast } from "./services/toastService.js";
+
 import {
 collection,
 doc,
