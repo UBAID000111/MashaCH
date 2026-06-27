@@ -141,6 +141,49 @@ productPrice.innerText = "₹"+variant.price;
 
 oldPrice.innerText = "₹"+variant.oldPrice;
 
+
+/* ===========================
+PRICE & SAVINGS
+=========================== */
+
+productPrice.innerText="₹"+variant.price;
+
+oldPrice.innerText="₹"+variant.oldPrice;
+
+const saving=variant.oldPrice-variant.price;
+
+const discount=Math.round(
+
+((variant.oldPrice-variant.price)/variant.oldPrice)*100
+
+);
+
+/* Pink Badge */
+
+const saleBadge=document.querySelector(".sale-badge");
+
+if(saleBadge){
+
+saleBadge.innerText=discount+"% OFF";
+
+}
+
+/* Green Badge */
+
+const discountTag=document.getElementById("discountTag");
+
+if(discountTag){
+
+discountTag.innerHTML=`
+
+<span style="font-weight:700;">✓</span>
+
+Save ₹${saving}
+
+`;
+
+}
+
 stock.innerText = variant.stock+" Available";
 
 loadSizes(variant);
@@ -197,31 +240,30 @@ function loadGallery(variant){
 
 thumbnailList.innerHTML="";
 
-thumbnailList.innerHTML += `
+thumbnailList.innerHTML+=`
 
 <img
-
 src="${variant.image}"
-
 class="active"
-
 onclick="changeMainImage(this,'${variant.image}')">
 
 `;
 
 variant.gallery.forEach(img=>{
 
-thumbnailList.innerHTML += `
+thumbnailList.innerHTML+=`
 
 <img
-
 src="${img}"
-
 onclick="changeMainImage(this,'${img}')">
 
 `;
 
 });
+
+document.getElementById("imageCount").innerText=
+
+`1 / ${variant.gallery.length+1}`;
 
 }
 
@@ -253,4 +295,73 @@ img.classList.remove("active");
 
 el.classList.add("active");
 
+/* Image Counter */
+
+const images=[...document.querySelectorAll(".thumbnail-list img")];
+
+const current=images.indexOf(el)+1;
+
+document.getElementById("imageCount").innerText=
+
+`${current} / ${images.length}`;
+
+};
+
+document.getElementById("shareBtn")?.addEventListener("click",async()=>{
+
+if(navigator.share){
+
+navigator.share({
+
+title:productData.name,
+
+url:window.location.href
+
+});
+
+}else{
+
+navigator.clipboard.writeText(window.location.href);
+
+alert("Product link copied!");
+
 }
+
+});
+
+const wish=document.getElementById("wishlistBtn");
+
+wish?.addEventListener("click",()=>{
+
+wish.innerHTML="❤";
+
+wish.style.background="#cd104d";
+
+wish.style.color="#fff";
+
+});
+
+
+const share=document.getElementById("shareBtn");
+
+share?.addEventListener("click",async()=>{
+
+if(navigator.share){
+
+navigator.share({
+
+title:productData.name,
+
+url:window.location.href
+
+});
+
+}else{
+
+navigator.clipboard.writeText(window.location.href);
+
+alert("Product link copied.");
+
+}
+
+});

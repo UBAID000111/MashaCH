@@ -49,6 +49,26 @@
 
 <div class="main-image-box">
 
+    <div class="image-badge">
+NEW
+</div>
+
+    <div class="product-floating">
+
+<button title="Wishlist">♡</button>
+
+<button title="Share">↗</button>
+
+</div>
+
+<div class="sale-badge">
+25% OFF
+</div>
+
+<div class="new-badge">
+NEW
+</div>
+
 <div id="imageLoader" class="image-loader"></div>
 
 <img
@@ -56,6 +76,10 @@ id="mainImage"
 src=""
 alt=""
 style="display:none;">
+
+<div class="image-count" id="imageCount">
+1 / 1
+</div>
 
 </div>
 
@@ -82,6 +106,14 @@ class="old-price"
 id="oldPrice">
 
 </del>
+
+<span
+class="discount"
+id="discountTag">
+
+Save ₹0
+
+</span>
 
 </div>
 
@@ -113,33 +145,61 @@ id="sizeList">
 
 <hr>
 
+<div class="stock-box">
+
+<div class="delivery-box">
+
+<h4>🚚 Estimated Delivery</h4>
+
 <p>
 
-<strong>
+Free Delivery in <strong>2–5 Days</strong>
 
-Stock :
+<br>
 
-</strong>
-
-<span id="stock">
-
-</span>
+7 Days Easy Return & Exchange
 
 </p>
+
+</div>
+
+<div class="stock-box">
+
+<div class="stock-dot"></div>
+
+<span id="stock"></span>
+
+</div>
 
 <div class="button-group">
 
 <button
+class="icon-btn"
+id="wishlistBtn">
+
+♡
+
+</button>
+
+<button
+class="icon-btn"
+id="shareBtn">
+
+↗
+
+</button>
+
+<button
 class="add-cart">
 
-Add To Cart
+🛒 Add To Cart
 
 </button>
 
 <button
 class="buy-now">
 
-Buy Now
+⚡ Buy Now
 
 </button>
 
@@ -262,6 +322,28 @@ document.getElementById("pageLoader").style.display="none";
 </script>
 
 <script type="module" src="assets/js/product.js"></script>
+
+<div class="mobile-action-bar">
+
+<button id="mobileWishlist">
+
+♡
+
+</button>
+
+<button class="mobile-cart">
+
+🛒 Cart
+
+</button>
+
+<button class="mobile-buy">
+
+Buy Now
+
+</button>
+
+</div>
 
 </body>
 
