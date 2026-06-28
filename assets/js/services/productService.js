@@ -9,7 +9,7 @@ import {
 
 const CACHE_KEY = "mashach_products";
 const CACHE_TIME = "mashach_products_time";
-const CACHE_DURATION = 10 * 60 * 1000;
+const CACHE_DURATION = 30 * 60 * 1000;
 
 let memoryProducts = null;
 
@@ -116,6 +116,101 @@ export async function getProduct(productId){
     };
 
 }
+
+
+/* ===========================
+GET NEW ARRIVALS
+=========================== */
+
+export async function getNewArrivals(days = 20){
+
+    const products = await getProducts();
+
+    const now = Date.now();
+
+    return products.filter(product => {
+
+        if(!product.createdAt) return false;
+
+        let created;
+
+        if(product.createdAt.seconds){
+
+            created = product.createdAt.seconds * 1000;
+
+        }else{
+
+            created = new Date(product.createdAt).getTime();
+
+        }
+
+        return (now - created) <= (days * 24 * 60 * 60 * 1000);
+
+    });
+
+}
+
+
+/* ===========================
+BEST SELLER
+=========================== */
+
+export async function getBestSellers(limit = 10){
+
+    const products = await getProducts();
+
+return products
+.filter(product => (product.sold || 0) > 0)
+.sort((a,b)=>(b.sold || 0) - (a.sold || 0))
+.slice(0,limit);
+
+}
+
+/* ===========================
+FEATURED
+=========================== */
+
+export async function getFeaturedProducts(){
+
+    const products = await getProducts();
+
+    return products.filter(product => product.featured === true);
+
+}
+
+/* ===========================
+CATEGORY
+=========================== */
+
+export async function getCategoryProducts(category){
+
+    const products = await getProducts();
+
+    return products.filter(product =>
+
+        product.category === category
+
+    );
+
+}
+
+/* ===========================
+ACTIVE
+=========================== */
+
+export async function getActiveProducts(){
+
+    const products = await getProducts();
+
+  return products.filter(product =>
+
+    (product.status || "Active") === "Active"
+
+);
+
+}
+
+
 
 /* ===========================
 CLEAR CACHE

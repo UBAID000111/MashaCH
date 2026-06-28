@@ -15,6 +15,9 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     <link rel="stylesheet" href="assets/css/footer.css">
     <link rel="preconnect" href="https://res.cloudinary.com">
 <link rel="dns-prefetch" href="https://res.cloudinary.com">
+<link
+rel="stylesheet"
+href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 
 <body>
@@ -144,369 +147,123 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 
 <section class="categories">
 
-    <div class="section-title">
+    <div class="section-header">
+
         <h2>Shop By Category</h2>
-    </div>
 
-    <div class="category-grid" id="categoryGrid">
-
-
-<div class="category-loader"></div>
-<div class="category-loader"></div>
-<div class="category-loader"></div>
-<div class="category-loader"></div>
-
-
+        <a href="shop.html" class="see-all">
+            See All →
+        </a>
 
     </div>
 
-</section>
+    <div class="swiper categorySwiper">
 
-<section class="products-section">
-
-    <div class="section-title">
-        <h2>New Arrivals</h2>
-    </div>
-
-    <div class="products-grid">
-
-        <!-- Product 1 -->
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <span class="sale-badge">30% OFF</span>
-
-                <span class="wishlist-btn">♡</span>
-
-                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800" alt="">
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Premium Oversized Tee</h3>
-
-                <div class="price-box">
-
-                    <span class="current-price">₹999</span>
-
-                    <span class="old-price">₹1499</span>
-
-                </div>
-
-                <div class="size-box">
-                    <span>S</span>
-                    <span>M</span>
-                    <span>L</span>
-                    <span>XL</span>
-                </div>
-
-                <button class="cart-btn">
-                    Add To Cart
-                </button>
-
-            </div>
+        <div
+            class="swiper-wrapper"
+            id="categoryGrid">
 
         </div>
-
-        
-                 <!-- Product 2 -->
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <span class="sale-badge">30% OFF</span>
-
-                <span class="wishlist-btn">♡</span>
-
-                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800" alt="">
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Premium Oversized Tee</h3>
-
-                <div class="price-box">
-
-                    <span class="current-price">₹999</span>
-
-                    <span class="old-price">₹1499</span>
-
-                </div>
-
-                <div class="size-box">
-                    <span>S</span>
-                    <span>M</span>
-                    <span>L</span>
-                    <span>XL</span>
-                </div>
-
-                <button class="cart-btn">
-                    Add To Cart
-                </button>
-
-            </div>
-
-        </div>
-
-                <!-- Product 3 -->
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <span class="sale-badge">30% OFF</span>
-
-                <span class="wishlist-btn">♡</span>
-
-                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800" alt="">
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Premium Oversized Tee</h3>
-
-                <div class="price-box">
-
-                    <span class="current-price">₹999</span>
-
-                    <span class="old-price">₹1499</span>
-
-                </div>
-
-                <div class="size-box">
-                    <span>S</span>
-                    <span>M</span>
-                    <span>L</span>
-                    <span>XL</span>
-                </div>
-
-                <button class="cart-btn">
-                    Add To Cart
-                </button>
-
-            </div>
-
-        </div>
-
-                <!-- Product 4 -->
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <span class="sale-badge">30% OFF</span>
-
-                <span class="wishlist-btn">♡</span>
-
-                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800" alt="">
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Premium Oversized Tee</h3>
-
-                <div class="price-box">
-
-                    <span class="current-price">₹999</span>
-
-                    <span class="old-price">₹1499</span>
-
-                </div>
-
-                <div class="size-box">
-                    <span>S</span>
-                    <span>M</span>
-                    <span>L</span>
-                    <span>XL</span>
-                </div>
-
-                <button class="cart-btn">
-                    Add To Cart
-                </button>
-
-            </div>
-
-        </div>
-
 
     </div>
 
 </section>
 
-<section class="products-section">
+</section>
 
-    <div class="section-title">
-        <h2>Best Sellers</h2>
-    </div>
+<section
+id="newArrivalSection"
+class="products-section"
+style="display:none;">
 
-    <div class="products-grid">
+<div class="section-title">
 
-                <!-- Product 1 -->
-        <div class="product-card">
+<h2>
 
-            <div class="product-image">
+New Arrival
 
-                <span class="sale-badge">30% OFF</span>
+</h2>
 
-                <span class="wishlist-btn">♡</span>
+<a
+class="see-all"
+href="shop.html?type=new">
 
-                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800" alt="">
+See All
 
-            </div>
+</a>
 
-            <div class="product-info">
+</div>
 
-                <h3>Premium Oversized Tee</h3>
+<div
+id="newArrivalGrid"
+class="products-slider">
 
-                <div class="price-box">
-
-                    <span class="current-price">₹999</span>
-
-                    <span class="old-price">₹1499</span>
-
-                </div>
-
-                <div class="size-box">
-                    <span>S</span>
-                    <span>M</span>
-                    <span>L</span>
-                    <span>XL</span>
-                </div>
-
-                <button class="cart-btn">
-                    Add To Cart
-                </button>
-
-            </div>
-
-        </div>
-
-        
-                 <!-- Product 2 -->
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <span class="sale-badge">30% OFF</span>
-
-                <span class="wishlist-btn">♡</span>
-
-                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800" alt="">
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Premium Oversized Tee</h3>
-
-                <div class="price-box">
-
-                    <span class="current-price">₹999</span>
-
-                    <span class="old-price">₹1499</span>
-
-                </div>
-
-                <div class="size-box">
-                    <span>S</span>
-                    <span>M</span>
-                    <span>L</span>
-                    <span>XL</span>
-                </div>
-
-                <button class="cart-btn">
-                    Add To Cart
-                </button>
-
-            </div>
-
-        </div>
-
-                <!-- Product 3 -->
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <span class="sale-badge">30% OFF</span>
-
-                <span class="wishlist-btn">♡</span>
-
-                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800" alt="">
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Premium Oversized Tee</h3>
-
-                <div class="price-box">
-
-                    <span class="current-price">₹999</span>
-
-                    <span class="old-price">₹1499</span>
-
-                </div>
-
-                <div class="size-box">
-                    <span>S</span>
-                    <span>M</span>
-                    <span>L</span>
-                    <span>XL</span>
-                </div>
-
-                <button class="cart-btn">
-                    Add To Cart
-                </button>
-
-            </div>
-
-        </div>
-
-                <!-- Product 4 -->
-        <div class="product-card">
-
-            <div class="product-image">
-
-                <span class="sale-badge">30% OFF</span>
-
-                <span class="wishlist-btn">♡</span>
-
-                <img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=800" alt="">
-
-            </div>
-
-            <div class="product-info">
-
-                <h3>Premium Oversized Tee</h3>
-
-                <div class="price-box">
-
-                    <span class="current-price">₹999</span>
-
-                    <span class="old-price">₹1499</span>
-
-                </div>
-
-                <div class="size-box">
-                    <span>S</span>
-                    <span>M</span>
-                    <span>L</span>
-                    <span>XL</span>
-                </div>
-
-                <button class="cart-btn">
-                    Add To Cart
-                </button>
-
-            </div>
-
-    </div>
-
+</div>
 
 </section>
+
+<section
+id="bestSellerSection"
+class="products-section"
+style="display:none;">
+
+<div class="section-title">
+
+<h2>
+
+Best Seller
+
+</h2>
+
+<a
+class="see-all"
+href="shop.html?type=best">
+
+See All
+
+</a>
+
+</div>
+
+<div
+id="bestSellerGrid"
+class="products-slider">
+
+</div>
+
+</section>
+
+<section
+id="allProductSection"
+class="products-section">
+
+<div class="section-title">
+
+<h2>
+
+All Products
+
+</h2>
+
+<a
+class="see-all"
+href="shop.html">
+
+See All
+
+</a>
+
+</div>
+
+<div
+id="allProductsGrid"
+class="products-slider">
+
+</div>
+
+</section>
+
+
 
 <section class="features-section">
 
@@ -604,6 +361,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
   
 
     <script src="assets/js/navbar.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
 
 </body>
 
