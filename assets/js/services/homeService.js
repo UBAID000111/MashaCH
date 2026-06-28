@@ -1,3 +1,13 @@
+import { auth, db } from "../../firebase/firebase-config.js";
+
+import {
+doc,
+getDoc,
+setDoc,
+deleteDoc,
+serverTimestamp
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
 import {
     getCategories
 } from "./categoryService.js";
@@ -408,25 +418,140 @@ product=>renderProductCard(product)
 grid.innerHTML = html;
 
 initProductButtons();
+loadWishlistState();
 initProductSliders();
 
 }
 
 function initProductButtons(){
 
-document.querySelectorAll(".add-cart-btn")
-
-.forEach(btn=>{
+document.querySelectorAll(".add-cart-btn").forEach(btn=>{
 
 btn.onclick=()=>{
 
-location.href=
-
-`product.html?id=${btn.dataset.id}`;
+location.href=`product.html?id=${btn.dataset.id}`;
 
 };
 
 });
+
+document.querySelectorAll(".quick-view-btn").forEach(btn=>{
+
+btn.onclick=()=>{
+
+location.href=`product.html?id=${btn.dataset.id}`;
+
+};
+
+});
+
+document.querySelectorAll(".product-wishlist").forEach(btn=>{
+
+btn.onclick=async()=>{
+
+const user=auth.currentUser;
+
+if(!user){
+
+location.href="login.html";
+
+return;
+
+}
+
+const productId=btn.dataset.id;
+
+const ref=doc(db,"users",user.uid,"wishlist",productId);
+
+const snap=await getDoc(ref);
+
+if(snap.exists()){
+
+await deleteDoc(ref);
+
+btn.innerHTML="♡";
+
+btn.classList.remove("active");
+
+return;
+
+}
+
+const products=await getProducts();
+
+const product=products.find(p=>p.id===productId);
+
+if(!product) return;
+
+const variant=product.variants[0];
+
+await setDoc(ref,{
+
+productId:product.id,
+
+productName:product.name,
+
+category:product.category,
+
+description:product.description || "",
+
+image:variant.image,
+
+price:variant.price,
+
+oldPrice:variant.oldPrice,
+
+discount:Math.round(((variant.oldPrice-variant.price)/variant.oldPrice)*100),
+
+stock:variant.stock,
+
+color:variant.color,
+
+sizes:variant.sizes,
+
+slug:product.slug || "",
+
+addedAt:serverTimestamp()
+
+});
+
+btn.innerHTML="❤";
+
+btn.classList.add("active");
+
+};
+
+});
+
+}
+
+
+/*load wishlist state
+*/
+
+async function loadWishlistState(){
+
+const user=auth.currentUser;
+
+if(!user) return;
+
+const buttons=document.querySelectorAll(".product-wishlist");
+
+for(const btn of buttons){
+
+const ref=doc(db,"users",user.uid,"wishlist",btn.dataset.id);
+
+const snap=await getDoc(ref);
+
+if(snap.exists()){
+
+btn.innerHTML="❤";
+
+btn.classList.add("active");
+
+}
+
+}
 
 }
 

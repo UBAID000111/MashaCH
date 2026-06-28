@@ -32,6 +32,9 @@ const params=new URLSearchParams(window.location.search);
 
 const selectedCategory=params.get("category");
 
+console.log("URL =", window.location.href);
+console.log("Selected Category =", selectedCategory);
+
 if(selectedCategory){
 
 shopTitle.innerText=selectedCategory;
@@ -57,6 +60,8 @@ LOAD PRODUCTS
 async function loadProducts(){
 
 productsGrid.innerHTML=`
+
+console.log(productsGrid.innerHTML);
 
 <div class="product-loader"></div>
 <div class="product-loader"></div>
@@ -124,19 +129,12 @@ return;
 
 }
 
+console.log(products);
+
 visibleProducts.forEach(product=>{
 
-if(selectedCategory && product.category!==selectedCategory){
+console.log(product.name, product.category);
 
-return;
-
-}
-
-if(!product.variants || product.variants.length===0){
-
-return;
-
-}
 
 const firstVariant=product.variants[0];
 
@@ -259,6 +257,19 @@ APPLY FILTERS
 function applyFilters(){
 
 let products=[...allProducts];
+
+products = products.filter(product =>
+
+    (!selectedCategory || product.category === selectedCategory) &&
+
+    product.status !== "Inactive" &&
+
+    product.variants &&
+    product.variants.length > 0 &&
+    product.variants[0] &&
+    product.variants[0].image
+
+);
 
 /* URL Category */
 
@@ -418,6 +429,9 @@ break;
 }
 
 filteredProducts = products;
+
+renderProducts(filteredProducts);
+updateProductCount();
 
 currentPage = 1;
 
@@ -594,19 +608,8 @@ PRODUCT COUNT
 
 function updateProductCount(){
 
-let count=document.getElementById("productCount");
-
-if(!count){
-
-count=document.createElement("span");
-
-count.id="productCount";
-
-document.querySelector(".shop-header").appendChild(count);
-
-}
-
-count.innerHTML=`${filteredProducts.length} Products`;
+    productCount.innerText =
+        `${filteredProducts.length} Product${filteredProducts.length !== 1 ? "s" : ""}`;
 
 }
 
