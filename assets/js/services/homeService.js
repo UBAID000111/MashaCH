@@ -40,23 +40,25 @@ document.getElementById("allProductsGrid");
 
 export async function loadCategories(){
 
-const categories = await getCategories();
-const products = await getProducts();
+const [categories, products] = await Promise.all([
+    getCategories(),
+    getProducts()
+]);
 
-categoryGrid.innerHTML = "";
+let html = "";
 
 categories.forEach(category=>{
 
-if(category.status !== "Active" || !category.showHome) return;
+    if(category.status !== "Active" || !category.showHome) return;
 
-const totalProducts = products.filter(product=>
+    const totalProducts = products.filter(product=>
 
-product.category===category.name &&
-(product.status || "Active")==="Active"
+        product.category===category.name &&
+        (product.status || "Active")==="Active"
 
-).length;
+    ).length;
 
-categoryGrid.innerHTML += `
+    html += `
 
 <div class="swiper-slide">
 
@@ -68,6 +70,7 @@ onclick="location.href='shop.html?category=${encodeURIComponent(category.name)}'
 
 <img
 loading="lazy"
+fetchpriority="high"
 decoding="async"
 src="${optimizeImage(category.image,600)}"
 alt="${category.name}">
@@ -78,13 +81,9 @@ alt="${category.name}">
 
 <h3>${category.name}</h3>
 
-<p>${totalProducts} Products</p>
+<p>Explore Collection</p>
 
-<span>
-
-Shop Now →
-
-</span>
+<span>Shop Now →</span>
 
 </div>
 
@@ -96,7 +95,13 @@ Shop Now →
 
 });
 
+categoryGrid.innerHTML = html;
+
+requestAnimationFrame(()=>{
+
 initCategorySwiper();
+
+});
 
 }
 
