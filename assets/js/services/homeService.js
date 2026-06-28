@@ -40,10 +40,7 @@ document.getElementById("allProductsGrid");
 
 export async function loadCategories(){
 
-const [categories, products] = await Promise.all([
-    getCategories(),
-    getProducts()
-]);
+const categories = await getCategories();
 
 let html = "";
 
@@ -51,12 +48,7 @@ categories.forEach(category=>{
 
     if(category.status !== "Active" || !category.showHome) return;
 
-    const totalProducts = products.filter(product=>
 
-        product.category===category.name &&
-        (product.status || "Active")==="Active"
-
-    ).length;
 
     html += `
 
@@ -102,7 +94,6 @@ requestAnimationFrame(()=>{
 initCategorySwiper();
 
 });
-
 }
 
 let categorySwiper;
@@ -119,13 +110,22 @@ categorySwiper = new Swiper(".categorySwiper",{
 
 loop:true,
 
-speed:600,
+speed:500,
+
+observer: true,
+
+observeParents: true,
+
+updateOnImagesReady: true,
+
+
+preloadImages: true,
 
 spaceBetween:18,
 
 grabCursor:true,
 
-centeredSlides:true,
+centeredSlides:false,
 
 slidesPerView:2,
 
@@ -147,11 +147,15 @@ breakpoints:{
 
 1024:{slidesPerView:4.2},
 
-1400:{slidesPerView:5}
+1400:{slidesPerView:4.5}
 
 }
 
 });
+
+setTimeout(()=>{
+    categorySwiper.update();
+},100);
 
 }
 
@@ -289,7 +293,6 @@ Add To Cart
 
 <button
 
-<button
 
 class="quick-view-btn"
 
@@ -369,7 +372,7 @@ slidesPerView:4.2
 
 1400:{
 
-slidesPerView:5
+slidesPerView:4.5
 
 }
 
@@ -395,7 +398,6 @@ function renderProducts(grid,products){
 
 grid.innerHTML="";
 
-grid.innerHTML="";
 
 const html = products.map(
 
