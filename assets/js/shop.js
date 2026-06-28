@@ -30,10 +30,8 @@ URL CATEGORY
 
 const params=new URLSearchParams(window.location.search);
 
-const selectedCategory=params.get("category");
+let selectedCategory=params.get("category");
 
-console.log("URL =", window.location.href);
-console.log("Selected Category =", selectedCategory);
 
 if(selectedCategory){
 
@@ -91,7 +89,7 @@ document.getElementById("priceSelect")
 
 /* Render Products */
 
-renderProducts(filteredProducts);
+applyFilters();
 
 }
 
@@ -430,8 +428,6 @@ break;
 
 filteredProducts = products;
 
-
-
 currentPage = 1;
 
 renderProducts(filteredProducts);
@@ -467,7 +463,13 @@ ${category}
 
 const categorySelect=document.getElementById("categorySelect");
 
-categorySelect.addEventListener("change",applyFilters);
+categorySelect.addEventListener("change",()=>{
+
+selectedCategory = categorySelect.value || null;
+
+applyFilters();
+
+});
 
 }
 
