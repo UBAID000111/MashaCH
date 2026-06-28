@@ -41,6 +41,8 @@ animation-play-state:paused;
 
 .video-card{
 
+    pointer-events: none;
+
 flex:0 0 auto;
 
 width:220px;
@@ -74,6 +76,14 @@ height:100%;
 object-fit:cover;
 
 display:block;
+
+ pointer-events: none;
+
+ touch-action: none;
+
+ -webkit-user-select: none;
+
+ user-select: none;
 
 }
 
