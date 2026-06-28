@@ -284,9 +284,11 @@ Add To Cart
 
 <button
 
+<button
+
 class="quick-view-btn"
 
-onclick="location.href='product.html?id=${product.id}'">
+data-id="${product.id}">
 
 👁
 

@@ -18,6 +18,8 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
 <link
 rel="stylesheet"
 href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+<link rel="stylesheet" href="assets/css/video-marquee.css">
+
 </head>
 
 <body>
@@ -283,6 +285,22 @@ See All
 
 </section>
 
+<section class="video-marquee-section">
+
+    <div class="section-title">
+        <h2>Explore Our Collection</h2>
+    </div>
+
+    <div class="video-marquee">
+
+        <div id="videoTrack" class="video-track">
+
+        </div>
+
+    </div>
+
+</section>
+
 
 
 <section class="features-section">
@@ -382,6 +400,27 @@ See All
 
     <script src="assets/js/navbar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+
+    <div id="quickViewModal" class="quick-view">
+
+    <div class="quick-overlay"></div>
+
+    <div class="quick-box">
+
+        <button class="quick-close">&times;</button>
+
+        <div id="quickContent"
+        class="quick-content-wrapper"></div>
+
+    </div>
+
+</div>
+
+<link rel="stylesheet" href="assets/css/quick-view.css">
+
+<script type="module" src="assets/js/quick-view.js"></script>
+
+<script type="module" src="assets/js/homeVideo.js"></script>
 
 </body>
 
