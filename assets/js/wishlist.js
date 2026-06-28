@@ -139,7 +139,7 @@ ${product.category}
 
 <button
 class="view-btn"
-onclick="location.href='product.html?id=${product.id}'">
+onclick="location.href='product.html?id=${product.productId}'">
 
 View Product
 

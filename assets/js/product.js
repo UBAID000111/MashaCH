@@ -436,7 +436,7 @@ const userSnap=await getDoc(
 doc(db,"users",currentUser.uid)
 );
 
-const userData=userSnap.data();
+const userData=userSnap.exists() ? userSnap.data() : {};
 
 
 const selectedVariantIndex=
@@ -476,13 +476,13 @@ sizes:selectedVariant.sizes,
 
 slug:productData.slug,
 
-userName:userData.name,
+userName: userData.name || "",
 
-userEmail:userData.email,
+userEmail: userData.email || currentUser.email || "",
 
-userPhone: userData.phone,
+userPhone: userData.phone || "",
 
-addedAt:serverTimestamp()
+addedAt: serverTimestamp()
 
 });
 
