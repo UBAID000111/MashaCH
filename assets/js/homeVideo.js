@@ -71,11 +71,11 @@ RENDER
 
 function renderVideos(videos){
 
-track.innerHTML="";
+    track.innerHTML="";
 
-const list=[...videos,...videos,...videos];
+    const list=[...videos,...videos,...videos];
 
-track.innerHTML=list.map(video=>`
+    track.innerHTML=list.map(video=>`
 
 <div class="video-card">
 
@@ -93,6 +93,8 @@ preload="metadata">
 </div>
 
 `).join("");
+
+    startMarquee();
 
 }
 
@@ -141,3 +143,36 @@ INIT
 ========================== */
 
 loadVideos();
+
+
+let animationId;
+
+function startMarquee(){
+
+    cancelAnimationFrame(animationId);
+
+    let position=0;
+
+    const speed=0.8;   // Increase to 1.0 or 1.2 for faster movement
+
+    const move=()=>{
+
+        position-=speed;
+
+        const width=track.scrollWidth/3;
+
+        if(Math.abs(position)>=width){
+
+            position=0;
+
+        }
+
+        track.style.transform=`translate3d(${position}px,0,0)`;
+
+        animationId=requestAnimationFrame(move);
+
+    };
+
+    move();
+
+}

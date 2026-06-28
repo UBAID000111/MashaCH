@@ -21,27 +21,17 @@ margin-top:30px;
 }
 
 .video-track{
-
-display:flex;
-
-gap:18px;
-
-width:max-content;
-
-animation:marqueeMove 35s linear infinite;
-will-change: transform;
-
+    display:flex;
+    gap:20px;
+    width:max-content;
+    will-change:transform;
 }
 
-.video-marquee:hover .video-track{
 
-animation-play-state:paused;
-
-}
 
 .video-card{
 
-    pointer-events: none;
+pointer-events: none;
 
 flex:0 0 auto;
 
@@ -87,23 +77,20 @@ display:block;
 
 }
 
-@keyframes marqueeMove{
+.video-card,
+.video-card video{
 
-0%{
+pointer-events:none;
 
-transform:translateX(0);
+user-select:none;
 
-}
+-webkit-user-select:none;
 
-100%{
-
-transform:translateX(-50%);
-
-}
-
-
+touch-action:none;
 
 }
+
+
 
 @media(max-width:768px){
 
