@@ -1159,7 +1159,7 @@ height:45px;
 
 .products-slider{
 
-grid-template-columns:1fr 1fr;
+grid-template-columns:repeat(2,1fr);
 
 gap:12px;
 
@@ -1191,13 +1191,35 @@ font-size:13px;
 
 .product-actions{
 
-grid-template-columns:1fr;
+display:grid;
+
+grid-template-columns:1fr 45px;
+
+gap:8px;
+
+}
+
+.add-cart-btn{
+
+height:42px;
+
+font-size:12px;
 
 }
 
 .quick-view-btn{
 
-display:none;
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+width:45px;
+
+height:42px;
+
+font-size:18px;
 
 }
 
