@@ -3,6 +3,7 @@ import {
 } from "./categoryService.js";
 
 import {
+    getProducts,
     getNewArrivals,
     getBestSellers,
     getActiveProducts
@@ -40,12 +41,20 @@ document.getElementById("allProductsGrid");
 export async function loadCategories(){
 
 const categories = await getCategories();
+const products = await getProducts();
 
 categoryGrid.innerHTML = "";
 
 categories.forEach(category=>{
 
-if(category.status==="Active" && category.showHome){
+if(category.status !== "Active" || !category.showHome) return;
+
+const totalProducts = products.filter(product=>
+
+product.category===category.name &&
+(product.status || "Active")==="Active"
+
+).length;
 
 categoryGrid.innerHTML += `
 
@@ -55,13 +64,29 @@ categoryGrid.innerHTML += `
 class="category-card"
 onclick="location.href='shop.html?category=${encodeURIComponent(category.name)}'">
 
+<div class="category-image">
+
 <img
 loading="lazy"
 decoding="async"
-src="${optimizeImage(category.image,500)}"
+src="${optimizeImage(category.image,600)}"
 alt="${category.name}">
 
+</div>
+
+<div class="category-content">
+
 <h3>${category.name}</h3>
+
+<p>${totalProducts} Products</p>
+
+<span>
+
+Shop Now →
+
+</span>
+
+</div>
 
 </div>
 
@@ -69,47 +94,65 @@ alt="${category.name}">
 
 `;
 
+});
+
+initCategorySwiper();
+
 }
 
-});
+let categorySwiper;
 
 function initCategorySwiper(){
 
-new Swiper(".categorySwiper",{
+if(categorySwiper){
+
+categorySwiper.destroy(true,true);
+
+}
+
+categorySwiper=new Swiper(".categorySwiper",{
 
 loop:true,
 
-slidesPerView:2,
-
-spaceBetween:15,
-
 speed:350,
+
+spaceBetween:18,
 
 grabCursor:true,
 
 centeredSlides:true,
 
+slidesPerView:2,
+
 breakpoints:{
 
-640:{
-slidesPerView:3
+576:{
+
+slidesPerView:2.4
+
 },
 
 768:{
-slidesPerView:4
+
+slidesPerView:3.5
+
 },
 
-1200:{
-slidesPerView:5
+1024:{
+
+slidesPerView:4.5
+
+},
+
+1280:{
+
+slidesPerView:5.5
+
 }
 
 }
 
 });
-
-}
-
-initCategorySwiper();
 
 }
 
