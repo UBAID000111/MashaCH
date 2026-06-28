@@ -430,8 +430,7 @@ break;
 
 filteredProducts = products;
 
-renderProducts(filteredProducts);
-updateProductCount();
+
 
 currentPage = 1;
 
@@ -608,8 +607,19 @@ PRODUCT COUNT
 
 function updateProductCount(){
 
-    productCount.innerText =
-        `${filteredProducts.length} Product${filteredProducts.length !== 1 ? "s" : ""}`;
+let count=document.getElementById("productCount");
+
+if(!count){
+
+count=document.createElement("span");
+
+count.id="productCount";
+
+document.querySelector(".shop-header").appendChild(count);
+
+}
+
+count.innerHTML=`${filteredProducts.length} Products`;
 
 }
 
