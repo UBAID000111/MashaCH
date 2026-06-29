@@ -149,9 +149,29 @@ id="sizeList">
 
 </div>
 
-<hr>
+<!-- ==========================
+SIZE & PRODUCT INFO
+========================== -->
+<h3>Quantity</h3>
 
-<div class="stock-box">
+<div class="quantity-box">
+
+<button id="minusQty">−</button>
+
+<input
+type="number"
+id="quantity"
+value="1"
+min="1"
+readonly>
+
+<button id="plusQty">+</button>
+
+</div>
+
+
+
+<hr>
 
 <div class="delivery-box">
 
@@ -159,9 +179,7 @@ id="sizeList">
 
 <p>
 
-Free Delivery in <strong>2–5 Days</strong>
-
-<br>
+Free Delivery in <strong>2–5 Days</strong><br>
 
 7 Days Easy Return & Exchange
 
@@ -179,21 +197,153 @@ Free Delivery in <strong>2–5 Days</strong>
 
 <div class="button-group">
 
-
-
-<button
-class="add-cart">
+<button class="add-cart">
 
 🛒 Add To Cart
 
 </button>
 
-<button
-class="buy-now">
+<button class="buy-now">
 
 ⚡ Buy Now
 
 </button>
+
+</div>
+
+
+
+
+
+<div class="product-accordion">
+
+    <!-- Size Chart -->
+
+    <details class="accordion-item">
+
+        <summary>
+
+            <span>📏</span>
+
+            Size Guide
+
+        </summary>
+
+        <div class="accordion-content">
+
+            <table class="size-chart">
+
+                <thead>
+
+                    <tr>
+
+                        <th>Size</th>
+                        <th>Bust</th>
+                        <th>Waist</th>
+                        <th>Hip</th>
+
+                    </tr>
+
+                </thead>
+
+                <tbody>
+
+                    <tr><td>XS</td><td>34"</td><td>28"</td><td>36"</td></tr>
+                    <tr><td>S</td><td>36"</td><td>30"</td><td>38"</td></tr>
+                    <tr><td>M</td><td>38"</td><td>32"</td><td>40"</td></tr>
+                    <tr><td>L</td><td>40"</td><td>34"</td><td>42"</td></tr>
+                    <tr><td>XL</td><td>42"</td><td>36"</td><td>44"</td></tr>
+                    <tr><td>2XL</td><td>44"</td><td>38"</td><td>46"</td></tr>
+                    <tr><td>3XL</td><td>46"</td><td>40"</td><td>48"</td></tr>
+                    <tr><td>4XL</td><td>48"</td><td>42"</td><td>50"</td></tr>
+                    <tr><td>5XL</td><td>50"</td><td>44"</td><td>52"</td></tr>
+
+                </tbody>
+
+            </table>
+
+            <p class="size-note">
+
+                Measurements are in inches. A variation of ±1 inch is normal.
+
+            </p>
+
+        </div>
+
+    </details>
+
+    <!-- Shipping -->
+
+    <details class="accordion-item">
+
+        <summary>
+
+            🚚 Shipping Information
+
+        </summary>
+
+        <div class="accordion-content">
+
+            <p>
+
+                Orders are dispatched within <strong>24–48 hours</strong>.
+                Delivery usually takes <strong>3–7 business days</strong>.
+
+            </p>
+
+        </div>
+
+    </details>
+
+    <!-- Return -->
+
+    <details class="accordion-item">
+
+        <summary>
+
+            🔄 Return & Exchange
+
+        </summary>
+
+        <div class="accordion-content">
+
+            <p>
+
+                Easy <strong>7-day exchange</strong> for eligible products.
+
+            </p>
+
+        </div>
+
+    </details>
+
+    <!-- Care -->
+
+    <details class="accordion-item">
+
+        <summary>
+
+            🧺 Wash & Care
+
+        </summary>
+
+        <div class="accordion-content">
+
+            <ul>
+
+                <li>Hand wash recommended.</li>
+
+                <li>Do not bleach.</li>
+
+                <li>Dry in shade.</li>
+
+                <li>Iron on low heat.</li>
+
+            </ul>
+
+        </div>
+
+    </details>
 
 </div>
 
