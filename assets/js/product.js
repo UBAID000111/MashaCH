@@ -543,3 +543,156 @@ checkWishlist();
 wishlistBtn?.addEventListener("click",toggleWishlist);
 
 mobileWishlist?.addEventListener("click",toggleWishlist);
+
+/* ===========================
+QUANTITY
+=========================== */
+
+const qtyInput = document.getElementById("quantity");
+const plusBtn = document.getElementById("plusQty");
+const minusBtn = document.getElementById("minusQty");
+
+let quantity = 1;
+
+plusBtn.onclick = () => {
+
+    quantity++;
+
+    qtyInput.value = quantity;
+
+};
+
+minusBtn.onclick = () => {
+
+    if(quantity > 1){
+
+        quantity--;
+
+        qtyInput.value = quantity;
+
+    }
+
+};
+
+import {
+
+collection,
+addDoc
+
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+const addCartBtn=document.getElementById("addCartBtn");
+
+addCartBtn?.addEventListener("click",addToCart);
+
+async function addToCart(){
+
+if(!currentUser){
+
+location.href="login.html";
+
+return;
+
+}
+
+const variantIndex=
+
+Number(
+
+document.querySelector(".color-dot.active")
+
+?.dataset.index
+
+||0
+
+);
+
+const variant=
+
+productData.variants[variantIndex];
+
+const size=
+
+document.querySelector(".size-btn.active")
+
+?.innerText
+
+||"";
+
+const qty=
+
+Number(document.getElementById("quantity").value);
+
+await addDoc(
+
+collection(
+
+db,
+
+"users",
+
+currentUser.uid,
+
+"cart"
+
+),
+
+{
+
+productId:productId,
+
+productName:productData.name,
+
+category:productData.category,
+
+description:productData.description,
+
+image:variant.image,
+
+price:variant.price,
+
+oldPrice:variant.oldPrice,
+
+quantity:qty,
+
+selectedSize:size,
+
+selectedColor:variant.color,
+
+variantIndex,
+
+stock:variant.stock,
+
+createdAt:serverTimestamp()
+
+}
+
+);
+
+showToast("Added To Cart");
+
+await setDoc(
+doc(db,"adminCart",currentUser.uid),
+{
+
+userId:currentUser.uid,
+
+userName:userData.name || "",
+
+email:userData.email || "",
+
+phone:userData.phone || "",
+
+status:"New",
+
+contacted:false,
+
+lastUpdated:serverTimestamp()
+
+},
+
+{merge:true}
+
+);
+
+}
