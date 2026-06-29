@@ -83,25 +83,55 @@ function startDashboard() {
 
     }
 
-    async function loadPage(title, file) {
+async function loadPage(title, file) {
 
-        pageTitle.innerText = title;
+    pageTitle.innerText = title;
 
-        const response = await fetch(file);
+    const response = await fetch(file);
 
-        contentArea.innerHTML = await response.text();
+    contentArea.innerHTML = await response.text();
 
-        if(file === "admin/products.html"){
+    switch(file){
 
-    import("./products.js");
+        case "admin/products.html":
+            await import("./products.js");
+            break;
+
+        case "admin/categories.html":
+            await import("./categories.js");
+            break;
+
+        case "admin-media.html":
+            await import("./media.js");
+            break;
+
+        case "admin-cart.html":
+            await import("./admin-cart.js");
+            break;
+
+        case "admin/orders.html":
+            await import("./orders.js");
+            break;
+
+        case "admin/customers.html":
+            await import("./customers.js");
+            break;
+
+        case "admin/coupons.html":
+            await import("./coupons.js");
+            break;
+
+        case "admin/homepage.html":
+            await import("./homepage.js");
+            break;
+
+        case "admin/newsletter.html":
+            await import("./newsletter.js");
+            break;
+
+    }
 
 }
-
-    if(file == "admin/categories.html"){
-        import("./categories.js");
-    }
-
-    }
 
     // Dashboard
 
@@ -162,6 +192,30 @@ function startDashboard() {
         loadPage("Orders", "admin/orders.html");
 
     };
+
+    // Media
+
+    document.getElementById("mediaBtn").onclick = () => {
+
+    closeMenu();
+
+    setActive("mediaBtn");
+
+    loadPage("Media Manager", "admin/media.html");
+
+};
+
+  // Lead Cart
+
+  document.getElementById("cartLeadBtn").onclick = () => {
+
+    closeMenu();
+
+    setActive("cartLeadBtn");
+
+    loadPage("Cart Leads", "admin/cart-leads.html");
+
+};
 
     // Customers
 

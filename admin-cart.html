@@ -1,8 +1,23 @@
-<link rel="stylesheet" href="/assets/css/admin-cart.css">
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cart Leads</title>
+
+<link rel="stylesheet" href="assets/css/admin-cart.css">
+
+</head>
+
+<body>
 
 <section class="admin-cart">
 
-<h2>Customer Carts</h2>
+<h2>Customer Cart Leads</h2>
 
 <table>
 
@@ -30,9 +45,30 @@
 
 </table>
 
-<div id="cartDetails"></div>
-
 </section>
 
-<script type="module"
-src="assets/js/admin-cart.js"></script>
+<!-- ===========================
+VIEW CART MODAL
+=========================== -->
+
+<div id="cartModal" class="cart-modal">
+
+<div class="cart-modal-box">
+
+<button id="closeCartModal">&times;</button>
+
+<h2>Customer Cart</h2>
+
+<div id="cartDetails">
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module" src="assets/js/admin-cart.js"></script>
+
+</body>
+
+</html>

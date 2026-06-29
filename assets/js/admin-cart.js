@@ -1,66 +1,86 @@
 import { db } from "../firebase/firebase-config.js";
 
 import {
-
-collection,
-getDocs,
-doc,
-updateDoc
-
+    collection,
+    getDocs,
+    doc,
+    updateDoc
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-const table=document.getElementById("cartTable");
+const table = document.getElementById("cartTable");
 
-const snap=await getDocs(collection(db,"adminCart"));
+const modal = document.getElementById("cartModal");
 
-snap.forEach(d=>{
+const cartDetails = document.getElementById("cartDetails");
 
-const user=d.data();
+const closeBtn = document.getElementById("closeCartModal");
 
-table.innerHTML+=`
+/* ===========================
+LOAD CART LEADS
+=========================== */
+
+async function loadCartLeads() {
+
+    table.innerHTML = "";
+
+    const snap = await getDocs(collection(db, "adminCart"));
+
+    if (snap.empty) {
+
+        table.innerHTML = `
+        <tr>
+            <td colspan="5" style="text-align:center;padding:30px;">
+                No Customer Carts
+            </td>
+        </tr>
+        `;
+
+        return;
+
+    }
+
+    snap.forEach(d => {
+
+        const user = d.data();
+
+        table.innerHTML += `
 
 <tr>
 
 <td>
 
-${user.contacted ?
-
-'🟢 Contacted'
-
-:
-
-'🟠 New'}
+${user.contacted ? "🟢 Contacted" : "🟠 New"}
 
 </td>
 
 <td>
 
-${user.userName}
+${user.userName || "-"}
 
 </td>
 
 <td>
 
-${user.phone}
+${user.phone || "-"}
 
 </td>
 
 <td>
 
-${user.email}
+${user.email || "-"}
 
 </td>
 
 <td>
 
-<button
+<button class="view-btn"
 onclick="viewCart('${user.userId}')">
 
 View
 
 </button>
 
-<button
+<button class="done-btn"
 onclick="markDone('${user.userId}')">
 
 ✓
@@ -73,76 +93,94 @@ onclick="markDone('${user.userId}')">
 
 `;
 
-});
-
-window.markDone=async(uid)=>{
-
-await updateDoc(
-
-doc(db,"adminCart",uid),
-
-{
-
-contacted:true,
-
-status:"Contacted"
+    });
 
 }
 
-);
+loadCartLeads();
 
-location.reload();
+/* ===========================
+MARK CONTACTED
+=========================== */
+
+window.markDone = async (uid) => {
+
+    await updateDoc(
+
+        doc(db, "adminCart", uid),
+
+        {
+            contacted: true,
+            status: "Contacted"
+        }
+
+    );
+
+    loadCartLeads();
 
 };
 
-window.viewCart=async(uid)=>{
+/* ===========================
+VIEW CUSTOMER CART
+=========================== */
 
-const grid=document.getElementById("cartDetails");
+window.viewCart = async (uid) => {
 
-grid.innerHTML="";
+    modal.classList.add("active");
 
-const snap=await getDocs(
+    cartDetails.innerHTML = "<p>Loading...</p>";
 
-collection(db,"users",uid,"cart")
+    const snap = await getDocs(
 
-);
+        collection(db, "users", uid, "cart")
 
+    );
 
+    cartDetails.innerHTML = "";
 
-snap.forEach(doc=>{
+    if (snap.empty) {
 
-const item=doc.data();
+        cartDetails.innerHTML = `
+        <p style="text-align:center;padding:30px;">
+            Cart is Empty
+        </p>
+        `;
 
-grid.innerHTML+=`
+        return;
+
+    }
+
+    let total = 0;
+
+    snap.forEach(docSnap => {
+
+        const item = docSnap.data();
+
+        total += item.price * item.quantity;
+
+        cartDetails.innerHTML += `
 
 <div class="cart-item">
 
-<img
-src="${item.image}">
+<img src="${item.image}" alt="">
 
-<div>
+<div class="cart-info">
 
-<h3>
-
-${item.productName}
-
-</h3>
+<h3>${item.productName}</h3>
 
 <p>
 
-${item.selectedColor.name}
+${item.selectedColor?.name || ""}
 
 |
 
-${item.selectedSize}
+Size ${item.selectedSize}
 
 </p>
 
 <p>
 
-Qty :
-
-${item.quantity}
+Qty : ${item.quantity}
 
 </p>
 
@@ -158,6 +196,38 @@ ${item.quantity}
 
 `;
 
-});
+    });
+
+    cartDetails.innerHTML += `
+
+<hr>
+
+<h2 style="text-align:right">
+
+Total : ₹${total}
+
+</h2>
+
+`;
+
+};
+
+/* ===========================
+CLOSE MODAL
+=========================== */
+
+closeBtn.onclick = () => {
+
+    modal.classList.remove("active");
+
+};
+
+modal.onclick = (e) => {
+
+    if (e.target === modal) {
+
+        modal.classList.remove("active");
+
+    }
 
 };
