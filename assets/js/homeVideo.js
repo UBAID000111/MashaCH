@@ -80,11 +80,11 @@ function renderVideos(videos){
 <div class="video-card">
 
 <video
-autoplay
+class="collection-video"
 muted
 loop
 playsinline
-preload="auto">
+preload="metadata">
 
 <source src="${video.url}" type="video/mp4">
 
@@ -93,6 +93,8 @@ preload="auto">
 </div>
 
 `).join("");
+
+    initVideoModal();
 
     startMarquee();
 
@@ -172,6 +174,66 @@ function startMarquee(){
         animationId=requestAnimationFrame(move);
 
     };
+
+    function initVideoModal(){
+
+const modal=document.getElementById("videoModal");
+
+const modalVideo=document.getElementById("modalVideo");
+
+const closeBtn=document.getElementById("closeVideo");
+
+const videos=document.querySelectorAll(".collection-video");
+
+videos.forEach(video=>{
+
+video.play();
+
+video.addEventListener("click",()=>{
+
+cancelAnimationFrame(animationId);
+
+track.style.pointerEvents="none";
+
+modal.classList.add("active");
+
+modalVideo.src=video.querySelector("source").src;
+
+modalVideo.currentTime=0;
+
+modalVideo.play();
+
+});
+
+});
+
+closeBtn.onclick=()=>{
+
+modalVideo.pause();
+
+modalVideo.removeAttribute("src");
+
+modalVideo.load();
+
+modal.classList.remove("active");
+
+track.style.pointerEvents="auto";
+
+startMarquee();
+
+};
+
+modal.onclick=(e)=>{
+
+if(e.target===modal){
+
+closeBtn.click();
+
+}
+
+};
+
+}
 
     move();
 
