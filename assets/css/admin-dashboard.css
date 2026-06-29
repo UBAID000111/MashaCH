@@ -157,7 +157,13 @@ body{
 }
 
 #logoutBtn{
-    color:#ffb5b5;
+
+margin-top:25px;
+
+border-top:1px solid rgba(255,255,255,.15);
+
+padding-top:20px;
+
 }
 
 /* ===========================
@@ -905,17 +911,27 @@ display:block;
 }
 
 /* Sidebar */
-
 .sidebar{
 
-width:230px;
+position:fixed;
 
-left:-230px;
+top:0;
+left:-280px;
 
-transition:.3s;
+width:280px;
 
-z-index:1000;
+height:100vh;
 
+overflow-y:auto;
+overflow-x:hidden;
+
+-webkit-overflow-scrolling:touch;
+
+padding-bottom:90px;
+
+transition:.35s;
+
+z-index:9999;
 
 }
 
@@ -925,15 +941,13 @@ left:0;
 
 }
 
-/* Main */
-
 .main-content{
-
-width:100%;
 
 margin-left:0;
 
-padding:15px;
+width:100%;
+
+padding:16px;
 
 }
 

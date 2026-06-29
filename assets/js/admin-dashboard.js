@@ -101,8 +101,13 @@ async function loadPage(title, file) {
             await import("./categories.js");
             break;
 
+
+            case "index.html":
+            await import("home.js");
+            break;
+
         case "admin-media.html":
-            await import("./media.js");
+            await import("./admin-media.js");
             break;
 
         case "admin-cart.html":
@@ -169,6 +174,16 @@ async function loadPage(title, file) {
 
     };
 
+     document.getElementById("homeBtn").onclick = () => {
+
+        closeMenu();
+
+        setActive("homeBtn");
+
+        window.location.href="index.html";
+
+    };
+
     // Homepage
 
     document.getElementById("homepageBtn").onclick = () => {
@@ -201,7 +216,7 @@ async function loadPage(title, file) {
 
     setActive("mediaBtn");
 
-    loadPage("Media Manager", "admin/media.html");
+    loadPage("Media Manager", "admin-media.html");
 
 };
 
@@ -213,7 +228,7 @@ async function loadPage(title, file) {
 
     setActive("cartLeadBtn");
 
-    loadPage("Cart Leads", "admin/cart-leads.html");
+    loadPage("Cart Leads", "admin-cart.html");
 
 };
 
