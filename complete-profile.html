@@ -1,12 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Complete Profile | MashaCH</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
 <style>
 
-    body{
-
+*{
 margin:0;
+padding:0;
+box-sizing:border-box;
+font-family:'Poppins',sans-serif;
+}
 
-font-family:Poppins,sans-serif;
+body{
 
-background:#faf8f8;
+min-height:100vh;
 
 display:flex;
 
@@ -14,67 +30,112 @@ justify-content:center;
 
 align-items:center;
 
-height:100vh;
+padding:20px;
+
+background:linear-gradient(135deg,#fff7fa,#f7f7f7);
 
 }
 
 .complete-box{
 
-width:380px;
+width:100%;
+max-width:430px;
 
 background:#fff;
 
-padding:35px;
+border-radius:24px;
 
-border-radius:22px;
+padding:40px 30px;
 
-box-shadow:0 15px 40px rgba(0,0,0,.08);
+box-shadow:0 15px 45px rgba(0,0,0,.08);
 
 text-align:center;
 
 }
 
-.complete-box h2{
+.logo{
 
-margin-bottom:12px;
-
-font-size:28px;
-
-}
-
-.complete-box p{
-
-color:#777;
+width:140px;
 
 margin-bottom:25px;
 
 }
 
-.complete-box input{
+h2{
+
+font-size:30px;
+
+color:#8B0F45;
+
+margin-bottom:10px;
+
+}
+
+.subtitle{
+
+color:#777;
+
+font-size:15px;
+
+line-height:1.7;
+
+margin-bottom:30px;
+
+}
+
+.input-group{
+
+text-align:left;
+
+margin-bottom:25px;
+
+}
+
+.input-group label{
+
+display:block;
+
+font-weight:600;
+
+margin-bottom:8px;
+
+color:#333;
+
+}
+
+.input-group input{
 
 width:100%;
 
-height:54px;
+height:56px;
 
 border:1px solid #ddd;
 
 border-radius:14px;
 
-padding:0 15px;
+padding:0 18px;
 
 font-size:16px;
 
-box-sizing:border-box;
+outline:none;
 
-margin-bottom:20px;
+transition:.3s;
 
 }
 
-.complete-box button{
+.input-group input:focus{
+
+border-color:#8B0F45;
+
+box-shadow:0 0 8px rgba(139,15,69,.15);
+
+}
+
+button{
 
 width:100%;
 
-height:56px;
+height:58px;
 
 border:none;
 
@@ -94,23 +155,123 @@ transition:.3s;
 
 }
 
-.complete-box button:hover{
+button:hover{
 
-transform:translateY(-3px);
+transform:translateY(-2px);
+
+box-shadow:0 10px 20px rgba(139,15,69,.25);
+
+}
+
+.note{
+
+margin-top:18px;
+
+font-size:13px;
+
+color:#888;
+
+line-height:1.6;
+
+}
+
+@media(max-width:480px){
+
+.complete-box{
+
+padding:30px 20px;
+
+}
+
+.logo{
+
+width:120px;
+
+}
+
+h2{
+
+font-size:26px;
+
+}
+
+.subtitle{
+
+font-size:14px;
+
+}
+
+button{
+
+height:54px;
+
+font-size:16px;
+
+}
 
 }
 
 </style>
 
+</head>
+
+<body>
+
+<div class="complete-box">
+
+<img
+src="assets/images/logoff-removebg-preview.png"
+class="logo"
+alt="MashaCH">
+
 <h2>Complete Your Profile</h2>
 
+<p class="subtitle">
+
+Please enter your mobile number to continue shopping.
+
+We'll use it only for order updates and delivery.
+
+</p>
+
+<div class="input-group">
+
+<label>
+
+📱 Mobile Number
+
+</label>
+
 <input
+
 id="phone"
+
 type="tel"
-placeholder="Enter Mobile Number">
+
+maxlength="10"
+
+placeholder="Enter 10-digit mobile number"
+
+>
+
+</div>
 
 <button id="savePhone">
+
 Continue
+
 </button>
 
+<p class="note">
+
+🔒 Your mobile number is securely stored and used only for order confirmations, delivery updates, and customer support.
+
+</p>
+
+</div>
+
 <script type="module" src="assets/js/complete-profile.js"></script>
+
+</body>
+
+</html>
