@@ -106,18 +106,29 @@ if (loginForm) {
                 password
             );
 
-            showToast("Login Successful");
+            const userRef = doc(db, "users", userCredential.user.uid);
 
-            // Admin Login
-            if (userCredential.user.email === ADMIN_EMAIL) {
+const userSnap = await getDoc(userRef);
 
-                window.location.href = "admin-dashboard.html";
+const userData = userSnap.data();
 
-            } else {
+showToast("Login Successful");
 
-                window.location.href = "profile.html";
+if (userCredential.user.email === ADMIN_EMAIL) {
 
-            }
+    window.location.href = "admin-dashboard.html";
+
+}
+else if (!userData.phone) {
+
+    window.location.href = "complete-profile.html";
+
+}
+else {
+
+    window.location.href = "profile.html";
+
+}
 
         } catch (error) {
 
@@ -165,11 +176,21 @@ createdAt: serverTimestamp()
 
         const ADMIN_EMAIL = "mashaweblink@gmail.com";
 
+const latestSnap = await getDoc(ref);
+
+const latestUser = latestSnap.data();
+
 if (result.user.email === ADMIN_EMAIL) {
 
     window.location.href = "admin-dashboard.html";
 
-} else {
+}
+else if (!latestUser.phone) {
+
+    window.location.href = "complete-profile.html";
+
+}
+else {
 
     window.location.href = "profile.html";
 

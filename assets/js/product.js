@@ -671,6 +671,14 @@ createdAt:serverTimestamp()
 
 showToast("Added To Cart");
 
+const userSnap = await getDoc(
+    doc(db, "users", currentUser.uid)
+);
+
+const userData = userSnap.exists()
+    ? userSnap.data()
+    : {};
+
 await setDoc(
 doc(db,"adminCart",currentUser.uid),
 {
