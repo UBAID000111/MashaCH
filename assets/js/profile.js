@@ -43,20 +43,18 @@ onAuthStateChanged(auth, async (user) => {
         }
 
         // Admin Check
-        const adminRef = doc(db, "admins", user.uid);
-        const adminSnap = await getDoc(adminRef);
+const ADMIN_EMAIL = "mashaweblink@gmail.com";
 
-        if (adminSnap.exists()) {
+if (user.email === ADMIN_EMAIL) {
 
-            const adminData = adminSnap.data();
+    adminPanelBtn.style.display = "flex";
+    adminPanelBtn.style.flexDirection= "column";
+    adminPanelBtn.style.borderRadius="8px";
+    adminPanelBtn.style.backgroundColor="white";
+    adminPanelBtn.style.padding="14px";
+    adminPanelBtn.style.color="#222";
 
-            if (adminData.role === "admin" && adminData.active) {
-
-                adminPanelBtn.style.display = "inline-block";
-
-            }
-
-        }
+}
 
     } catch (error) {
 
