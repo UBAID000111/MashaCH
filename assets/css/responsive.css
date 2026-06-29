@@ -188,6 +188,25 @@ font-weight:600;
         width:100%;
 
     }
+
+    .quick-view-btn{
+
+display:none !important;
+
+}
+
+.product-actions{
+
+grid-template-columns:1fr !important;
+
+}
+
+.add-cart-btn{
+
+width:100%;
+
+}
+
 }
 
 @media(max-width:576px){

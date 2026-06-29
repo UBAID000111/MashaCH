@@ -391,6 +391,12 @@ rgba(200,16,77,.35);
 
 }
 
+.productSwiper{
+
+padding-bottom:10px !important;
+
+}
+
 .hero-btn:hover{
 
 transform:translateY(-5px);
