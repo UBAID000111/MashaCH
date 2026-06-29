@@ -167,7 +167,7 @@ color:inherit;
 
 section{
 
-padding:85px 25px;
+padding:45px 20px;
 
 }
 
@@ -257,7 +257,7 @@ min-height:720px;
 
 background:
 
-url("../images/banner.jpg")
+url("/assets/images/banner.jpeg")
 
 center/cover;
 
@@ -409,9 +409,7 @@ Section Background
 
 .categories,
 
-.products-section,
-
-.features-section
+.products-section
 
 {
 
@@ -424,6 +422,8 @@ max-width:var(--container);
 margin:auto;
 
 }
+
+
 
 .newsletter{
 
@@ -763,11 +763,17 @@ font-weight:700;
 WHY CHOOSE
 ==================================*/
 
-.features-section{
+.features-section
 
-padding:90px 20px;
+{
 
-background:#faf8f5;
+padding: 50px 20px;
+
+background:transparent;
+
+max-width:var(--container);
+
+
 
 }
 
@@ -860,7 +866,7 @@ line-height:1.7;
 
 max-width:1250px;
 
-margin:55px auto;
+margin:35px auto;
 
 padding:55px 25px;
 
@@ -1219,7 +1225,7 @@ PREMIUM PRODUCT CARDS
 
 .products-section{
 
-margin-top:70px;
+margin-top:20px;
 
 }
 
@@ -1531,6 +1537,8 @@ color:#fff;
 
 }
 
+
+
 /* Mobile */
 
 @media(max-width:768px){
@@ -1709,8 +1717,86 @@ width:45px;
 height:42px;
 
 font-size:18px;
+}
+}
 
+/* ===========================
+Large Phones
+=========================== */
+
+@media (max-width:600px){
+
+.section-header{
+padding:0 16px;
+margin-bottom:20px;
+}
+
+.section-header h2{
+font-size:24px;
+}
+
+.see-all{
+padding:8px 14px;
+font-size:13px;
+}
+
+.hero-btn{
+width:180px;
+height:46px;
+font-size:14px;
+}
+
+.newsletter{
+padding:35px 18px;
+margin:35px 12px;
+}
+
+.newsletter h2{
+font-size:24px;
+}
+
+.newsletter p{
+font-size:14px;
 }
 
 }
+
+
+
+/* ===========================
+Small Phones
+=========================== */
+
+@media (max-width:390px){
+
+.hero-content h1{
+font-size:30px;
+}
+
+.hero-btn{
+width:160px;
+height:42px;
+font-size:13px;
+}
+
+.section-header h2{
+font-size:20px;
+}
+
+.see-all{
+padding:6px 10px;
+font-size:11px;
+}
+
+.newsletter h2{
+font-size:20px;
+}
+
+.newsletter p{
+font-size:13px;
+}
+
+}
+
+
 
