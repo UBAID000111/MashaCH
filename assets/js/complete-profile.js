@@ -1,29 +1,63 @@
 import { auth, db } from "../firebase/firebase-config.js";
 
 import {
-doc,
-updateDoc
+    doc,
+    updateDoc
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-document.getElementById("savePhone").onclick = async () => {
+import {
+    onAuthStateChanged
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
-    const phone = document.getElementById("phone").value.trim();
+const btn = document.getElementById("savePhone");
 
-    if (!/^[6-9]\d{9}$/.test(phone)) {
+let currentUser = null;
 
-        alert("Enter a valid 10-digit mobile number.");
+onAuthStateChanged(auth, (user) => {
+
+    if (!user) {
+
+        location.href = "login.html";
 
         return;
 
     }
 
-    await updateDoc(
-        doc(db, "users", auth.currentUser.uid),
-        {
-            phone
-        }
-    );
+    currentUser = user;
 
-    window.location.href = "profile.html";
+});
+
+btn.onclick = async () => {
+
+    const phone = document.getElementById("phone").value.trim();
+
+    if (!/^[6-9]\d{9}$/.test(phone)) {
+
+        alert("Enter valid mobile number");
+
+        return;
+
+    }
+
+    try {
+
+        await updateDoc(
+            doc(db, "users", currentUser.uid),
+            {
+                phone: phone
+            }
+        );
+
+        alert("Profile Updated Successfully");
+
+        location.href = "profile.html";
+
+    } catch (e) {
+
+        console.error(e);
+
+        alert(e.message);
+
+    }
 
 };
