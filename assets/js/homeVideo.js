@@ -83,8 +83,9 @@ function renderVideos(videos){
 class="collection-video"
 muted
 loop
+autoplay
 playsinline
-preload="metadata">
+preload="auto">
 
 <source src="${video.url}" type="video/mp4">
 
@@ -100,6 +101,66 @@ preload="metadata">
 
 }
 
+function initVideoModal(){
+
+const modal=document.getElementById("videoModal");
+
+const modalVideo=document.getElementById("modalVideo");
+
+const close=document.getElementById("closeVideo");
+
+document.querySelectorAll(".video-card video").forEach(video=>{
+
+video.onclick=()=>{
+
+cancelAnimationFrame(animationId);
+
+modal.classList.add("active");
+
+modalVideo.src=video.querySelector("source").src;
+
+modalVideo.play();
+
+};
+
+});
+
+close.onclick=()=>{
+
+modalVideo.pause();
+
+modalVideo.removeAttribute("src");
+
+modalVideo.load();
+
+modal.classList.remove("active");
+
+
+
+
+initVideoModal();
+
+const videos = document.querySelectorAll(".collection-video");
+
+Promise.all(
+    [...videos].map(video => {
+        return new Promise(resolve => {
+            if (video.readyState >= 2) {
+                resolve();
+            } else {
+                video.onloadeddata = resolve;
+            }
+        });
+    })
+).then(() => {
+   
+startMarquee();
+
+});
+
+};
+
+}
 /* ==========================
 CARD
 ========================== */
@@ -153,87 +214,35 @@ function startMarquee(){
 
     cancelAnimationFrame(animationId);
 
-    let position=0;
+    let position = 0;
 
-    const speed=0.8;   // Increase to 1.0 or 1.2 for faster movement
+    const speed = 0.8;
 
-    const move=()=>{
+    function move(){
 
-        position-=speed;
+        const width = track.scrollWidth / 3;
 
-        const width=track.scrollWidth/3;
+        if(width <= 0){
 
-        if(Math.abs(position)>=width){
+            animationId = requestAnimationFrame(move);
 
-            position=0;
+            return;
 
         }
 
-        track.style.transform=`translate3d(${position}px,0,0)`;
+        position -= speed;
 
-        animationId=requestAnimationFrame(move);
+        if(Math.abs(position) >= width){
 
-    };
+            position = 0;
 
-    function initVideoModal(){
+        }
 
-const modal=document.getElementById("videoModal");
+        track.style.transform = `translate3d(${position}px,0,0)`;
 
-const modalVideo=document.getElementById("modalVideo");
+        animationId = requestAnimationFrame(move);
 
-const closeBtn=document.getElementById("closeVideo");
-
-const videos=document.querySelectorAll(".collection-video");
-
-videos.forEach(video=>{
-
-video.play();
-
-video.addEventListener("click",()=>{
-
-cancelAnimationFrame(animationId);
-
-track.style.pointerEvents="none";
-
-modal.classList.add("active");
-
-modalVideo.src=video.querySelector("source").src;
-
-modalVideo.currentTime=0;
-
-modalVideo.play();
-
-});
-
-});
-
-closeBtn.onclick=()=>{
-
-modalVideo.pause();
-
-modalVideo.removeAttribute("src");
-
-modalVideo.load();
-
-modal.classList.remove("active");
-
-track.style.pointerEvents="auto";
-
-startMarquee();
-
-};
-
-modal.onclick=(e)=>{
-
-if(e.target===modal){
-
-closeBtn.click();
-
-}
-
-};
-
-}
+    }
 
     move();
 

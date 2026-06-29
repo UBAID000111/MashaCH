@@ -47,31 +47,6 @@ const allProductsGrid =
 document.getElementById("allProductsGrid");
 
 
-video.addEventListener("click",()=>{
-
-swiper.autoplay.stop(); // or stop your marquee animation
-
-modal.classList.add("active");
-
-modalVideo.src = video.src;
-
-modalVideo.play();
-
-});
-
-
-
-closeVideo.onclick=()=>{
-
-modalVideo.pause();
-
-modalVideo.src="";
-
-modal.classList.remove("active");
-
-swiper.autoplay.start(); // resume slider
-
-};
 
 /*Load Categories*/
 
