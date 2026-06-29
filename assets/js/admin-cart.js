@@ -23,6 +23,10 @@ async function loadCartLeads() {
 
     table.innerHTML = "";
 
+    const mobileList = document.getElementById("mobileCartList");
+
+    mobileList.innerHTML = "";
+
     const snap = await getDocs(collection(db, "adminCart"));
 
     if (snap.empty) {
@@ -35,6 +39,12 @@ async function loadCartLeads() {
         </tr>
         `;
 
+        mobileList.innerHTML = `
+        <div class="lead-card">
+            <h3>No Customer Carts</h3>
+        </div>
+        `;
+
         return;
 
     }
@@ -43,33 +53,19 @@ async function loadCartLeads() {
 
         const user = d.data();
 
+        /* ---------- Desktop Table ---------- */
+
         table.innerHTML += `
 
 <tr>
 
-<td>
+<td>${user.contacted ? "🟢 Contacted" : "🟠 New"}</td>
 
-${user.contacted ? "🟢 Contacted" : "🟠 New"}
+<td>${user.userName || "-"}</td>
 
-</td>
+<td>${user.phone || "-"}</td>
 
-<td>
-
-${user.userName || "-"}
-
-</td>
-
-<td>
-
-${user.phone || "-"}
-
-</td>
-
-<td>
-
-${user.email || "-"}
-
-</td>
+<td>${user.email || "-"}</td>
 
 <td>
 
@@ -90,6 +86,52 @@ onclick="markDone('${user.userId}')">
 </td>
 
 </tr>
+
+`;
+
+        /* ---------- Mobile Card ---------- */
+
+        mobileList.innerHTML += `
+
+<div class="lead-card">
+
+<div class="lead-top">
+
+<div>
+
+<h3>${user.userName || "Customer"}</h3>
+
+<p>${user.email || "-"}</p>
+
+<p>${user.phone || "-"}</p>
+
+</div>
+
+<div class="${user.contacted ? "status-green" : "status-orange"}">
+
+${user.contacted ? "✓ Contacted" : "New"}
+
+</div>
+
+</div>
+
+<div class="lead-actions">
+
+<button onclick="viewCart('${user.userId}')">
+
+View Cart
+
+</button>
+
+<button onclick="markDone('${user.userId}')">
+
+✓ Done
+
+</button>
+
+</div>
+
+</div>
 
 `;
 
