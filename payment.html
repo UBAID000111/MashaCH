@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Payment | MashaCH</title>
+
+<link rel="stylesheet" href="assets/css/navbar.css">
+<link rel="stylesheet" href="assets/css/footer.css">
+<link rel="stylesheet" href="assets/css/payment.css">
+<link rel="link rel="stylesheet" href="assets/css/responsive.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+</head>
+
+<body>
+
+<section class="payment-page">
+
+<h1>Secure Payment</h1>
+
+<div class="payment-grid">
+
+<!-- LEFT -->
+
+<div class="payment-left">
+
+<!-- ADDRESS -->
+
+<div class="payment-card">
+
+<h2>
+
+📍 Delivery Address
+
+</h2>
+
+<div id="selectedAddress">
+
+Loading...
+
+</div>
+
+</div>
+
+<!-- PRODUCTS -->
+
+<div class="payment-card">
+
+<h2>
+
+🛍 Order Items
+
+</h2>
+
+<div id="paymentItems">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- RIGHT -->
+
+<div class="payment-right">
+
+<div class="payment-summary">
+
+<h2>
+
+Order Summary
+
+</h2>
+
+<div class="summary-row">
+
+<span>Subtotal</span>
+
+<span id="subtotal">
+
+₹0
+
+</span>
+
+</div>
+
+<div class="summary-row">
+
+<span>Shipping</span>
+
+<span>
+
+FREE
+
+</span>
+
+</div>
+
+<div class="summary-row">
+
+<span>Tax</span>
+
+<span>
+
+₹0
+
+</span>
+
+</div>
+
+<hr>
+
+<div class="summary-row total">
+
+<span>
+
+Grand Total
+
+</span>
+
+<span id="total">
+
+₹0
+
+</span>
+
+</div>
+
+<!-- PAYMENT -->
+
+<h3>
+
+Payment Method
+
+</h3>
+
+<div class="payment-method active">
+
+<img
+src="https://razorpay.com/assets/razorpay-logo.svg"
+height="24">
+
+<span>
+
+Razorpay Secure Checkout
+
+</span>
+
+</div>
+
+<ul class="payment-features">
+
+<li>
+
+✔ UPI
+
+</li>
+
+<li>
+
+✔ Credit Card
+
+</li>
+
+<li>
+
+✔ Debit Card
+
+</li>
+
+<li>
+
+✔ Net Banking
+
+</li>
+
+<li>
+
+✔ Wallets
+
+</li>
+
+</ul>
+
+<button id="payNowBtn">
+
+🔒 Pay Securely
+
+</button>
+
+<p class="secure">
+
+256-bit SSL Secured Payment
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+</section>
+
+<script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+<script type="module" src="assets/js/payment.js"></script>
+
+</body>
+
+</html>

@@ -7,6 +7,10 @@ import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.5/firebas
 
 import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-storage.js";
 
+import { getFunctions } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-functions.js";
+
+export const functions = getFunctions(app);
+
 const firebaseConfig = {
 
     apiKey: "AIzaSyC8R4_HTFbXATzv-OSclhVvJKdZfgB7JMk",
