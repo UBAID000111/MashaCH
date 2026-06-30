@@ -359,7 +359,7 @@ SUMMARY
 
 }
 
-#continueBtn{
+#placeOrderBtn{
 
     width:100%;
 
@@ -509,6 +509,22 @@ opacity:1;
     font-weight:700;
 
     cursor:pointer;
+
+}
+
+.selected-address{
+
+border:2px solid #16a34a;
+
+background:#f0fff4;
+
+}
+
+.selected-address .deliver-btn{
+
+background:#16a34a;
+
+color:#fff;
 
 }
 

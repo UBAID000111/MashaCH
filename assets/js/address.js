@@ -154,7 +154,7 @@ doc(db,"users",currentUser.uid),
 
 {
 
-defaultAddressId:ref.id
+selectedAddressId:ref.id
 
 }
 
@@ -184,7 +184,7 @@ doc(db,"users",currentUser.uid)
 
 const defaultId=userDoc.exists()
 
-?userDoc.data().defaultAddressId
+?userDoc.data().selectedAddressId
 
 :"";
 
@@ -399,7 +399,7 @@ doc(db,"users",currentUser.uid),
 
 {
 
-defaultAddressId:id
+selectedAddressId:id
 
 }
 
