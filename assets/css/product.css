@@ -1244,13 +1244,72 @@ transparent
 /* ==========================================
 BUTTONS
 ========================================== */
+.button-group{
+
+display:grid;
+
+grid-template-columns:1fr 1fr;
+
+gap:18px;
+
+margin-top:28px;
+
+}
+
 
 .add-cart,
 .buy-now{
 
-overflow:hidden;
+height:58px;
 
-position:relative;
+border:none;
+
+border-radius:16px;
+
+font-size:17px;
+
+font-weight:700;
+
+cursor:pointer;
+
+transition:.3s;
+}
+
+.add-cart{
+
+background:#fff;
+
+border:2px solid #cd104d;
+
+color:#cd104d;
+
+}
+
+.add-cart:hover{
+
+background:#cd104d;
+
+color:#fff;
+
+transform:translateY(-3px);
+
+box-shadow:0 12px 30px rgba(205,16,77,.25);
+
+}
+
+.buy-now{
+
+background:linear-gradient(135deg,#cd104d,#ef2e73);
+
+color:#fff;
+
+}
+
+.buy-now:hover{
+
+transform:translateY(-3px);
+
+box-shadow:0 12px 30px rgba(205,16,77,.30);
 
 }
 
@@ -1403,6 +1462,75 @@ border-radius:30px;
 ::-webkit-scrollbar-thumb:hover{
 
 background:#cd104d;
+
+}
+
+
+.quantity-box{
+
+display:flex;
+
+align-items:center;
+
+justify-content: space-between;
+
+width:170px;
+
+height:56px;
+
+border:2px solid #eee;
+
+border-radius:14px;
+
+overflow:hidden;
+
+margin:18px 0;
+
+}
+
+.quantity-box button{
+
+width:54px;
+
+height:100%;
+
+border:none;
+
+background:#fafafa;
+
+font-size:24px;
+
+cursor:pointer;
+
+font-weight:700;
+
+transition:.25s;
+
+}
+
+.quantity-box button:hover{
+
+background:#cd104d;
+
+color:#fff;
+
+}
+
+.quantity-box input{
+
+flex:1;
+
+width: 30px;
+
+border:none;
+
+text-align:center;
+
+font-size:18px;
+
+font-weight:700;
+
+background:#fff;
 
 }
 
@@ -1835,6 +1963,12 @@ font-size:13px;
 .size-chart td{
 
 padding:8px;
+
+}
+
+.button-group{
+
+display:none;
 
 }
     

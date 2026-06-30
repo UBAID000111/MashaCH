@@ -52,12 +52,35 @@ const thumbnailList = document.getElementById("thumbnailList");
 
 const stock = document.getElementById("stock");
 
+
+
 let productData;
 
 let currentUser = null;
 
 const wishlistBtn = document.getElementById("wishlistBtn");
 const mobileWishlist = document.getElementById("mobileWishlist");
+
+const mobileCart=document.querySelector(".mobile-cart");
+const mobileBuy=document.querySelector(".mobile-buy");
+
+mobileCart.onclick=()=>{
+
+document.getElementById("addCartBtn").click();
+
+};
+
+mobileBuy.onclick=()=>{
+
+document.querySelector(".buy-now").click();
+
+};
+
+mobileWishlist.onclick=()=>{
+
+document.getElementById("wishlistBtn").click();
+
+};
 
 /* ===========================
 LOAD PRODUCT
