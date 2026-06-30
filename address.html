@@ -6,34 +6,27 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Checkout | MashaCH</title>
+<title>Saved Addresses | MashaCH</title>
 
 <link rel="stylesheet" href="assets/css/navbar.css">
 <link rel="stylesheet" href="assets/css/footer.css">
-<link rel="stylesheet" href="assets/css/checkout.css">
-<link rel="stylesheet" href="assets/css/responsive.css">
-
+<link rel="stylesheet" href="assets/css/address.css">
+<link rel="link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
 
 </head>
 
 <body>
 
-<section class="checkout-page">
+<section class="address-page">
 
-<h1>Checkout</h1>
+<div class="page-header">
 
-<div class="checkout-grid">
+<h1>Saved Addresses</h1>
 
-<!-- LEFT -->
-
-<div class="checkout-left">
-
-<div class="section-card">
-
-<div class="section-header">
-
-<h2>Delivery Address</h2>
+<p>
+Manage your delivery addresses.
+</p>
 
 <button id="addAddressBtn">
 
@@ -51,61 +44,11 @@
 
 <h3>No Saved Address</h3>
 
-<p>Add your first delivery address.</p>
+<p>
 
-</div>
+Your saved addresses will appear here.
 
-</div>
-
-</div>
-
-</div>
-
-<!-- RIGHT -->
-
-<div class="checkout-right">
-
-<div class="summary-card">
-
-<h2>Order Summary</h2>
-
-<div id="checkoutItems">
-
-</div>
-
-<hr>
-
-<div class="summary-row">
-
-<span>Subtotal</span>
-
-<span id="subtotal">₹0</span>
-
-</div>
-
-<div class="summary-row">
-
-<span>Shipping</span>
-
-<span>FREE</span>
-
-</div>
-
-<div class="summary-row total">
-
-<span>Total</span>
-
-<span id="total">₹0</span>
-
-</div>
-
-<button id="continueBtn">
-
-Continue To Payment
-
-</button>
-
-</div>
+</p>
 
 </div>
 
@@ -113,7 +56,9 @@ Continue To Payment
 
 </section>
 
-<!-- ADDRESS MODAL -->
+<!-- ===========================
+ADD / EDIT ADDRESS MODAL
+=========================== -->
 
 <div id="addressModal" class="address-modal">
 
@@ -125,61 +70,79 @@ Continue To Payment
 
 </button>
 
-<h2>Add Address</h2>
+<h2 id="modalTitle">
+
+Add Address
+
+</h2>
 
 <form id="addressForm">
 
 <input
 id="fullName"
+type="text"
 placeholder="Full Name"
 required>
 
 <input
 id="phone"
+type="tel"
 placeholder="Mobile Number"
+maxlength="10"
 required>
 
 <input
 id="pincode"
+type="text"
+maxlength="6"
 placeholder="Pincode"
 required>
 
 <input
 id="house"
+type="text"
 placeholder="House / Flat / Building"
 required>
 
 <input
 id="area"
+type="text"
 placeholder="Area / Street"
 required>
 
 <input
 id="landmark"
-placeholder="Landmark">
+type="text"
+placeholder="Landmark (Optional)">
+
+<div class="two-grid">
 
 <input
 id="city"
+type="text"
 placeholder="City"
 required>
 
 <input
 id="state"
+type="text"
 placeholder="State"
 required>
 
+</div>
+
 <input
 id="country"
-placeholder="Country"
+type="text"
 value="India">
 
 <select id="addressType">
 
-<option>Home</option>
+<option value="Home">🏠 Home</option>
 
-<option>Office</option>
+<option value="Office">🏢 Office</option>
 
-<option>Other</option>
+<option value="Other">📍 Other</option>
 
 </select>
 
@@ -189,11 +152,13 @@ value="India">
 type="checkbox"
 id="defaultAddress">
 
-Set as Default Address
+Make this my default address
 
 </label>
 
-<button type="submit">
+<button
+type="submit"
+class="save-btn">
 
 Save Address
 
@@ -205,7 +170,49 @@ Save Address
 
 </div>
 
-<script type="module" src="assets/js/checkout.js"></script>
+<!-- ===========================
+DELETE CONFIRMATION
+=========================== -->
+
+<div id="deleteModal" class="delete-modal">
+
+<div class="delete-box">
+
+<h2>
+
+Delete Address?
+
+</h2>
+
+<p>
+
+This action cannot be undone.
+
+</p>
+
+<div class="delete-actions">
+
+<button
+id="cancelDelete">
+
+Cancel
+
+</button>
+
+<button
+id="confirmDelete">
+
+Delete
+
+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script type="module" src="assets/js/address.js"></script>
 
 </body>
 

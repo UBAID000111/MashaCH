@@ -179,8 +179,32 @@ loadCart(user.uid);
 
 };
 
-checkoutBtn.onclick=()=>{
+checkoutBtn.onclick = async () => {
 
-location.href="checkout.html";
+const user = auth.currentUser;
+
+if(!user){
+
+location.href="login.html";
+
+return;
+
+}
+
+const snap = await getDocs(
+
+collection(db,"users",user.uid,"cart")
+
+);
+
+if(snap.empty){
+
+alert("Your cart is empty.");
+
+return;
+
+}
+
+location.href = "checkout.html";
 
 };
