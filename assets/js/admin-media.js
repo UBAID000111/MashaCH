@@ -163,10 +163,11 @@ videoGrid.innerHTML+=`
 <video
 src="${video.url}"
 muted
+autoplay
 loop
 controls
 playsinline
-preload="none">
+preload="metadata">
 
 </video>
 
