@@ -85,7 +85,7 @@ muted
 loop
 autoplay
 playsinline
-preload="auto">
+preload="metadata">
 
 <source src="${video.url}" type="video/mp4">
 
@@ -181,7 +181,7 @@ muted
 
 loop
 
-preload="auto"
+preload="metadata"
 
 loading="lazy"
 

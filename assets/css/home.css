@@ -1248,6 +1248,10 @@ font-size:26px;
 
 }
 
+.footer-grid{
+    grid-template-columns:repeat(2,1fr);
+}
+
 
 }
 
