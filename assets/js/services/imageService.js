@@ -6,7 +6,7 @@ export function optimizeImage(url,width=500){
 
     return url.replace(
         "/upload/",
-        `/upload/f_auto,q_auto,dpr_auto,w_${width},c_fill/`
+        `/upload/f_auto,q_auto,dpr_auto,w_${width},c_limit/`
     );
 
 }

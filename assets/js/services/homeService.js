@@ -76,7 +76,7 @@ onclick="location.href='shop.html?category=${encodeURIComponent(category.name)}'
 loading="lazy"
 fetchpriority="high"
 decoding="async"
-src="${optimizeImage(category.image,600)}"
+src="${optimizeImage(category.image,400)}"
 alt="${category.name}">
 
 </div>
@@ -211,7 +211,7 @@ loading="lazy"
 
 decoding="async"
 
-src="${optimizeImage(variant.image,700)}"
+src="${optimizeImage(variant.image,500)}"
 
 alt="${product.name}">
 

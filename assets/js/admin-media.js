@@ -85,26 +85,23 @@ body:form
 
 const json=await res.json();
 
+// Optimize video URL
+const optimizedUrl = json.secure_url.replace(
+    "/upload/",
+    "/upload/f_auto,q_auto,vc_auto,w_720/"
+);
+
+
 await addDoc(
-
-collection(db,"media"),
-
-{
-
-title,
-
-url:json.secure_url,
-
-publicId:json.public_id,
-
-active:true,
-
-order:Date.now(),
-
-createdAt:serverTimestamp()
-
-}
-
+    collection(db,"media"),
+    {
+        title,
+        url: optimizedUrl,
+        publicId: json.public_id,
+        active: true,
+        order: Date.now(),
+        createdAt: serverTimestamp()
+    }
 );
 
 titleInput.value="";
@@ -167,7 +164,9 @@ videoGrid.innerHTML+=`
 src="${video.url}"
 muted
 loop
-controls>
+controls
+playsinline
+preload="none">
 
 </video>
 
