@@ -595,6 +595,8 @@ PLACE ORDER BUTTON
 
 const continueBtn = document.getElementById("continueBtn");
 
+if(continueBtn){
+
 continueBtn.onclick = async () => {
 
     if (!currentUser) {
@@ -623,3 +625,4 @@ continueBtn.onclick = async () => {
     location.href = "payment.html";
 
 };
+}
