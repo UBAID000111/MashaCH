@@ -1264,12 +1264,12 @@ font-size:26px;
 }
 
 .footer h3{
-    font-size:18px;
+    font-size:14px;
 }
 
 .footer a,
 .footer p{
-    font-size:14px;
+    font-size:8px;
     word-break:break-word;
 }
 
@@ -1332,12 +1332,12 @@ padding:8px 16px;
 }
 
 .footer h3{
-    font-size:18px;
+    font-size:14px;
 }
 
 .footer a,
 .footer p{
-    font-size:14px;
+    font-size:8px;
 }
 
 }
