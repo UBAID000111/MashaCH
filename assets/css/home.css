@@ -1251,10 +1251,27 @@ font-size:26px;
 }
 
 .footer{
-    width: 100%;
-    grid-template-columns:repeat(2,1fr);
+    width:100%;
+    padding:50px 20px 30px;
+    overflow:hidden;
 }
 
+.footer-grid{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:30px;
+    width:100%;
+}
+
+.footer h3{
+    font-size:18px;
+}
+
+.footer a,
+.footer p{
+    font-size:14px;
+    word-break:break-word;
+}
 
 }
 
@@ -1305,7 +1322,22 @@ padding:8px 16px;
 }
 
 .footer{
-    width: 100%;
+    padding:40px 16px 25px;
+    overflow:hidden;
+}
+
+.footer-grid{
+    grid-template-columns:1fr;
+    gap:28px;
+}
+
+.footer h3{
+    font-size:18px;
+}
+
+.footer a,
+.footer p{
+    font-size:14px;
 }
 
 }
