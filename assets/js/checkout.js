@@ -593,118 +593,33 @@ Quantity : ${item.quantity}
 PLACE ORDER BUTTON
 =========================== */
 
-const placeOrderBtn=document.getElementById("placeOrderBtn");
+const continueBtn = document.getElementById("continueBtn");
 
-if(placeOrderBtn){
+continueBtn.onclick = async () => {
 
-placeOrderBtn.onclick=async()=>{
+    if (!currentUser) {
+        location.href = "login.html";
+        return;
+    }
 
-if(!currentUser){
+    const userDoc = await getDoc(
+        doc(db, "users", currentUser.uid)
+    );
 
-location.href="login.html";
+    if (!userDoc.data()?.selectedAddressId) {
+        alert("Please select a delivery address.");
+        return;
+    }
 
-return;
+    const cartSnap = await getDocs(
+        collection(db, "users", currentUser.uid, "cart")
+    );
 
-}
+    if (cartSnap.empty) {
+        alert("Your cart is empty.");
+        return;
+    }
 
-const addressSnap=await getDoc(
-
-doc(db,"users",currentUser.uid)
-
-);
-
-const selectedAddressId=
-
-addressSnap.data()?.selectedAddressId;
-
-if(!selectedAddressId){
-
-alert("Please select a delivery address.");
-
-return;
-
-}
-
-const cartSnap=await getDocs(
-
-collection(db,"users",currentUser.uid,"cart")
-
-);
-
-if(cartSnap.empty){
-
-alert("Cart is empty.");
-
-return;
-
-}
-
-const items=[];
-
-cartSnap.forEach(d=>{
-
-items.push(d.data());
-
-});
-
-const addressDoc=await getDoc(
-
-doc(
-
-db,
-
-"users",
-
-currentUser.uid,
-
-"addresses",
-
-selectedAddressId
-
-)
-
-);
-
-await addDoc(
-
-collection(db,"orders"),
-
-{
-
-userId:currentUser.uid,
-
-email:currentUser.email,
-
-address:addressDoc.data(),
-
-items,
-
-subtotal,
-
-shipping:0,
-
-total:subtotal,
-
-status:"Pending",
-
-paymentStatus:"Pending",
-
-createdAt:serverTimestamp()
-
-}
-
-);
-
-for(const d of cartSnap.docs){
-
-await deleteDoc(d.ref);
-
-}
-
-alert("Order Placed Successfully");
-
-location.href="orders.html";
+    location.href = "payment.html";
 
 };
-
-}
