@@ -1248,7 +1248,8 @@ font-size:26px;
 
 }
 
-.footer-grid{
+.footer{
+    width: 100%;
     grid-template-columns:repeat(2,1fr);
 }
 
