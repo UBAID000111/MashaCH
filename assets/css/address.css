@@ -10,8 +10,13 @@ box-sizing:border-box;
 
 body{
 font-family:Poppins,sans-serif;
-background:#f6f7fb;
+background:linear-gradient(
+180deg,
+#fafafa 0%,
+#f3f4f8 100%
+);
 color:#222;
+overflow-x:hidden;
 }
 
 .address-page{
@@ -69,19 +74,36 @@ gap:25px;
 /* ===========================
 CARD
 =========================== */
-
 .address-card{
+
 background:#fff;
-border-radius:20px;
-padding:22px;
-box-shadow:0 10px 30px rgba(0,0,0,.07);
-border:2px solid transparent;
-transition:.3s;
+
+border-radius:24px;
+
+padding:24px;
+
+border:1px solid #ececec;
+
+box-shadow:
+0 15px 40px rgba(0,0,0,.06);
+
+transition:.35s;
+
+position:relative;
+
+overflow:hidden;
+
 }
 
 .address-card:hover{
-border-color:#C51D64;
-transform:translateY(-3px);
+
+transform:translateY(-6px);
+
+border-color:#B09246;
+
+box-shadow:
+0 22px 45px rgba(176,146,70,.18);
+
 }
 
 .address-top{
@@ -139,17 +161,53 @@ transition:.3s;
 }
 
 .deliver-btn{
-background:#8B0F45;
+
+background:linear-gradient(
+135deg,
+#9D8331,
+#B09246,
+#D4B26A
+);
+
 color:#fff;
+
+}
+
+.deliver-btn:hover{
+
+transform:translateY(-3px);
+
+box-shadow:
+0 12px 25px rgba(176,146,70,.35);
+
 }
 
 .edit-btn{
-background:#f2f2f2;
+
+background:#f6f6f6;
+
+color:#333;
+
+}
+
+.edit-btn:hover{
+
+background:#ececec;
+
 }
 
 .delete-btn{
-background:#ffe8e8;
-color:#d50000;
+
+background:#fff2f2;
+
+color:#c62828;
+
+}
+
+.delete-btn:hover{
+
+background:#ffdddd;
+
 }
 
 .default-btn{
@@ -207,15 +265,25 @@ display:flex;
 }
 
 .address-box{
+
 background:#fff;
+
 width:100%;
-max-width:650px;
-border-radius:20px;
-padding:30px;
-position:relative;
-max-height:90vh;
+
+max-width:700px;
+
+border-radius:28px;
+
+padding:35px;
+
+box-shadow:
+
+0 30px 70px rgba(0,0,0,.18);
+
+max-height:92vh;
+
 overflow-y:auto;
-animation:popup .25s ease;
+
 }
 
 @keyframes popup{
@@ -377,6 +445,17 @@ width:8px;
 .address-box::-webkit-scrollbar-thumb{
 background:#C51D64;
 border-radius:20px;
+}
+
+.selected-address{
+
+border:2px solid #B09246;
+
+background:#fffdf7;
+
+box-shadow:
+0 20px 40px rgba(176,146,70,.18);
+
 }
 
 /* ===========================

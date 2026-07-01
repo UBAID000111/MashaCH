@@ -43,7 +43,7 @@ collection(db,"users",uid,"cart")
 
 cartGrid.innerHTML = `
 <div class="cart-loading">
-    Loading your cart...
+    
 </div>
 `;
 

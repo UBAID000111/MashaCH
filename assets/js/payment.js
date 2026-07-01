@@ -51,9 +51,9 @@ async function loadAddress() {
         doc(db, "users", currentUser.uid)
     );
 
-    const defaultId = userSnap.data()?.defaultAddressId;
+    const selectedId = userSnap.data()?.selectedAddressId;
 
-    if (!defaultId) {
+    if (!selectedId) {
 
         addressBox.innerHTML = `
         <p>No address selected.</p>
@@ -64,7 +64,7 @@ async function loadAddress() {
     }
 
     const addressSnap = await getDoc(
-        doc(db, "users", currentUser.uid, "addresses", defaultId)
+        doc(db, "users", currentUser.uid, "addresses", selectedId)
     );
 
     if (!addressSnap.exists()) return;
