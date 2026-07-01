@@ -1772,6 +1772,12 @@ height:45px;
 
 }
 
+.hero{
+
+    object-fit: cover;
+    object-position: 20% center;
+}
+
 }
 
 /* Small Mobile */
