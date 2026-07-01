@@ -727,3 +727,20 @@ lastUpdated:serverTimestamp()
 );
 
 }
+
+const buyNowBtn = document.querySelector(".buy-now");
+buyNowBtn?.addEventListener("click", buyNow);
+async function buyNow() {
+
+    if (!currentUser) {
+
+        location.href = "login.html";
+        return;
+
+    }
+
+    await addToCart();
+
+    location.href = "checkout.html";
+
+}
