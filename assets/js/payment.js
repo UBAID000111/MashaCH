@@ -10,8 +10,11 @@ import {
 
 import {
     collection,
+    addDoc,
+    deleteDoc,
     getDocs,
     getDoc,
+    serverTimestamp,
     doc,
     query,
     where
@@ -177,6 +180,90 @@ async function loadCart() {
 
 }
 
+async function saveOrder(payment){
+
+    // Get selected address
+    const userDoc = await getDoc(
+        doc(db,"users",currentUser.uid)
+    );
+
+    const addressId = userDoc.data().selectedAddressId;
+
+    const addressSnap = await getDoc(
+        doc(
+            db,
+            "users",
+            currentUser.uid,
+            "addresses",
+            addressId
+        )
+    );
+
+    const address = addressSnap.data();
+
+    // Get cart
+    const cartSnap = await getDocs(
+        collection(
+            db,
+            "users",
+            currentUser.uid,
+            "cart"
+        )
+    );
+
+    const items=[];
+
+    cartSnap.forEach(doc=>{
+
+        items.push({
+
+            id:doc.id,
+
+            ...doc.data()
+
+        });
+
+    });
+
+    // Save Order
+    await addDoc(
+
+        collection(db,"orders"),
+
+        {
+
+            userId:currentUser.uid,
+
+            email:currentUser.email,
+
+            items,
+
+            address,
+
+            subtotal:grandTotal,
+
+            shipping:0,
+
+            total:grandTotal,
+
+            paymentId:
+            payment.razorpay_payment_id,
+
+            razorpayOrderId:
+            payment.razorpay_order_id,
+
+            paymentStatus:"Paid",
+
+            status:"Pending",
+
+            createdAt:serverTimestamp()
+
+        }
+
+    );
+
+}
+
 /* ===========================
 PAY NOW
 =========================== */
@@ -240,13 +327,27 @@ console.log("Function Response:", response.data);
 
             },
 
-            handler:function(payment){
+           handler:async function(payment){
 
-                console.log(payment);
+try{
 
-                alert("Payment Success");
+await saveOrder(payment);
 
-            }
+await clearCart();
+
+alert("Order Placed Successfully");
+
+location.href="my-orders.html";
+
+}catch(err){
+
+console.log(err);
+
+alert("Payment received but order could not be saved.");
+
+}
+
+}
 
         };
 
@@ -267,3 +368,32 @@ console.log("Function Response:", response.data);
     payBtn.innerHTML="🔒 Pay Securely";
 
 };
+
+async function clearCart(){
+
+    const snap = await getDocs(
+
+        collection(
+            db,
+            "users",
+            currentUser.uid,
+            "cart"
+        )
+
+    );
+
+    const promises=[];
+
+    snap.forEach(item=>{
+
+        promises.push(
+
+            deleteDoc(item.ref)
+
+        );
+
+    });
+
+    await Promise.all(promises);
+
+}
