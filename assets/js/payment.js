@@ -206,7 +206,7 @@ const response = await createOrder({
     receipt: "MCH_" + Date.now()
 });
 
-console.log(response.data);
+console.log("Function Response:", response.data);
 
         const order = response.data.order;
 
