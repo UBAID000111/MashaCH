@@ -609,6 +609,13 @@ const addCartBtn=document.getElementById("addCartBtn");
 addCartBtn?.addEventListener("click",addToCart);
 
 async function addToCart(){
+    try{
+
+if(addCartBtn.disabled) return;
+
+addCartBtn.disabled = true;
+
+addCartBtn.innerText = "Adding...";    
 
 if(!currentUser){
 
@@ -725,7 +732,13 @@ lastUpdated:serverTimestamp()
 {merge:true}
 
 );
+    }finally{
 
+addCartBtn.disabled = false;
+
+addCartBtn.innerText = "Add To Cart";
+
+}
 }
 
 const buyNowBtn = document.querySelector(".buy-now");
