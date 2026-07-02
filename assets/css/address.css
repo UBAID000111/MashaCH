@@ -464,6 +464,24 @@ RESPONSIVE
 
 @media(max-width:768px){
 
+    .address-modal{
+
+align-items:flex-start;
+
+padding:10px;
+
+}
+
+.address-content{
+
+max-height:95vh;
+
+padding:20px;
+
+border-radius:20px;
+
+}
+
 .address-page{
 padding:15px;
 margin:20px auto;
