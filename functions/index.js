@@ -1,34 +1,46 @@
-const {onCall, HttpsError} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
-
+const { onCall, HttpsError } = require("firebase-functions/v2/https");
 const admin = require("firebase-admin");
 const Razorpay = require("razorpay");
-// const crypto = require("crypto");
 
 admin.initializeApp();
 
-// const db = admin.firestore();
-
-/* ===========================
-RAZORPAY
-=========================== */
-
 const razorpay = new Razorpay({
-  key_id: "rzp_test_T8YP5dylO0fwGZ",
-  key_secret: "Dww3IUbiNsYcJz3weT1nmvQx",
+    key_id: "rzp_live_T8gJhOFIVYCxkz",
+    key_secret: "gk33923fxwep3XcBMNO2oy3v"
 });
 
-/* ===========================
-CREATE ORDER
-=========================== */
-
-
-
 exports.createOrder = onCall(async (request) => {
-  return {
-    success: true,
-    message: "Function is working",
-    data: request.data,
-    auth: request.auth || null
-  };
+
+    try {
+
+        const { amount, receipt } = request.data;
+
+        if (!amount) {
+            throw new HttpsError(
+                "invalid-argument",
+                "Amount is required"
+            );
+        }
+
+        const order = await razorpay.orders.create({
+            amount: amount * 100,
+            currency: "INR",
+            receipt: receipt || ("MCH_" + Date.now())
+        });
+
+        return {
+            order
+        };
+
+    } catch (err) {
+
+        console.error(err);
+
+        throw new HttpsError(
+            "internal",
+            err.message
+        );
+
+    }
+
 });

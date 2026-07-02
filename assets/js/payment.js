@@ -206,13 +206,13 @@ const response = await createOrder({
     receipt: "MCH_" + Date.now()
 });
 
-console.log("Callable Response:", response.data);
+console.log(response.data);
 
         const order = response.data.order;
 
         const options = {
 
-            key: "rzp_test_T8YP5dylO0fwGZ",
+            key: "rzp_live_T8gJhOFIVYCxkz",
 
             amount: order.amount,
 
