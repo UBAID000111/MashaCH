@@ -204,7 +204,7 @@ async function loadPage(title, file) {
 
         setActive("ordersBtn");
 
-        loadPage("Orders", "admin/orders.html");
+        loadPage("Orders", "admin-orders.html");
 
     };
 
