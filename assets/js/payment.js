@@ -210,7 +210,7 @@ console.log("Function Response:", response.data);
 
         const order = response.data.order;
 
-        console.log("Order:", order);
+        console.log("Order:", order.id);
 
         const options = {
 
