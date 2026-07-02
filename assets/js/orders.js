@@ -434,6 +434,166 @@ ${step.title}
 
 }
 
+
+/*=============================
+LOAD ORDERS
+=============================*/
+
+async function loadOrders(uid){
+
+loading.style.display="flex";
+
+container.innerHTML="";
+
+empty.style.display="none";
+
+try{
+
+const q=query(
+
+collection(db,"orders"),
+
+where("userId","==",uid),
+
+orderBy("createdAt","desc")
+
+);
+
+const snap=await getDocs(q);
+
+loading.style.display="none";
+
+if(snap.empty){
+
+empty.style.display="block";
+
+return;
+
+}
+
+allOrders=[];
+
+snap.forEach(doc=>{
+
+allOrders.push({
+
+id:doc.id,
+
+...doc.data()
+
+});
+
+});
+
+renderOrders(allOrders);
+
+}catch(err){
+
+console.log(err);
+
+loading.style.display="none";
+
+}
+
+}
+
+/*=============================
+RENDER ORDERS
+=============================*/
+
+function renderOrders(list){
+
+container.innerHTML="";
+
+list.forEach(order=>{
+
+container.innerHTML+=createCard(order);
+
+});
+
+}
+
+/*=============================
+STATUS CLASS
+=============================*/
+
+function statusClass(status){
+
+switch(status){
+
+case "Pending":
+return "status-pending";
+
+case "Confirmed":
+return "status-confirmed";
+
+case "Shipped":
+return "status-shipped";
+
+case "Out For Delivery":
+return "status-out";
+
+case "Delivered":
+return "status-delivered";
+
+case "Cancelled":
+return "status-cancelled";
+
+default:
+return "status-pending";
+
+}
+
+}
+
+/*=============================
+CANCEL ORDER
+=============================*/
+
+async function cancelOrder(id){
+
+try{
+
+await updateDoc(
+
+doc(db,"orders",id),
+
+{
+
+status:"Cancelled"
+
+}
+
+);
+
+const index=allOrders.findIndex(
+
+o=>o.id===id
+
+);
+
+if(index!==-1){
+
+allOrders[index].status="Cancelled";
+
+}
+
+renderOrders(allOrders);
+
+alert("Order Cancelled");
+
+}catch(err){
+
+console.log(err);
+
+alert("Unable to cancel order");
+
+}
+
+}
+
+
+
 /*==================================
 SEARCH
 ==================================*/
