@@ -210,6 +210,8 @@ console.log("Function Response:", response.data);
 
         const order = response.data.order;
 
+        console.log("Order:", order);
+
         const options = {
 
             key: "rzp_live_T8gJhOFIVYCxkz",
