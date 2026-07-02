@@ -114,8 +114,8 @@ async function loadPage(title, file) {
             await import("./admin-cart.js");
             break;
 
-        case "admin/orders.html":
-            await import("./orders.js");
+        case "admin-orders.html":
+            await import("./admin-orders.js");
             break;
 
         case "admin/customers.html":
