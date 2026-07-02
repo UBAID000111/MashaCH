@@ -190,24 +190,29 @@ payBtn.onclick = async () => {
 
     try{
 
+        console.log("Current User:", auth.currentUser);
+
+const token = await auth.currentUser?.getIdToken();
+
+console.log("ID Token:", token);
+
+
         const createOrder = httpsCallable(
             functions,
             "createOrder"
         );
+const response = await createOrder({
+    amount: grandTotal,
+    receipt: "MCH_" + Date.now()
+});
 
-        const response = await createOrder({
-
-            amount: grandTotal,
-
-            receipt: "MCH_" + Date.now()
-
-        });
+console.log("Callable Response:", response.data);
 
         const order = response.data.order;
 
         const options = {
 
-            key: "YOUR_RAZORPAY_KEY",
+            key: "rzp_test_T8YP5dylO0fwGZ",
 
             amount: order.amount,
 
