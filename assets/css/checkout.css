@@ -133,15 +133,19 @@ box-shadow:0 10px 25px rgba(0,0,0,.06);
 
 display:flex;
 
-gap:12px;
+gap:10px;
 
-margin-top:15px;
+width: 100%;
 
 }
 
 .coupon-input input{
 
 flex:1;
+
+min-width: 0;
+
+width: 100%;
 
 height:50px;
 
@@ -160,6 +164,8 @@ font-size:15px;
 width:120px;
 
 border:none;
+
+flex-shrink: 0;
 
 border-radius:12px;
 
@@ -830,6 +836,14 @@ width:100%;
 
 padding:20px;
 
+}
+
+.coupon-input{
+    flex-direction: column;
+}
+
+.coupon-input button{
+    width: 100%;
 }
 
 }
