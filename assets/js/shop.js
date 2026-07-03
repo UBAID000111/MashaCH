@@ -65,24 +65,7 @@ if(loadingProducts || finishedLoading) return;
 
 loadingProducts=true;
 
-productsGrid.innerHTML+=`
-
-<div class="product-loader"></div>
-<div class="product-loader"></div>
-<div class="product-loader"></div>
-<div class="product-loader"></div>
-
-`;
-
-const result=
-
-await getProductsPage(
-
-lastFirestoreDoc,
-
-24
-
-);
+const result=await getProductsPage(lastFirestoreDoc,24);
 
 lastFirestoreDoc=result.lastDoc;
 
@@ -90,11 +73,20 @@ finishedLoading=result.finished;
 
 allProducts.push(...result.products);
 
-filteredProducts=[...allProducts];
+/* Build Filters */
 
-productsGrid.innerHTML="";
+createCategoryFilter();
 
-renderProducts(filteredProducts);
+createSizeFilter();
+
+createColorFilter();
+
+document.getElementById("priceSelect")
+.onchange=applyFilters;
+
+/* Apply Filters */
+
+applyFilters();
 
 loadingProducts=false;
 
@@ -431,7 +423,6 @@ break;
 
 filteredProducts = products;
 
-currentPage = 1;
 
 renderProducts(filteredProducts);
 
@@ -718,3 +709,5 @@ await loadProducts();
 }
 
 });
+
+loadProducts();
