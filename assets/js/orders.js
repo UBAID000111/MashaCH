@@ -277,10 +277,8 @@ ${order.paymentId || "-"}
 <div class="order-footer-right">
 
 <button
-
 class="order-btn buy-btn"
-
-data-id="${item.productId || ""}">
+data-id="${item.productId}">
 
 Buy Again
 
@@ -294,12 +292,34 @@ orderStatus==="Pending"
 `
 
 <button
-
 class="order-btn cancel-btn"
-
 data-id="${order.id}">
 
 Cancel
+
+</button>
+
+`
+
+:
+
+""
+
+}
+
+${
+orderStatus==="Delivered"
+
+?
+
+`
+
+<button
+class="order-btn review-btn"
+data-order="${order.id}"
+data-product="${item.productId}">
+
+⭐ Rate Product
 
 </button>
 
@@ -667,6 +687,20 @@ if(e.target.classList.contains("invoice-btn")){
 const id=e.target.dataset.id;
 
 location.href=`invoice.html?id=${id}`;
+
+}
+
+/* Review */
+
+if(e.target.classList.contains("review-btn")){
+
+const orderId=e.target.dataset.order;
+
+const productId=e.target.dataset.product;
+
+location.href=
+
+`review.html?order=${orderId}&product=${productId}`;
 
 }
 
