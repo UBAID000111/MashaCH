@@ -122,8 +122,8 @@ async function loadPage(title, file) {
             await import("./customers.js");
             break;
 
-        case "admin/coupons.html":
-            await import("./coupons.js");
+        case "promotions.html":
+            await import("./promotions.js");
             break;
 
         case "admin/homepage.html":
@@ -246,13 +246,13 @@ async function loadPage(title, file) {
 
     // Coupons
 
-    document.getElementById("couponBtn").onclick = () => {
+    document.getElementById("promotionBtn").onclick = () => {
 
         closeMenu();
 
-        setActive("couponBtn");
+        setActive("promotionBtn");
 
-        loadPage("Coupons", "admin/coupons.html");
+        loadPage("Coupons", "promotions.html");
 
     };
 
