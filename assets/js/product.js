@@ -128,6 +128,18 @@ await loadReviews();
 loadProduct();
 
 /* ===========================
+IMAGE VIEWER
+=========================== */
+
+mainImage.addEventListener("click",(e)=>{
+
+e.stopPropagation();
+
+openImageViewer();
+
+});
+
+/* ===========================
 COLOR BUTTONS
 =========================== */
 
@@ -893,5 +905,77 @@ ${review.images.map(img=>`
 </div>
 
 `;
+
+}
+
+function openImageViewer(){
+
+const images=[];
+
+images.push(mainImage.src);
+
+document.querySelectorAll(".thumbnail-list img").forEach(img=>{
+
+images.push(img.src);
+
+});
+
+let index=0;
+
+const overlay=document.createElement("div");
+
+overlay.className="image-viewer";
+
+overlay.innerHTML=`
+
+<button class="viewer-close">✕</button>
+
+<button class="viewer-prev">❮</button>
+
+<img class="viewer-image" src="${images[0]}">
+
+<button class="viewer-next">❯</button>
+
+`;
+
+document.body.appendChild(overlay);
+
+const image=overlay.querySelector(".viewer-image");
+
+overlay.querySelector(".viewer-next").onclick=()=>{
+
+index++;
+
+if(index>=images.length) index=0;
+
+image.src=images[index];
+
+};
+
+overlay.querySelector(".viewer-prev").onclick=()=>{
+
+index--;
+
+if(index<0) index=images.length-1;
+
+image.src=images[index];
+
+};
+
+overlay.querySelector(".viewer-close").onclick=()=>{
+
+overlay.remove();
+
+};
+
+overlay.onclick=(e)=>{
+
+if(e.target===overlay){
+
+overlay.remove();
+
+}
+
+};
 
 }
