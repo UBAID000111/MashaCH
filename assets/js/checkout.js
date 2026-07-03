@@ -13,6 +13,7 @@ addDoc,
 updateDoc,
 deleteDoc,
 doc,
+increment,
 serverTimestamp
 
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
@@ -32,6 +33,14 @@ const closeBtn=document.getElementById("closeAddress");
 const form=document.getElementById("addressForm");
 
 const addressList=document.getElementById("addressList");
+
+const applyCouponBtn = document.getElementById("applyCouponBtn");
+const couponInput = document.getElementById("couponInput");
+const couponMessage = document.getElementById("couponMessage");
+const discountAmount = document.getElementById("discountAmount");
+
+let discount = 0;
+let appliedPromotion = null;
 
 /* ===========================
 GLOBAL
@@ -622,7 +631,120 @@ continueBtn.onclick = async () => {
         return;
     }
 
+    sessionStorage.setItem(
+    "promotion",
+    JSON.stringify(appliedPromotion)
+);
+
+sessionStorage.setItem(
+    "discount",
+    discount
+);
+
     location.href = "payment.html";
 
 };
 }
+
+applyCouponBtn.onclick = async () => {
+
+const code = couponInput.value.trim().toUpperCase();
+
+if (!code) {
+
+couponMessage.className = "error";
+couponMessage.textContent = "Enter coupon code.";
+return;
+
+}
+
+const snap = await getDoc(doc(db, "promotions", code));
+
+if (!snap.exists()) {
+
+couponMessage.className = "error";
+couponMessage.textContent = "Invalid coupon.";
+return;
+
+}
+
+const promo = snap.data();
+
+if (!promo.active) {
+
+couponMessage.className = "error";
+couponMessage.textContent = "Coupon is disabled.";
+return;
+
+}
+
+const now = new Date();
+
+if (promo.startsAt && promo.startsAt.toDate() > now) {
+
+couponMessage.className = "error";
+couponMessage.textContent = "Coupon has not started yet.";
+return;
+
+}
+
+if (promo.expiresAt && promo.expiresAt.toDate() < now) {
+
+couponMessage.className = "error";
+couponMessage.textContent = "Coupon has expired.";
+return;
+
+}
+
+if (grandTotal < promo.minimumOrder) {
+
+couponMessage.className = "error";
+couponMessage.textContent =
+`Minimum order ₹${promo.minimumOrder}`;
+
+return;
+
+}
+
+if (promo.usageLimit > 0 && promo.used >= promo.usageLimit) {
+
+couponMessage.className = "error";
+couponMessage.textContent = "Coupon usage limit reached.";
+
+return;
+
+}
+
+discount = 0;
+
+if (promo.discountType == "percent") {
+
+discount = grandTotal * promo.discountValue / 100;
+
+if (promo.maximumDiscount > 0) {
+
+discount = Math.min(
+discount,
+promo.maximumDiscount
+);
+
+}
+
+} else {
+
+discount = promo.discountValue;
+
+}
+
+appliedPromotion = promo;
+
+discountAmount.innerHTML = `-₹${discount.toFixed(0)}`;
+
+totalEl.innerHTML = `₹${(grandTotal - discount).toFixed(0)}`;
+
+couponMessage.className = "success";
+couponMessage.innerHTML =
+
+`🎉 ${promo.code} Applied Successfully`;
+
+};

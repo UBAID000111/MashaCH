@@ -14,6 +14,8 @@ import {
     deleteDoc,
     getDocs,
     getDoc,
+    updateDoc,
+    increment,
     serverTimestamp,
     doc,
     query,
@@ -28,6 +30,23 @@ const payBtn = document.getElementById("payNowBtn");
 
 let currentUser = null;
 let grandTotal = 0;
+let discount = 0;
+
+let appliedPromotion = null;
+
+const savedPromotion = sessionStorage.getItem("promotion");
+
+if(savedPromotion){
+
+    appliedPromotion = JSON.parse(savedPromotion);
+
+}
+
+discount = Number(
+
+    sessionStorage.getItem("discount") || 0
+
+);
 
 onAuthStateChanged(auth, async user => {
 
@@ -176,7 +195,7 @@ async function loadCart() {
 
     subtotalEl.textContent = `₹${grandTotal}`;
 
-    totalEl.textContent = `₹${grandTotal}`;
+    totalEl.textContent = `₹${grandTotal - discount}`;
 
 }
 
@@ -240,11 +259,23 @@ async function saveOrder(payment){
 
             address,
 
-            subtotal:grandTotal,
+            subtotal: grandTotal,
 
-            shipping:0,
+discount: discount,
 
-            total:grandTotal,
+shipping: 0,
+
+total: grandTotal - discount,
+
+promotion: appliedPromotion
+?{
+    code: appliedPromotion.code,
+    type: appliedPromotion.type,
+    discountType: appliedPromotion.discountType,
+    discountValue: appliedPromotion.discountValue,
+    discount: discount
+}
+:null,
 
             paymentId:
             payment.razorpay_payment_id,
@@ -332,6 +363,22 @@ console.log("Function Response:", response.data);
 try{
 
 await saveOrder(payment);
+
+if(appliedPromotion){
+
+    await updateDoc(
+
+        doc(db,"promotions",appliedPromotion.code),
+
+        {
+
+            used: increment(1)
+
+        }
+
+    );
+
+}
 
 await clearCart();
 
