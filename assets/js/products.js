@@ -58,7 +58,7 @@ let variantCount=0;
 CLOUDINARY
 =========================== */
 
-const CLOUD_NAME="dsg1xbls";
+const CLOUD_NAME="denwuj9ai";
 
 const UPLOAD_PRESET="MashaCH";
 

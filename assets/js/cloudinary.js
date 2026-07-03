@@ -1,3 +1,3 @@
-export const CLOUD_NAME = "dsg1xbls";
+export const CLOUD_NAME = "denwuj9ai";
 
 export const UPLOAD_PRESET = "MashaCH";
