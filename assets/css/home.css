@@ -53,6 +53,38 @@ scroll-behavior:smooth;
 
 }
 
+.rating{
+
+display:flex;
+
+align-items:center;
+
+gap:6px;
+
+font-size:14px;
+
+font-weight:600;
+
+color:#444;
+
+}
+
+.rating span{
+
+color:#777;
+
+font-weight:500;
+
+}
+
+.no-rating{
+
+color:#999;
+
+font-style:italic;
+
+}
+
 body{
 
 font-family:'Poppins',sans-serif;

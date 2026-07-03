@@ -1800,7 +1800,7 @@ top:14px;
 
 left:14px;
 
-width:80px;
+width:100px;
 
 height:35px;
 
@@ -2064,7 +2064,7 @@ font-size:28px;
 
 .back-btn{
 
-width:40px;
+width:80px;
 
 height:40px;
 
@@ -2074,7 +2074,7 @@ font-size:18px;
 
 }
 
-@media(max-width:768px0){
+@media(max-width:768px){
 
    .accordion-item summary{
 

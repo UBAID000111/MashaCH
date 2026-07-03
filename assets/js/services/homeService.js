@@ -191,7 +191,9 @@ oldPrice > price
 
 :0;
 
-const rating=(product.rating || 4.8).toFixed(1);
+const rating = Number(product.rating || 0).toFixed(1);
+
+const totalReviews = Number(product.totalReviews || 0);
 
 return `
 
@@ -257,15 +259,15 @@ ${product.name}
 
 </h3>
 
-<div class="product-rating">
+<div class="rating">
 
-★★★★★
-
-<span>
-
-${rating}
-
-</span>
+${
+totalReviews > 0
+?
+`⭐ ${rating} <span>(${totalReviews} Reviews)</span>`
+:
+`<span class="no-rating">No Reviews Yet</span>`
+}
 
 </div>
 
