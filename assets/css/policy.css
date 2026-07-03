@@ -1,0 +1,51 @@
+body{
+margin:0;
+font-family:Poppins,sans-serif;
+background:#f7f7f7;
+color:#333;
+line-height:1.8;
+}
+
+.policy-page{
+max-width:1000px;
+margin:40px auto;
+background:#fff;
+padding:40px;
+border-radius:20px;
+box-shadow:0 10px 30px rgba(0,0,0,.08);
+}
+
+.policy-page h1{
+text-align:center;
+color:#8B0F45;
+margin-bottom:10px;
+}
+
+.updated{
+text-align:center;
+color:#777;
+margin-bottom:40px;
+}
+
+.policy-page h2{
+margin-top:35px;
+color:#8B0F45;
+}
+
+.policy-page ul,
+.policy-page ol{
+padding-left:22px;
+}
+
+.policy-page li{
+margin:10px 0;
+}
+
+@media(max-width:768px){
+
+.policy-page{
+margin:20px 12px;
+padding:22px;
+}
+
+}
