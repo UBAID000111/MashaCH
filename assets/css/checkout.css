@@ -115,6 +115,86 @@ margin:0;
 
 }
 
+.coupon-section{
+
+margin:25px 0;
+
+padding:20px;
+
+background:#fff;
+
+border-radius:16px;
+
+box-shadow:0 10px 25px rgba(0,0,0,.06);
+
+}
+
+.coupon-input{
+
+display:flex;
+
+gap:12px;
+
+margin-top:15px;
+
+}
+
+.coupon-input input{
+
+flex:1;
+
+height:50px;
+
+padding:0 16px;
+
+border:1px solid #ddd;
+
+border-radius:12px;
+
+font-size:15px;
+
+}
+
+.coupon-input button{
+
+width:120px;
+
+border:none;
+
+border-radius:12px;
+
+background:#8B0F45;
+
+color:white;
+
+font-weight:600;
+
+cursor:pointer;
+
+}
+
+#couponMessage{
+
+margin-top:12px;
+
+font-size:14px;
+
+font-weight:600;
+
+}
+
+.success{
+
+color:#16A34A;
+
+}
+
+.error{
+
+color:#DC2626;
+
+}
+
 .section-header h2{
 
     margin:0;
