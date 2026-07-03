@@ -1692,6 +1692,11 @@ PREMIUM MOBILE
 
 @media(max-width:768px){
 
+
+.back-btn{
+    width: 50px;
+}
+
 .product-section{
 
 padding:0 0 95px;
