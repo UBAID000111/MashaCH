@@ -325,8 +325,10 @@ console.log("ID Token:", token);
             functions,
             "createOrder"
         );
+
+const payableAmount = grandTotal - discount;        
 const response = await createOrder({
-    amount: grandTotal,
+    amount: payableAmount,
     receipt: "MCH_" + Date.now()
 });
 
