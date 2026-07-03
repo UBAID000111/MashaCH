@@ -26,6 +26,10 @@ const addressBox = document.getElementById("selectedAddress");
 const itemsBox = document.getElementById("paymentItems");
 const subtotalEl = document.getElementById("subtotal");
 const totalEl = document.getElementById("total");
+
+const discountRow =
+document.getElementById("discountRow");
+
 const payBtn = document.getElementById("payNowBtn");
 
 let currentUser = null;
@@ -195,7 +199,9 @@ async function loadCart() {
 
     subtotalEl.textContent = `₹${grandTotal}`;
 
-    totalEl.textContent = `₹${grandTotal - discount}`;
+discountRow.textContent = `-₹${discount}`;
+
+totalEl.textContent = `₹${grandTotal-discount}`;
 
 }
 
