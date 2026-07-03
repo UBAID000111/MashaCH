@@ -4,7 +4,11 @@ import {
     collection,
     getDocs,
     doc,
-    getDoc
+    getDoc,
+    query,
+    orderBy,
+    limit,
+    startAfter
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const CACHE_KEY = "mashach_products";
@@ -223,5 +227,69 @@ export function clearProductCache(){
     localStorage.removeItem(CACHE_KEY);
 
     localStorage.removeItem(CACHE_TIME);
+
+}
+
+/* ===========================
+GET PRODUCTS PAGE
+=========================== */
+
+export async function getProductsPage(lastDoc = null, pageSize = 24){
+
+    let q;
+
+    if(lastDoc){
+
+        q = query(
+
+            collection(db,"products"),
+
+            orderBy("createdAt","desc"),
+
+            startAfter(lastDoc),
+
+            limit(pageSize)
+
+        );
+
+    }else{
+
+        q = query(
+
+            collection(db,"products"),
+
+            orderBy("createdAt","desc"),
+
+            limit(pageSize)
+
+        );
+
+    }
+
+    const snap = await getDocs(q);
+
+    const products=[];
+
+    snap.forEach(docSnap=>{
+
+        products.push({
+
+            id:docSnap.id,
+
+            ...docSnap.data()
+
+        });
+
+    });
+
+    return{
+
+        products,
+
+        lastDoc:snap.docs[snap.docs.length-1] || null,
+
+        finished:snap.docs.length<pageSize
+
+    };
 
 }

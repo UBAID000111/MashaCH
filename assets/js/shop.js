@@ -1,6 +1,8 @@
 import { db } from "../firebase/firebase-config.js";
 
-import { getProducts } from "./services/productService.js";
+import {
+getProductsPage
+} from "./services/productService.js";
 
 import { optimizeImage } from "./services/imageService.js";
 
@@ -43,13 +45,15 @@ shopTitle.innerText=selectedCategory;
 GLOBAL VARIABLES
 ========================================== */
 
-let allProducts = [];
+let allProducts=[];
 
-let filteredProducts = [];
+let filteredProducts=[];
 
-let currentPage = 1;
+let lastFirestoreDoc=null;
 
-const PRODUCTS_PER_PAGE = 24;
+let loadingProducts=false;
+
+let finishedLoading=false;
 
 /* ==========================================
 LOAD PRODUCTS
@@ -57,12 +61,12 @@ LOAD PRODUCTS
 
 async function loadProducts(){
 
-productsGrid.innerHTML=`
+if(loadingProducts || finishedLoading) return;
 
-console.log(productsGrid.innerHTML);
+loadingProducts=true;
 
-<div class="product-loader"></div>
-<div class="product-loader"></div>
+productsGrid.innerHTML+=`
+
 <div class="product-loader"></div>
 <div class="product-loader"></div>
 <div class="product-loader"></div>
@@ -70,30 +74,31 @@ console.log(productsGrid.innerHTML);
 
 `;
 
-allProducts=[];
+const result=
 
-allProducts = await getProducts();
+await getProductsPage(
+
+lastFirestoreDoc,
+
+24
+
+);
+
+lastFirestoreDoc=result.lastDoc;
+
+finishedLoading=result.finished;
+
+allProducts.push(...result.products);
 
 filteredProducts=[...allProducts];
 
-/* Build Filters */
+productsGrid.innerHTML="";
 
-createCategoryFilter();
+renderProducts(filteredProducts);
 
-createSizeFilter();
-
-createColorFilter();
-
-document.getElementById("priceSelect")
-.addEventListener("change",applyFilters);
-
-/* Render Products */
-
-applyFilters();
+loadingProducts=false;
 
 }
-
-loadProducts();
 
 /* ==========================================
 RENDER PRODUCTS
@@ -105,9 +110,7 @@ function renderProducts(products){
 
 productsGrid.innerHTML = "";
 
-const end = currentPage * PRODUCTS_PER_PAGE;
 
-const visibleProducts = products.slice(0, end);
 
 productsGrid.innerHTML="";
 
@@ -129,7 +132,7 @@ return;
 
 console.log(products);
 
-visibleProducts.forEach(product=>{
+products.forEach(product=>{
 
 console.log(product.name, product.category);
 
@@ -696,32 +699,22 @@ INFINITE SCROLL
 
 let loadingMore = false;
 
-window.addEventListener("scroll", () => {
+window.addEventListener("scroll",async()=>{
 
-    if (loadingMore) return;
+if(
 
-    if (
-        window.innerHeight + window.scrollY >=
-        document.body.offsetHeight - 500
-    ) {
+window.innerHeight+
 
-        if (
-            currentPage * PRODUCTS_PER_PAGE >=
-            filteredProducts.length
-        ) {
+window.scrollY
 
-            return;
+>=
 
-        }
+document.body.offsetHeight-400
 
-        loadingMore = true;
+){
 
-        currentPage++;
+await loadProducts();
 
-        renderProducts(filteredProducts);
-
-        loadingMore = false;
-
-    }
+}
 
 });
