@@ -696,7 +696,7 @@ return;
 
 }
 
-if (grandTotal < promo.minimumOrder) {
+if (subtotal < promo.minimumOrder) {
 
 couponMessage.className = "error";
 couponMessage.textContent =
@@ -719,7 +719,7 @@ discount = 0;
 
 if (promo.discountType == "percent") {
 
-discount = grandTotal * promo.discountValue / 100;
+discount = subtotal * promo.discountValue / 100;
 
 if (promo.maximumDiscount > 0) {
 
@@ -740,7 +740,7 @@ appliedPromotion = promo;
 
 discountAmount.innerHTML = `-₹${discount.toFixed(0)}`;
 
-totalEl.innerHTML = `₹${(grandTotal - discount).toFixed(0)}`;
+totalEl.innerHTML = `₹${(subtotal - discount).toFixed(0)}`;
 
 couponMessage.className = "success";
 couponMessage.innerHTML =
