@@ -65,6 +65,8 @@ const stock = document.getElementById("stock");
 
 
 let productData;
+let galleryImages = [];
+let currentImageIndex = 0;
 
 let currentUser = null;
 
@@ -131,13 +133,16 @@ loadProduct();
 IMAGE VIEWER
 =========================== */
 
-mainImage.addEventListener("click",(e)=>{
+mainImage.onclick = function(e){
+
+e.preventDefault();
 
 e.stopPropagation();
 
 openImageViewer();
 
-});
+};
+mainImage.style.cursor="zoom-in";
 
 /* ===========================
 COLOR BUTTONS
@@ -313,32 +318,27 @@ GALLERY
 
 function loadGallery(variant){
 
-thumbnailList.innerHTML="";
+galleryImages = [variant.image, ...variant.gallery];
 
-thumbnailList.innerHTML+=`
+thumbnailList.innerHTML = "";
 
-<img
-src="${optimizeImage(variant.image,150)}"
-class="active"
-onclick="changeMainImage(this,'${variant.image}')">
+galleryImages.forEach((img,index)=>{
 
-`;
-
-variant.gallery.forEach(img=>{
-
-thumbnailList.innerHTML+=`
+thumbnailList.innerHTML += `
 
 <img
 src="${optimizeImage(img,150)}"
-onclick="changeMainImage(this,'${img}')">
+class="${index===0?"active":""}"
+onclick="changeMainImage(this,${index})">
 
 `;
 
 });
 
-document.getElementById("imageCount").innerText=
+currentImageIndex = 0;
 
-`1 / ${variant.gallery.length+1}`;
+document.getElementById("imageCount").innerText =
+`1 / ${galleryImages.length}`;
 
 }
 
@@ -346,7 +346,9 @@ document.getElementById("imageCount").innerText=
 MAIN IMAGE
 =========================== */
 
-window.changeMainImage=function(el,image){
+window.changeMainImage=function(el,index){
+
+currentImageIndex=index;
 
 imageLoader.style.display="block";
 
@@ -360,30 +362,18 @@ mainImage.style.display="block";
 
 };
 
-mainImage.src = optimizeImage(
-    image,
-    900
-);
+mainImage.src=optimizeImage(galleryImages[index],1200);
 
-document.querySelectorAll(".thumbnail-list img").forEach(img=>{
-
-img.classList.remove("active");
-
-});
+document
+.querySelectorAll(".thumbnail-list img")
+.forEach(img=>img.classList.remove("active"));
 
 el.classList.add("active");
 
-/* Image Counter */
-
-const images=[...document.querySelectorAll(".thumbnail-list img")];
-
-const current=images.indexOf(el)+1;
-
 document.getElementById("imageCount").innerText=
+`${index+1} / ${galleryImages.length}`;
 
-`${current} / ${images.length}`;
-
-};
+}
 
 
 
@@ -910,31 +900,23 @@ ${review.images.map(img=>`
 
 function openImageViewer(){
 
-const images=[];
-
-images.push(mainImage.src);
-
-document.querySelectorAll(".thumbnail-list img").forEach(img=>{
-
-images.push(img.src);
-
-});
-
-let index=0;
-
 const overlay=document.createElement("div");
 
 overlay.className="image-viewer";
 
 overlay.innerHTML=`
 
+<div class="viewer-wrapper">
+
 <button class="viewer-close">✕</button>
 
 <button class="viewer-prev">❮</button>
 
-<img class="viewer-image" src="${images[0]}">
+<img class="viewer-image">
 
 <button class="viewer-next">❯</button>
+
+</div>
 
 `;
 
@@ -942,23 +924,36 @@ document.body.appendChild(overlay);
 
 const image=overlay.querySelector(".viewer-image");
 
+function show(){
+
+image.src=optimizeImage(
+galleryImages[currentImageIndex],
+1600
+);
+
+}
+
+show();
+
 overlay.querySelector(".viewer-next").onclick=()=>{
 
-index++;
+currentImageIndex++;
 
-if(index>=images.length) index=0;
+if(currentImageIndex>=galleryImages.length)
+currentImageIndex=0;
 
-image.src=images[index];
+show();
 
 };
 
 overlay.querySelector(".viewer-prev").onclick=()=>{
 
-index--;
+currentImageIndex--;
 
-if(index<0) index=images.length-1;
+if(currentImageIndex<0)
+currentImageIndex=galleryImages.length-1;
 
-image.src=images[index];
+show();
 
 };
 
@@ -968,11 +963,29 @@ overlay.remove();
 
 };
 
-overlay.onclick=(e)=>{
+overlay.addEventListener("click",(e)=>{
 
 if(e.target===overlay){
 
 overlay.remove();
+
+}
+
+});
+
+document.onkeydown=(e)=>{
+
+if(e.key==="ArrowRight")
+overlay.querySelector(".viewer-next").click();
+
+if(e.key==="ArrowLeft")
+overlay.querySelector(".viewer-prev").click();
+
+if(e.key==="Escape"){
+
+overlay.remove();
+
+document.onkeydown=null;
 
 }
 
