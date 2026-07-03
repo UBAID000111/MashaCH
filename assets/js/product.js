@@ -9,6 +9,10 @@ import { showToast } from "./services/toastService.js";
 import {
 doc,
 getDoc,
+collection,
+query,
+where,
+getDocs,
 setDoc,
 deleteDoc,
 serverTimestamp
@@ -29,6 +33,12 @@ GET PRODUCT ID
 const params = new URLSearchParams(window.location.search);
 
 const productId = params.get("id");
+
+const avgRating=document.getElementById("avgRating");
+
+const totalReviews=document.getElementById("totalReviews");
+
+const reviewsContainer=document.getElementById("reviewsContainer");
 
 /* ===========================
 DOM
@@ -111,6 +121,7 @@ productDescription.innerText = productData.description;
 loadVariant(0);
 
 loadColorButtons();
+await loadReviews();
 
 }
 
@@ -599,7 +610,7 @@ minusBtn.onclick = () => {
 
 import {
 
-collection,
+
 addDoc
 
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
@@ -755,5 +766,132 @@ async function buyNow() {
     await addToCart();
 
     location.href = "checkout.html";
+
+}
+
+async function loadReviews(){
+
+const q=query(
+
+collection(db,"reviews"),
+
+where("productId","==",productId)
+
+);
+
+const snap=await getDocs(q);
+
+reviewsContainer.innerHTML="";
+
+let total=0;
+
+snap.forEach(docSnap=>{
+
+const review=docSnap.data();
+
+total+=review.rating;
+
+reviewsContainer.innerHTML+=createReviewCard(review);
+
+});
+
+const count=snap.size;
+
+const average=count
+
+? (total/count).toFixed(1)
+
+: "0.0";
+
+avgRating.textContent=average;
+
+totalReviews.textContent=count;
+
+}
+
+function createReviewCard(review){
+
+const stars="★★★★★".slice(0,review.rating);
+
+return `
+
+<div class="review-card">
+
+<div class="review-top">
+
+<div class="review-user">
+
+<img
+
+src="${
+review.userPhoto ||
+
+"assets/images/user.png"
+}"
+
+alt="">
+
+<div>
+
+<h3>${review.userName}</h3>
+
+<div class="verified">
+
+✔ Verified Purchase
+
+</div>
+
+</div>
+
+</div>
+
+<div class="review-stars">
+
+${stars}
+
+</div>
+
+</div>
+
+<h4>
+
+${review.title || ""}
+
+</h4>
+
+<p>
+
+${review.review || ""}
+
+</p>
+
+${
+review.images?.length
+
+?
+
+`
+
+<div class="review-images">
+
+${review.images.map(img=>`
+
+<img src="${img}">
+
+`).join("")}
+
+</div>
+
+`
+
+:
+
+""
+
+}
+
+</div>
+
+`;
 
 }
