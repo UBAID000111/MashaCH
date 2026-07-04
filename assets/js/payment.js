@@ -372,7 +372,15 @@ try{
 
 await saveOrder(payment);
 
-await updateProductStock();
+try{
+
+    await updateProductStock();
+
+}catch(err){
+
+    console.error("Stock Error:", err);
+
+}
 
 if(appliedPromotion){
 
