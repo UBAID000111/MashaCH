@@ -183,6 +183,13 @@ product.variants.every(v => Number(v.stock) <= 0);
 
 if(!variant) return "";
 
+const totalStock = variant.sizes.reduce(
+    (sum, size) => sum + Number(size.stock || 0),
+    0
+);
+
+const outOfStock = totalStock <= 0;
+
 const oldPrice = Number(variant.oldPrice || variant.price);
 const price = Number(variant.price);
 
@@ -247,6 +254,18 @@ discount>0 ?
 
 :""
 
+}
+
+${
+    outOfStock
+    ?
+    `
+    <div class="stock-badge">
+    Out of Stock
+    </div>
+    `
+    :
+    ""
 }
 
 <button
@@ -329,9 +348,9 @@ Out Of Stock
 `
 <button
 class="add-cart-btn"
-data-id="${product.id}">
-
-Add To Cart
+data-id="${product.id}"
+${outOfStock ? "disabled" : ""}>
+${outOfStock ? "Out of Stock" : "Add to Cart"}
 
 </button>
 `
