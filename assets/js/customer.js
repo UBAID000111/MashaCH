@@ -4,7 +4,8 @@ import{
 collection,
 getDocs,
 query,
-orderBy
+orderBy,
+where
 }from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 /* ===========================
@@ -296,5 +297,208 @@ customers.filter(c=>
 )
 
 );
+
+};
+
+/* ===========================
+CUSTOMER DETAILS
+=========================== */
+
+const modal=document.getElementById("customerModal");
+
+const closeBtn=document.getElementById("closeCustomer");
+
+const modalName=document.getElementById("modalName");
+const modalEmail=document.getElementById("modalEmail");
+const modalPhone=document.getElementById("modalPhone");
+const modalPhoto=document.getElementById("customerPhoto");
+
+const modalOrders=document.getElementById("modalOrders");
+const modalSpent=document.getElementById("modalSpent");
+const modalWishlist=document.getElementById("modalWishlist");
+const modalCart=document.getElementById("modalCart");
+const modalReviews=document.getElementById("modalReviews");
+const modalJoined=document.getElementById("modalJoined");
+
+const customerOrders=document.getElementById("customerOrders");
+
+/* ===========================
+VIEW CUSTOMER
+=========================== */
+
+window.viewCustomer=async(uid)=>{
+
+const customer=customers.find(c=>c.id===uid);
+
+if(!customer) return;
+
+modal.classList.add("active");
+
+modalName.textContent=customer.name||"Customer";
+
+modalEmail.textContent=customer.email||"-";
+
+modalPhone.textContent=customer.phone||"-";
+
+modalPhoto.src=
+customer.photoURL||
+"assets/images/user.png";
+
+modalOrders.textContent=customer.orders;
+
+modalSpent.textContent=
+"₹"+customer.spent.toLocaleString("en-IN");
+
+modalReviews.textContent=customer.reviews;
+
+modalJoined.textContent=
+customer.createdAt?.toDate()
+.toLocaleDateString("en-IN")||"-";
+
+/* Wishlist */
+
+const wishlistSnap=await getDocs(
+
+collection(
+db,
+"users",
+uid,
+"wishlist"
+)
+
+);
+
+modalWishlist.textContent=wishlistSnap.size;
+
+/* Cart */
+
+const cartSnap=await getDocs(
+
+collection(
+db,
+"users",
+uid,
+"cart"
+)
+
+);
+
+modalCart.textContent=cartSnap.size;
+
+/* Orders */
+
+const orderSnap=await getDocs(
+
+query(
+
+collection(db,"orders"),
+
+where("userId","==",uid)
+
+)
+
+);
+
+customerOrders.innerHTML="";
+
+if(orderSnap.empty){
+
+customerOrders.innerHTML=`
+
+<div class="empty-orders">
+
+No Orders Found
+
+</div>
+
+`;
+
+return;
+
+}
+
+orderSnap.forEach(doc=>{
+
+const order=doc.data();
+
+const item=order.items?.[0]||{};
+
+const date=
+order.createdAt?.toDate()
+.toLocaleDateString("en-IN")||"-";
+
+customerOrders.innerHTML+=`
+
+<div class="customer-order">
+
+<div>
+
+<h3>
+
+${item.productName||"Product"}
+
+</h3>
+
+<p>
+
+${date}
+
+</p>
+
+</div>
+
+<div>
+
+<strong>
+
+₹${order.total}
+
+</strong>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+};
+
+/* ===========================
+BUTTON EVENTS
+=========================== */
+
+document.addEventListener("click",(e)=>{
+
+if(
+
+e.target.classList.contains("view-btn")
+
+){
+
+viewCustomer(
+
+e.target.dataset.id
+
+);
+
+}
+
+});
+
+closeBtn.onclick=()=>{
+
+modal.classList.remove("active");
+
+};
+
+modal.onclick=(e)=>{
+
+if(e.target===modal){
+
+modal.classList.remove("active");
+
+}
 
 };
