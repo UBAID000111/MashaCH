@@ -672,7 +672,7 @@ plusBtn.onclick = () => {
 
     if(quantity >= availableStock){
 
-        toast(`Only ${availableStock} item(s) available.`);
+        showToast(`Only ${availableStock} item(s) available.`);
 
         return;
 
