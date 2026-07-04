@@ -485,39 +485,39 @@ async function updateProductStock(){
 
         const variants = product.variants || [];
 
-        const index = item.variantIndex;
+        const variant = variants[item.variantIndex];
 
-        if(
-            variants[index] &&
-            variants[index].stock > 0
-        ){
+        if(!variant) continue;
 
-                console.log("Updating:", item.productId);
+        const size = variant.sizes.find(
 
-console.log("Variant:", item.variantIndex);
+            s => s.name === item.selectedSize
 
-console.log("Qty:", item.quantity);
+        );
 
-console.log("Old Stock:", variants[index].stock);
+        if(size){
 
-variants[index].stock = Math.max(
-    0,
-    variants[index].stock - item.quantity
-);
+            size.stock = Math.max(
 
-console.log("New Stock:", variants[index].stock);
+                0,
 
+                size.stock - item.quantity
+
+            );
 
         }
 
         await updateDoc(productRef,{
+
             variants
+
         });
 
     }
-localStorage.removeItem("mashach_products");
-localStorage.removeItem("mashach_products_time");
 
+    localStorage.removeItem("mashach_products");
+
+    localStorage.removeItem("mashach_products_time");
 
 }
 

@@ -267,7 +267,9 @@ Save ₹${saving}
 const addCartBtn = document.getElementById("addCartBtn");
 const buyNowBtn = document.querySelector(".buy-now");
 
-if(variant.stock <= 0){
+const firstSize = variant.sizes[0];
+
+if(firstSize.stock <= 0){
 
     stock.innerHTML = `
     <span style="
@@ -288,7 +290,7 @@ if(variant.stock <= 0){
     <span style="
     color:#16a34a;
     font-weight:700;">
-    ${variant.stock} Available
+   ${firstSize.stock} Available
     </span>`;
 
     addCartBtn.disabled = false;
@@ -308,46 +310,70 @@ loadGallery(variant);
 /* ===========================
 SIZES
 =========================== */
-
 function loadSizes(variant){
 
-    sizeList.innerHTML="";
+sizeList.innerHTML="";
 
-    variant.sizes.forEach((size,index)=>{
+variant.sizes.forEach((size,index)=>{
 
-        const btn=document.createElement("button");
+const btn=document.createElement("button");
 
-        btn.type="button";
+btn.type="button";
 
-if(variant.stock<=0){
+btn.className="size-btn";
 
-    btn.disabled=true;
+btn.innerText=size.name;
+
+if(size.stock<=0){
+
+btn.disabled=true;
+
+btn.classList.add("out-of-stock");
 
 }
 
-        btn.className="size-btn";
+if(index===0 && size.stock>0){
 
-        btn.innerText=size;
+btn.classList.add("active");
 
-        if(index===0){
-            btn.classList.add("active");
-        }
+stock.innerHTML=`
+<span style="color:#16a34a;font-weight:700;">
+${size.stock} Available
+</span>`;
 
-        btn.addEventListener("click",()=>{
+}
 
-            document.querySelectorAll(".size-btn").forEach(b=>{
+btn.onclick=()=>{
 
-                b.classList.remove("active");
+document.querySelectorAll(".size-btn").forEach(b=>{
 
-            });
+b.classList.remove("active");
 
-            btn.classList.add("active");
+});
 
-        });
+btn.classList.add("active");
 
-        sizeList.appendChild(btn);
+if(size.stock<=0){
 
-    });
+stock.innerHTML=`
+<span style="color:#dc2626;font-weight:700;">
+Out of Stock
+</span>`;
+
+}else{
+
+stock.innerHTML=`
+<span style="color:#16a34a;font-weight:700;">
+${size.stock} Available
+</span>`;
+
+}
+
+};
+
+sizeList.appendChild(btn);
+
+});
 
 }
 
@@ -671,7 +697,19 @@ document.querySelector(".color-dot.active")
 const variant =
 productData.variants[variantIndex];
 
-if(variant.stock<=0){
+const selectedSize =
+
+document.querySelector(".size-btn.active")?.innerText;
+
+const sizeData=
+
+variant.sizes.find(
+
+s=>s.name===selectedSize
+
+);
+
+if(!sizeData || sizeData.stock<=0){
 
 showToast("Product is Out of Stock");
 
@@ -761,7 +799,10 @@ selectedColor:variant.color,
 
 variantIndex,
 
-stock:variant.stock,
+sizeStock:
+variant.sizes.find(
+s=>s.name===size
+)?.stock || 0,
 
 createdAt:serverTimestamp()
 
@@ -821,7 +862,21 @@ document.querySelector(".color-dot.active")
 ?.dataset.index || 0
 );
 
-if(productData.variants[variantIndex].stock<=0){
+const selectedSize=
+
+document.querySelector(".size-btn.active")?.innerText;
+
+const sizeData=
+
+productData.variants[variantIndex]
+
+.sizes.find(
+
+s=>s.name===selectedSize
+
+);
+
+if(!sizeData || sizeData.stock<=0){
 
 showToast("Product is Out of Stock");
 

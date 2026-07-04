@@ -284,6 +284,18 @@ transform:translateX(-4px);
 /* ==========================================
 FLOATING ACTIONS
 ========================================== */
+.size-btn.out-of-stock{
+
+opacity:.45;
+
+cursor:not-allowed;
+
+background:#ececec;
+
+text-decoration:line-through;
+
+}
+
 
 .product-floating{
 

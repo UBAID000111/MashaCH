@@ -16,6 +16,72 @@
 
 }
 
+.size-stock-grid{
+
+display:grid;
+
+grid-template-columns:repeat(2,1fr);
+
+gap:15px;
+
+margin-top:20px;
+
+}
+
+.size-stock-item{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:12px;
+
+border:1px solid #ddd;
+
+border-radius:10px;
+
+background:#fff;
+
+}
+
+.size-stock-item label{
+
+display:flex;
+
+align-items:center;
+
+gap:8px;
+
+font-weight:600;
+
+}
+
+.sizeStock{
+
+width:90px;
+
+padding:8px;
+
+border:1px solid #ccc;
+
+border-radius:8px;
+
+text-align:center;
+
+}
+
+@media(max-width:768px){
+
+.size-stock-grid{
+
+grid-template-columns:1fr;
+
+}
+
+}
+
 .section-header{
 
     display:flex;
@@ -742,16 +808,7 @@ placeholder="2499">
 
 </div>
 
-<div class="form-group">
 
-<label>Stock *</label>
-
-<input
-type="number"
-class="variantStock"
-placeholder="20">
-
-</div>
 
 <div class="form-group">
 
@@ -768,30 +825,58 @@ placeholder="PK001-BLK">
 
 <hr>
 
-<h4>Available Sizes</h4>
+<h4>Available Sizes & Stock</h4>
 
-<div class="checkbox-grid">
+<div class="size-stock-grid">
 
-<label><input type="checkbox" class="variantSize" value="Free Size"> Free Size</label>    
+<div class="size-stock-item">
+<label><input type="checkbox" class="variantSize" value="Free Size"> Free Size</label>
+<input type="number" class="sizeStock" data-size="Free Size" placeholder="Stock">
+</div>
 
+<div class="size-stock-item">
 <label><input type="checkbox" class="variantSize" value="XS"> XS</label>
+<input type="number" class="sizeStock" data-size="XS" placeholder="Stock">
+</div>
 
+<div class="size-stock-item">
 <label><input type="checkbox" class="variantSize" value="S"> S</label>
+<input type="number" class="sizeStock" data-size="S" placeholder="Stock">
+</div>
 
+<div class="size-stock-item">
 <label><input type="checkbox" class="variantSize" value="M"> M</label>
+<input type="number" class="sizeStock" data-size="M" placeholder="Stock">
+</div>
 
+<div class="size-stock-item">
 <label><input type="checkbox" class="variantSize" value="L"> L</label>
+<input type="number" class="sizeStock" data-size="L" placeholder="Stock">
+</div>
 
+<div class="size-stock-item">
 <label><input type="checkbox" class="variantSize" value="XL"> XL</label>
+<input type="number" class="sizeStock" data-size="XL" placeholder="Stock">
+</div>
 
+<div class="size-stock-item">
 <label><input type="checkbox" class="variantSize" value="XXL"> XXL</label>
+<input type="number" class="sizeStock" data-size="XXL" placeholder="Stock">
+</div>
 
+<div class="size-stock-item">
 <label><input type="checkbox" class="variantSize" value="3XL"> 3XL</label>
+<input type="number" class="sizeStock" data-size="3XL" placeholder="Stock">
+</div>
 
+<div class="size-stock-item">
 <label><input type="checkbox" class="variantSize" value="4XL"> 4XL</label>
+<input type="number" class="sizeStock" data-size="4XL" placeholder="Stock">
+</div>
 
+<div class="size-stock-item">
 <label><input type="checkbox" class="variantSize" value="5XL"> 5XL</label>
-
+<input type="number" class="sizeStock" data-size="5XL" placeholder="Stock">
 </div>
 
 <hr>

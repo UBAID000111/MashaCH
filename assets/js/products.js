@@ -156,9 +156,7 @@ card.querySelector(".variantOldPrice").value=
 
 data.oldPrice || "";
 
-card.querySelector(".variantStock").value=
 
-data.stock || "";
 
 card.querySelector(".variantSku").value=
 
@@ -166,13 +164,27 @@ data.sku || "";
 
 if(data.sizes){
 
-card.querySelectorAll(".variantSize")
+data.sizes.forEach(size=>{
 
-.forEach(box=>{
+const checkbox = card.querySelector(
+`.variantSize[value="${size.name}"]`
+);
 
-if(data.sizes.includes(box.value))
+const stockInput = card.querySelector(
+`.sizeStock[data-size="${size.name}"]`
+);
 
-box.checked=true;
+if(checkbox){
+
+checkbox.checked = true;
+
+}
+
+if(stockInput){
+
+stockInput.value = size.stock;
+
+}
 
 });
 
@@ -276,9 +288,27 @@ gallery.push(await uploadImage(file));
 
 const sizes=[];
 
-card.querySelectorAll(".variantSize:checked").forEach(size=>{
+card.querySelectorAll(".variantSize").forEach(box=>{
 
-sizes.push(size.value);
+if(box.checked){
+
+const stock = Number(
+
+card.querySelector(
+`.sizeStock[data-size="${box.value}"]`
+).value || 0
+
+);
+
+sizes.push({
+
+name:box.value,
+
+stock
+
+});
+
+}
 
 });
 
@@ -295,8 +325,6 @@ hex:card.querySelector(".variantHex").value
 price:Number(card.querySelector(".variantPrice").value),
 
 oldPrice:Number(card.querySelector(".variantOldPrice").value),
-
-stock:Number(card.querySelector(".variantStock").value),
 
 sku:card.querySelector(".variantSku").value.trim(),
 

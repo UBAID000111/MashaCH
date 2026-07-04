@@ -574,7 +574,7 @@ ${item.selectedColor?.name || ""}
 
 |
 
-Size ${item.selectedSize}
+Size : <strong>${item.selectedSize}</strong>
 
 </p>
 
