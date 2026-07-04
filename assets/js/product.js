@@ -68,6 +68,8 @@ let productData;
 let galleryImages = [];
 let currentImageIndex = 0;
 
+let currentVariantIndex = 0;
+
 let currentUser = null;
 
 const wishlistBtn = document.getElementById("wishlistBtn");
@@ -197,6 +199,8 @@ LOAD VARIANT
 =========================== */
 
 function loadVariant(index){
+
+    currentVariantIndex = index;
 
 const variant = productData.variants[index];
 
@@ -661,7 +665,7 @@ plusBtn.onclick = () => {
         document.querySelector(".size-btn.active")?.innerText;
 
     const sizeData =
-        productData.variants[currentVariant]
+        productData.variants[currentVariantIndex]
         .sizes.find(s => s.name === selectedSize);
 
     const availableStock = sizeData?.stock || 0;
