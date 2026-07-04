@@ -155,7 +155,7 @@ background:#1FAE55;
 @media(max-width:768px){
 
 .contact-card{
-height: 300px;
+object-fit: contain;
 
 grid-template-columns:1fr;
 
