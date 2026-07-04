@@ -153,6 +153,52 @@ box-shadow:
 
 }
 
+.out-stock-card{
+
+opacity:.75;
+
+}
+
+.out-stock-badge{
+
+position:absolute;
+
+top:12px;
+
+left:12px;
+
+background:#dc2626;
+
+color:#fff;
+
+padding:8px 14px;
+
+font-size:12px;
+
+font-weight:700;
+
+border-radius:8px;
+
+z-index:10;
+
+letter-spacing:.5px;
+
+}
+
+.out-stock-btn{
+
+background:#999 !important;
+
+cursor:not-allowed;
+
+}
+
+.out-stock-card img{
+
+filter:grayscale(.35);
+
+}
+
 /* ==========================================
 LEFT
 ========================================== */

@@ -372,6 +372,8 @@ try{
 
 await saveOrder(payment);
 
+await updateProductStock();
+
 if(appliedPromotion){
 
     await updateDoc(
@@ -423,6 +425,60 @@ alert("Payment received but order could not be saved.");
     payBtn.innerHTML="🔒 Pay Securely";
 
 };
+
+
+async function updateProductStock(){
+
+    const cartSnap = await getDocs(
+
+        collection(
+            db,
+            "users",
+            currentUser.uid,
+            "cart"
+        )
+
+    );
+
+    for(const cartDoc of cartSnap.docs){
+
+        const item = cartDoc.data();
+
+        const productRef = doc(
+            db,
+            "products",
+            item.productId
+        );
+
+        const productSnap = await getDoc(productRef);
+
+        if(!productSnap.exists()) continue;
+
+        const product = productSnap.data();
+
+        const variants = product.variants || [];
+
+        const index = item.variantIndex;
+
+        if(
+            variants[index] &&
+            variants[index].stock > 0
+        ){
+
+            variants[index].stock = Math.max(
+                0,
+                variants[index].stock - item.quantity
+            );
+
+        }
+
+        await updateDoc(productRef,{
+            variants
+        });
+
+    }
+
+}
 
 async function clearCart(){
 

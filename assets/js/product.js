@@ -264,7 +264,40 @@ Save ₹${saving}
 
 }
 
-stock.innerText = variant.stock+" Available";
+const addCartBtn = document.getElementById("addCartBtn");
+const buyNowBtn = document.querySelector(".buy-now");
+
+if(variant.stock <= 0){
+
+    stock.innerHTML = `
+    <span style="
+    color:#dc2626;
+    font-weight:700;">
+    ❌ Out of Stock
+    </span>`;
+
+    addCartBtn.disabled = true;
+    buyNowBtn.disabled = true;
+
+    addCartBtn.innerText = "OUT OF STOCK";
+    buyNowBtn.innerText = "OUT OF STOCK";
+
+}else{
+
+    stock.innerHTML = `
+    <span style="
+    color:#16a34a;
+    font-weight:700;">
+    ${variant.stock} Available
+    </span>`;
+
+    addCartBtn.disabled = false;
+    buyNowBtn.disabled = false;
+
+    addCartBtn.innerText = "Add To Cart";
+    buyNowBtn.innerText = "Buy Now";
+
+}
 
 loadSizes(variant);
 
@@ -285,6 +318,12 @@ function loadSizes(variant){
         const btn=document.createElement("button");
 
         btn.type="button";
+
+if(variant.stock<=0){
+
+    btn.disabled=true;
+
+}
 
         btn.className="size-btn";
 
@@ -622,6 +661,24 @@ const addCartBtn=document.getElementById("addCartBtn");
 addCartBtn?.addEventListener("click",addToCart);
 
 async function addToCart(){
+
+    const variantIndex =
+Number(
+document.querySelector(".color-dot.active")
+?.dataset.index || 0
+);
+
+const variant =
+productData.variants[variantIndex];
+
+if(variant.stock<=0){
+
+showToast("Product is Out of Stock");
+
+return;
+
+}
+
     try{
 
 if(addCartBtn.disabled) return;
@@ -757,6 +814,20 @@ addCartBtn.innerText = "Add To Cart";
 const buyNowBtn = document.querySelector(".buy-now");
 buyNowBtn?.addEventListener("click", buyNow);
 async function buyNow() {
+
+    const variantIndex =
+Number(
+document.querySelector(".color-dot.active")
+?.dataset.index || 0
+);
+
+if(productData.variants[variantIndex].stock<=0){
+
+showToast("Product is Out of Stock");
+
+return;
+
+}
 
     if (!currentUser) {
 

@@ -178,6 +178,9 @@ function renderProductCard(product){
 
 const variant = product.variants?.[0];
 
+const allOutOfStock =
+product.variants.every(v => Number(v.stock) <= 0);
+
 if(!variant) return "";
 
 const oldPrice = Number(variant.oldPrice || variant.price);
@@ -199,7 +202,7 @@ return `
 
 <div class="swiper-slide">
 
-<div class="product-card">
+<div class="product-card ${allOutOfStock ? "out-stock-card" : ""}">
 
 
 
@@ -216,6 +219,20 @@ decoding="async"
 src="${optimizeImage(variant.image,500)}"
 
 alt="${product.name}">
+
+${
+allOutOfStock
+?
+`
+<div class="out-stock-badge">
+
+OUT OF STOCK
+
+</div>
+`
+:
+""
+}
 
 </a>
 
@@ -296,15 +313,29 @@ oldPrice>price ?
 
 <div class="product-actions">
 
+${
+allOutOfStock
+?
+`
 <button
+class="add-cart-btn out-stock-btn"
+disabled>
 
+Out Of Stock
+
+</button>
+`
+:
+`
+<button
 class="add-cart-btn"
-
 data-id="${product.id}">
 
 Add To Cart
 
 </button>
+`
+}
 
 <button
 
@@ -433,6 +464,12 @@ function initProductButtons(){
 document.querySelectorAll(".add-cart-btn").forEach(btn=>{
 
 btn.onclick=()=>{
+
+if(btn.disabled){
+
+return;
+
+}
 
 location.href=`product.html?id=${btn.dataset.id}`;
 
