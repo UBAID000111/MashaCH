@@ -52,6 +52,8 @@ border-radius:25px;
 
 padding:35px;
 
+margin-bottom: 10px;
+
 box-shadow:0 20px 45px rgba(0,0,0,.08);
 
 }
@@ -62,25 +64,7 @@ text-align:center;
 
 }
 
-.profile img{
 
-width:170px;
-
-height:170px;
-
-border-radius:50%;
-
-object-fit:cover;
-
-border:6px solid #B8860B;
-
-}
-
-.profile h2{
-
-margin:20px 0 10px;
-
-}
 
 .phone{
 
@@ -116,7 +100,7 @@ gap:18px;
 
 width:100%;
 
-padding:16px;
+padding:20px;
 
 border-radius:14px;
 
@@ -161,14 +145,6 @@ background:#1FAE55;
 .contact-card{
 
 grid-template-columns:1fr;
-
-}
-
-.profile img{
-
-width:140px;
-
-height:140px;
 
 }
 
