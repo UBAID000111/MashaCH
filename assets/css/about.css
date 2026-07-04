@@ -209,6 +209,15 @@ grid-template-columns:1fr;
 
 }
 
+@media(max-width:768px){
+    .about-image{
+        height: 300px;
+          object-fit: cover;
+    }
+
+  
+}
+
 @media(max-width:480px){
 
 .about-section{
