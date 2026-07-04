@@ -657,9 +657,26 @@ let quantity = 1;
 
 plusBtn.onclick = () => {
 
+    const selectedSize =
+        document.querySelector(".size-btn.active")?.innerText;
+
+    const sizeData =
+        productData.variants[currentVariant]
+        .sizes.find(s => s.name === selectedSize);
+
+    const availableStock = sizeData?.stock || 0;
+
+    if(quantity >= availableStock){
+
+        alert(`Only ${availableStock} item(s) available.`);
+
+        return;
+
+    }
+
     quantity++;
 
-    qtyInput.value = quantity;
+    quantityInput.value = quantity;
 
 };
 
