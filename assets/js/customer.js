@@ -120,12 +120,14 @@ document.getElementById("activeCustomers").textContent=activeCustomers;
 document.getElementById("totalRevenue").textContent=
 "₹"+totalRevenue.toLocaleString("en-IN");
 
-document.getElementById("averageOrder").textContent=
-customers.length
-?
-"₹"+Math.round(totalRevenue/customers.length).toLocaleString("en-IN")
-:
-"₹0";
+
+
+const totalOrders = orderSnap.size;
+
+document.getElementById("averageOrder").textContent =
+totalOrders
+? "₹"+Math.round(totalRevenue/totalOrders).toLocaleString("en-IN")
+: "₹0";
 
 render(customers);
 
@@ -311,7 +313,7 @@ const closeBtn=document.getElementById("closeCustomer");
 const modalName=document.getElementById("modalName");
 const modalEmail=document.getElementById("modalEmail");
 const modalPhone=document.getElementById("modalPhone");
-const modalPhoto=document.getElementById("customerPhoto");
+
 
 const modalOrders=document.getElementById("modalOrders");
 const modalSpent=document.getElementById("modalSpent");
@@ -340,9 +342,6 @@ modalEmail.textContent=customer.email||"-";
 
 modalPhone.textContent=customer.phone||"-";
 
-modalPhoto.src=
-customer.photoURL||
-"assets/images/user.png";
 
 modalOrders.textContent=customer.orders;
 
