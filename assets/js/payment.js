@@ -27,6 +27,12 @@ const itemsBox = document.getElementById("paymentItems");
 const subtotalEl = document.getElementById("subtotal");
 const totalEl = document.getElementById("total");
 
+const processing =
+document.getElementById("paymentProcessing");
+
+const processingStep =
+document.getElementById("processingStep");
+
 const discountRow =
 document.getElementById("discountRow");
 
@@ -366,51 +372,64 @@ console.log("Function Response:", response.data);
 
             },
 
-           handler:async function(payment){
+        handler: async function(payment){
 
-try{
+    try{
 
-await saveOrder(payment);
+        processing.classList.add("active");
 
-try{
+        payBtn.disabled = true;
 
-    await updateProductStock();
+        processingStep.innerText = "Saving your order...";
 
-}catch(err){
+        await saveOrder(payment);
 
-    console.error("Stock Error:", err);
+        processingStep.innerText = "Updating inventory...";
 
-}
+        await updateProductStock();
 
-if(appliedPromotion){
+        if(appliedPromotion){
 
-    await updateDoc(
+            processingStep.innerText = "Applying coupon...";
 
-        doc(db,"promotions",appliedPromotion.code),
+            await updateDoc(
 
-        {
+                doc(db,"promotions",appliedPromotion.code),
 
-            used: increment(1)
+                {
+                    used: increment(1)
+                }
+
+            );
 
         }
 
-    );
+        processingStep.innerText = "Cleaning your cart...";
 
-}
+        await clearCart();
 
-await clearCart();
+        processingStep.innerText = "Redirecting...";
 
-alert("Order Placed Successfully");
+        sessionStorage.removeItem("promotion");
+        sessionStorage.removeItem("discount");
 
-location.href="my-orders.html";
+        window.location.replace("my-orders.html");
 
-}catch(err){
+    }catch(err){
 
-console.log(err);
+        console.error(err);
 
-alert("Payment received but order could not be saved.");
+        processing.classList.remove("active");
 
-}
+        payBtn.disabled = false;
+
+        payBtn.innerHTML = "🔒 Pay Securely";
+
+        alert("Payment received but order could not be saved.");
+
+    }
+
+
 
 }
 
@@ -473,10 +492,21 @@ async function updateProductStock(){
             variants[index].stock > 0
         ){
 
-            variants[index].stock = Math.max(
-                0,
-                variants[index].stock - item.quantity
-            );
+                console.log("Updating:", item.productId);
+
+console.log("Variant:", item.variantIndex);
+
+console.log("Qty:", item.quantity);
+
+console.log("Old Stock:", variants[index].stock);
+
+variants[index].stock = Math.max(
+    0,
+    variants[index].stock - item.quantity
+);
+
+console.log("New Stock:", variants[index].stock);
+
 
         }
 
@@ -485,8 +515,12 @@ async function updateProductStock(){
         });
 
     }
+localStorage.removeItem("mashach_products");
+localStorage.removeItem("mashach_products_time");
+
 
 }
+
 
 async function clearCart(){
 
