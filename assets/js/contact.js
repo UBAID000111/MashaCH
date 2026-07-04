@@ -31,7 +31,7 @@ const text =
 
 window.open(
 
-`https://wa.me/919999950919?text=${text}`,
+`https://wa.me/917827407735?text=${text}`,
 
 "_blank"
 
