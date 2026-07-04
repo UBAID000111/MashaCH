@@ -680,7 +680,7 @@ plusBtn.onclick = () => {
 
     quantity++;
 
-    quantityInput.value = quantity;
+    qtyInput.value = quantity;
 
 };
 
