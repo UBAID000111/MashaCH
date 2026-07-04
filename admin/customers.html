@@ -1,5 +1,341 @@
-<section class="content">
+<!DOCTYPE html>
+<html lang="en">
+<head>
 
-<h2>Customers</h2>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-</section>
+<title>Customers | Masha Wear Admin</title>
+
+<link rel="stylesheet" href="assets/css/customer.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="customers-page">
+
+    <!-- ===========================
+    HEADER
+    =========================== -->
+
+    <div class="customers-header">
+
+        <div>
+
+            <h1>Customers</h1>
+
+            <p>
+                View all registered customers and their shopping activity.
+            </p>
+
+        </div>
+
+        <button id="refreshCustomers">
+
+            <i class="fa-solid fa-rotate"></i>
+
+            Refresh
+
+        </button>
+
+    </div>
+
+    <!-- ===========================
+    STATS
+    =========================== -->
+
+    <section class="customer-stats">
+
+        <div class="stat-card">
+
+            <h2 id="totalCustomers">0</h2>
+
+            <p>Total Customers</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h2 id="activeCustomers">0</h2>
+
+            <p>Active Customers</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h2 id="totalRevenue">₹0</h2>
+
+            <p>Total Revenue</p>
+
+        </div>
+
+        <div class="stat-card">
+
+            <h2 id="averageOrder">₹0</h2>
+
+            <p>Average Order</p>
+
+        </div>
+
+    </section>
+
+    <!-- ===========================
+    SEARCH
+    =========================== -->
+
+    <div class="customer-toolbar">
+
+        <div class="search-box">
+
+            <i class="fa-solid fa-search"></i>
+
+            <input
+            type="text"
+            id="customerSearch"
+            placeholder="Search customer...">
+
+        </div>
+
+        <select id="customerSort">
+
+            <option value="newest">
+                Newest
+            </option>
+
+            <option value="orders">
+                Most Orders
+            </option>
+
+            <option value="spent">
+                Highest Spending
+            </option>
+
+            <option value="name">
+                Name A-Z
+            </option>
+
+        </select>
+
+    </div>
+
+    <!-- ===========================
+    DESKTOP TABLE
+    =========================== -->
+
+    <div class="customer-table">
+
+        <table>
+
+            <thead>
+
+                <tr>
+
+                    <th>Customer</th>
+
+                    <th>Email</th>
+
+                    <th>Phone</th>
+
+                    <th>Orders</th>
+
+                    <th>Spent</th>
+
+                    <th>Joined</th>
+
+                    <th>Action</th>
+
+                </tr>
+
+            </thead>
+
+            <tbody id="customerTable">
+
+            </tbody>
+
+        </table>
+
+    </div>
+
+    <!-- ===========================
+    MOBILE
+    =========================== -->
+
+    <div
+    id="mobileCustomerList"
+    class="mobile-customer-list">
+
+    </div>
+
+</div>
+
+<!-- ===========================
+CUSTOMER DETAILS MODAL
+=========================== -->
+
+<div
+id="customerModal"
+class="customer-modal">
+
+<div class="customer-box">
+
+<button id="closeCustomer">
+
+×
+
+</button>
+
+<div class="customer-top">
+
+
+
+<div>
+
+<h2 id="modalName">
+
+Customer
+
+</h2>
+
+<p id="modalEmail">
+
+email@email.com
+
+</p>
+
+<p id="modalPhone">
+
+-
+
+</p>
+
+</div>
+
+</div>
+
+<div class="customer-grid">
+
+<div class="info-card">
+
+<h3>
+
+Orders
+
+</h3>
+
+<h2 id="modalOrders">
+
+0
+
+</h2>
+
+</div>
+
+<div class="info-card">
+
+<h3>
+
+Spent
+
+</h3>
+
+<h2 id="modalSpent">
+
+₹0
+
+</h2>
+
+</div>
+
+<div class="info-card">
+
+<h3>
+
+Wishlist
+
+</h3>
+
+<h2 id="modalWishlist">
+
+0
+
+</h2>
+
+</div>
+
+<div class="info-card">
+
+<h3>
+
+Cart
+
+</h3>
+
+<h2 id="modalCart">
+
+0
+
+</h2>
+
+</div>
+
+<div class="info-card">
+
+<h3>
+
+Reviews
+
+</h3>
+
+<h2 id="modalReviews">
+
+0
+
+</h2>
+
+</div>
+
+<div class="info-card">
+
+<h3>
+
+Joined
+
+</h3>
+
+<h2 id="modalJoined">
+
+-
+
+</h2>
+
+</div>
+
+</div>
+
+<h3 class="section-title">
+
+Recent Orders
+
+</h3>
+
+<div id="customerOrders">
+
+</div>
+
+</div>
+
+</div>
+
+<script
+type="module"
+src="assets/js/customers.js">
+
+</script>
+
+</body>
+</html>

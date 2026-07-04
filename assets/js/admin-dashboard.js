@@ -93,6 +93,10 @@ async function loadPage(title, file) {
 
     switch(file){
 
+        case "admin/dashboard.html":
+            await import("./dashboard.js");
+            break;
+
         case "admin/products.html":
             await import("./products.js");
             break;
@@ -119,7 +123,7 @@ async function loadPage(title, file) {
             break;
 
         case "admin/customers.html":
-            await import("./customers.js");
+            await import("./customer.js");
             break;
 
         case "promotions.html":
