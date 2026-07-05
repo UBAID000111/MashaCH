@@ -339,33 +339,7 @@ placeholder="Search Product">
 
 <div class="table-wrapper">
 
-<table>
 
-<thead>
-
-<tr>
-
-<th>Image</th>
-
-<th>Product</th>
-
-<th>Views</th>
-
-<th>Cart</th>
-
-<th>Wishlist</th>
-
-<th>Orders</th>
-
-<th>Revenue</th>
-
-<th>Avg Time</th>
-
-<th>Conversion</th>
-
-</tr>
-
-</thead>
 
 <div class="section-card">
 
@@ -377,6 +351,40 @@ placeholder="Search Product">
 type="text"
 id="productAnalyticsSearch"
 placeholder="Search Product">
+
+</div>
+
+<div class="analytics-cards small">
+
+<div class="analytics-card">
+<h3 id="bestSellerProduct">-</h3>
+<p>🏆 Best Seller</p>
+</div>
+
+<div class="analytics-card">
+<h3 id="highestRevenueProduct">-</h3>
+<p>💰 Highest Revenue</p>
+</div>
+
+<div class="analytics-card">
+<h3 id="mostViewedProduct">-</h3>
+<p>👀 Most Viewed</p>
+</div>
+
+<div class="analytics-card">
+<h3 id="mostWishlistedProduct">-</h3>
+<p>❤️ Most Wishlisted</p>
+</div>
+
+<div class="analytics-card">
+<h3 id="lowStockProducts">0</h3>
+<p>⚠ Low Stock</p>
+</div>
+
+<div class="analytics-card">
+<h3 id="outStockProducts">0</h3>
+<p>❌ Out Of Stock</p>
+</div>
 
 </div>
 
@@ -440,25 +448,53 @@ CATEGORY
 
 <div class="chart-card">
 
-<h2>
+<h2>Revenue by Category</h2>
 
-Category Performance
-
-</h2>
-
-<canvas id="categoryChart"></canvas>
+<canvas id="categoryRevenueChart"></canvas>
 
 </div>
 
 <div class="chart-card">
 
-<h2>
+<h2>Products by Category</h2>
 
-Category Revenue
+<canvas id="categoryProductsChart"></canvas>
 
-</h2>
+</div>
 
-<canvas id="categoryRevenueChart"></canvas>
+</div>
+
+<div class="section-card">
+
+<h2>Category Analytics</h2>
+
+<div class="table-wrapper">
+
+<table class="analytics-table">
+
+<thead>
+
+<tr>
+
+<th>Category</th>
+
+<th>Products</th>
+
+<th>Sold</th>
+
+<th>Revenue</th>
+
+<th>Stock</th>
+
+</tr>
+
+</thead>
+
+<tbody id="categoryTable">
+
+</tbody>
+
+</table>
 
 </div>
 

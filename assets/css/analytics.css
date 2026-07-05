@@ -20,6 +20,52 @@ max-width:1700px;
 margin:auto;
 }
 
+.top-customer{
+
+display:flex;
+
+justify-content:space-between;
+
+align-items:center;
+
+padding:18px 20px;
+
+border-bottom:1px solid #eee;
+
+}
+
+.top-customer:last-child{
+
+border:none;
+
+}
+
+.top-customer h3{
+
+font-size:17px;
+
+margin-bottom:5px;
+
+color:#7b1632;
+
+}
+
+.top-customer p{
+
+font-size:13px;
+
+color:#777;
+
+}
+
+.top-customer b{
+
+font-size:18px;
+
+color:#222;
+
+}
+
 .success{
 
 color:#1a8f3f;
@@ -223,6 +269,29 @@ box-shadow:0 8px 20px rgba(0,0,0,.08);
 
 transition:.3s;
 
+}
+
+.badge{
+padding:6px 12px;
+border-radius:20px;
+font-size:12px;
+font-weight:600;
+display:inline-block;
+}
+
+.success{
+background:#e8f7ed;
+color:#1b8f45;
+}
+
+.warning{
+background:#fff5d9;
+color:#d48806;
+}
+
+.danger{
+background:#fde8e8;
+color:#dc3545;
 }
 
 .tab-btn.active{

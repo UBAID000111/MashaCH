@@ -107,9 +107,9 @@ async function loadPage(title, file) {
 
           case "analytics.html":
 
-    await new Promise(resolve=>setTimeout(resolve,50));
+    
 
-    await import("./analytics.js?"+Date.now());
+    await import("./analytics.js");
 
     break;
 

@@ -29,17 +29,25 @@ async function loadDashboardStats(){
 
     ]);
 
-    document.getElementById("totalProducts").textContent =
-    productSnap.size;
+   const totalProducts = document.getElementById("totalProducts");
+if (totalProducts) {
+    totalProducts.textContent = productSnap.size;
+}
 
-    document.getElementById("totalCategories").textContent =
-    categorySnap.size;
+const totalCategories = document.getElementById("totalCategories");
+if (totalCategories) {
+    totalCategories.textContent = categorySnap.size;
+}
 
-    document.getElementById("totalOrders").textContent =
-    orderSnap.size;
+const totalOrders = document.getElementById("totalOrders");
+if (totalOrders) {
+    totalOrders.textContent = orderSnap.size;
+}
 
-    document.getElementById("customers").textContent =
-    userSnap.size;
+const customers = document.getElementById("customers");
+if (customers) {
+    customers.textContent = userSnap.size;
+}
 
     let revenue=0;
 
@@ -67,29 +75,23 @@ async function loadDashboardStats(){
 
     });
 
-    productSnap.forEach(doc=>{
+productSnap.forEach(doc => {
 
-        const product=doc.data();
+    const product = doc.data();
 
-        (product.variants || []).forEach(v=>{
+    (product.sizes || []).forEach(size => {
 
-            const stock=Number(v.stock || 0);
+        const stock = Number(size.stock || 0);
 
-            if(stock===0){
-
-                outStock++;
-
-            }
-
-            else if(stock<=5){
-
-                lowStock++;
-
-            }
-
-        });
+        if (stock === 0) {
+            outStock++;
+        } else if (stock <= 5) {
+            lowStock++;
+        }
 
     });
+
+});
 
     document.getElementById("revenue").textContent =
     "₹"+revenue.toLocaleString("en-IN");

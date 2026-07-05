@@ -5,6 +5,8 @@ collection,
 getDocs
 }from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
+
+
 export async function loadProductsAnalytics(){
 
 const table=document.getElementById("productAnalyticsTable");
@@ -12,6 +14,30 @@ const table=document.getElementById("productAnalyticsTable");
 if(!table) return;
 
 table.innerHTML="";
+
+
+let lowStock = 0;
+ let outStock = 0;
+
+let bestSeller = {
+    name: "-",
+    sold: 0
+};
+
+let highestRevenue = {
+    name: "-",
+    revenue: 0
+};
+
+let mostViewed = {
+    name: "-",
+    views: 0
+};
+
+let mostWishlisted = {
+    name: "-",
+    wishlist: 0
+};
 
 const products=await getDocs(
 
@@ -53,13 +79,77 @@ revenueMap[item.productId]=
 
 products.forEach(doc=>{
 
+
+
 const product=doc.data();
 
 const id=doc.id;
 
-const variant=product.variants?.[0]||{};
+let stock = 0;
 
-const stock=variant.stock||0;
+(product.variants || []).forEach(variant => {
+
+    stock += Number(variant.stock || 0);
+
+});
+
+const views=product.views||0;
+
+const wishlist=product.wishlist||0;
+
+if(views>mostViewed.views){
+
+mostViewed.views=views;
+
+mostViewed.name=product.name;
+
+}
+
+if(wishlist>mostWishlisted.wishlist){
+
+mostWishlisted.wishlist=wishlist;
+
+mostWishlisted.name=product.name;
+
+}
+
+const sold=soldMap[id]||0;
+
+if(sold>bestSeller.sold){
+
+bestSeller.sold=sold;
+
+bestSeller.name=product.name;
+
+}
+
+const revenue=revenueMap[id]||0;
+
+if(revenue>highestRevenue.revenue){
+
+highestRevenue.revenue=revenue;
+
+highestRevenue.name=product.name;
+
+}
+
+if(stock==0){
+
+outStock++;
+
+}
+
+else if(stock<=5){
+
+lowStock++;
+
+}
+
+const badge = stock == 0
+? '<span class="badge danger">Out Of Stock</span>'
+: stock <= 5
+? '<span class="badge warning">Low Stock</span>'
+: '<span class="badge success">In Stock</span>';
 
 table.innerHTML+=`
 
@@ -69,7 +159,7 @@ table.innerHTML+=`
 
 <img
 
-src="${variant.image}"
+src="${product.variants?.[0]?.image || ''}"
 
 style="width:70px;height:70px;object-fit:cover;border-radius:12px;">
 
@@ -82,7 +172,6 @@ ${product.name}
 </td>
 
 <td>
-
 ${product.views||0}
 
 </td>
@@ -118,23 +207,38 @@ ${stock}
 </td>
 
 <td>
-
-${stock==0
-
-?'<span class="danger">Out of Stock</span>'
-
-:stock<=5
-
-?'<span class="warning">Low Stock</span>'
-
-:'<span class="success">In Stock</span>'}
-
+${badge}
 </td>
+
+
 
 </tr>
 
 `;
 
-});
+}
+
+
+);
+
+document.getElementById("bestSellerProduct").textContent=
+bestSeller.name;
+
+document.getElementById("highestRevenueProduct").textContent=
+highestRevenue.name;
+
+document.getElementById("mostViewedProduct").textContent=
+mostViewed.name;
+
+document.getElementById("mostWishlistedProduct").textContent=
+mostWishlisted.name;
+
+document.getElementById("lowStockProducts").textContent=
+lowStock;
+
+document.getElementById("outStockProducts").textContent=
+outStock;
+
+
 
 }
