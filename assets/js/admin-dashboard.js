@@ -105,6 +105,10 @@ async function loadPage(title, file) {
             await import("./categories.js");
             break;
 
+            case "analytics.html":
+            await import("./analytics.js");
+            break;
+
 
             case "index.html":
             await import("home.js");
@@ -197,6 +201,18 @@ async function loadPage(title, file) {
         setActive("homepageBtn");
 
         loadPage("Homepage", "admin/homepage.html");
+
+    };
+
+       // Analytics
+
+    document.getElementById("analyticsBtn").onclick = () => {
+
+        closeMenu();
+
+        setActive("analyticsBtn");
+
+        loadPage("Analytics", "analytics.html");
 
     };
 

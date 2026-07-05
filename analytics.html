@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Analytics | Masha Wear Admin</title>
+
+<link rel="stylesheet"
+href="/assets/css/analytics.css">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+
+
+
+</head>
+
+<body>
+
+<div class="analytics-page">
+
+<div class="analytics-header">
+
+<div>
+
+<h1>Analytics</h1>
+
+<p>
+Track visitors, revenue, orders, products and customer insights.
+</p>
+
+</div>
+
+<div class="analytics-filter">
+
+<button class="active" data-filter="today">
+Today
+</button>
+
+<button data-filter="week">
+Week
+</button>
+
+<button data-filter="month">
+Month
+</button>
+
+<button data-filter="year">
+Year
+</button>
+
+</div>
+
+</div>
+
+<!-- TOP CARDS -->
+
+<div class="analytics-cards">
+
+<div class="analytics-card">
+
+<i class="fa-solid fa-users"></i>
+
+<h2 id="totalVisitors">
+
+0
+
+</h2>
+
+<p>
+
+Visitors
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<i class="fa-solid fa-eye"></i>
+
+<h2 id="totalViews">
+
+0
+
+</h2>
+
+<p>
+
+Views
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<i class="fa-solid fa-cart-shopping"></i>
+
+<h2 id="totalOrders">
+
+0
+
+</h2>
+
+<p>
+
+Orders
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<i class="fa-solid fa-indian-rupee-sign"></i>
+
+<h2 id="totalRevenue">
+
+₹0
+
+</h2>
+
+<p>
+
+Revenue
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<i class="fa-solid fa-heart"></i>
+
+<h2 id="wishlistCount">
+
+0
+
+</h2>
+
+<p>
+
+Wishlist
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<i class="fa-solid fa-bag-shopping"></i>
+
+<h2 id="cartCount">
+
+0
+
+</h2>
+
+<p>
+
+Cart Adds
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<i class="fa-solid fa-user-plus"></i>
+
+<h2 id="customerCount">
+
+0
+
+</h2>
+
+<p>
+
+Customers
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<i class="fa-solid fa-chart-line"></i>
+
+<h2 id="conversionRate">
+
+0%
+
+</h2>
+
+<p>
+
+Conversion
+
+</p>
+
+</div>
+
+</div>
+
+<!-- TABS -->
+
+<div class="analytics-tabs">
+
+<button
+class="tab-btn active"
+data-tab="overview">
+
+Overview
+
+</button>
+
+<button
+class="tab-btn"
+data-tab="products">
+
+Products
+
+</button>
+
+<button
+class="tab-btn"
+data-tab="categories">
+
+Categories
+
+</button>
+
+<button
+class="tab-btn"
+data-tab="customers">
+
+Customers
+
+</button>
+
+<button
+class="tab-btn"
+data-tab="orders">
+
+Orders
+
+</button>
+
+<button
+class="tab-btn"
+data-tab="traffic">
+
+Traffic
+
+</button>
+
+<button
+class="tab-btn"
+data-tab="search">
+
+Search
+
+</button>
+
+<button
+class="tab-btn"
+data-tab="reviews">
+
+Reviews
+
+</button>
+
+</div>
+
+<!-- =====================================
+OVERVIEW
+===================================== -->
+
+<div class="tab-content active" id="overviewTab">
+
+<div class="chart-grid">
+
+<div class="chart-card">
+
+<div class="chart-header">
+
+<h2>Revenue Trend</h2>
+
+<select id="revenueChartFilter">
+
+<option value="7">Last 7 Days</option>
+
+<option value="30" selected>Last 30 Days</option>
+
+<option value="365">Last Year</option>
+
+</select>
+
+</div>
+
+<canvas id="revenueChart"></canvas>
+
+</div>
+
+<div class="chart-card">
+
+<div class="chart-header">
+
+<h2>Visitors Trend</h2>
+
+<select id="visitorChartFilter">
+
+<option value="7">Last 7 Days</option>
+
+<option value="30" selected>Last 30 Days</option>
+
+<option value="365">Last Year</option>
+
+</select>
+
+</div>
+
+<canvas id="visitorChart"></canvas>
+
+</div>
+
+</div>
+
+<div class="chart-grid">
+
+<div class="chart-card">
+
+<div class="chart-header">
+
+<h2>Orders Trend</h2>
+
+</div>
+
+<canvas id="ordersChart"></canvas>
+
+</div>
+
+<div class="chart-card">
+
+<div class="chart-header">
+
+<h2>Device Usage</h2>
+
+</div>
+
+<canvas id="deviceChart"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================
+PRODUCTS
+===================================== -->
+
+<div class="tab-content" id="productsTab">
+
+<div class="section-card">
+
+<div class="section-header">
+
+<h2>
+
+Top Products
+
+</h2>
+
+<input
+id="productAnalyticsSearch"
+placeholder="Search Product">
+
+</div>
+
+<div class="table-wrapper">
+
+<table>
+
+<thead>
+
+<tr>
+
+<th>Image</th>
+
+<th>Product</th>
+
+<th>Views</th>
+
+<th>Cart</th>
+
+<th>Wishlist</th>
+
+<th>Orders</th>
+
+<th>Revenue</th>
+
+<th>Avg Time</th>
+
+<th>Conversion</th>
+
+</tr>
+
+</thead>
+
+<tbody id="productAnalyticsTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================
+CATEGORY
+===================================== -->
+
+<div class="tab-content" id="categoriesTab">
+
+<div class="chart-grid">
+
+<div class="chart-card">
+
+<h2>
+
+Category Performance
+
+</h2>
+
+<canvas id="categoryChart"></canvas>
+
+</div>
+
+<div class="chart-card">
+
+<h2>
+
+Category Revenue
+
+</h2>
+
+<canvas id="categoryRevenueChart"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================
+CUSTOMERS
+===================================== -->
+
+<div class="tab-content" id="customersTab">
+
+<div class="analytics-cards small">
+
+<div class="analytics-card">
+
+<h3 id="newCustomers">
+
+0
+
+</h3>
+
+<p>
+
+New Customers
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<h3 id="returningCustomers">
+
+0
+
+</h3>
+
+<p>
+
+Returning Customers
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<h3 id="averageOrderValue">
+
+₹0
+
+</h3>
+
+<p>
+
+Average Order Value
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<h3 id="repeatPurchaseRate">
+
+0%
+
+</h3>
+
+<p>
+
+Repeat Purchase
+
+</p>
+
+</div>
+
+</div>
+
+<div class="section-card">
+
+<h2>
+
+Top Customers
+
+</h2>
+
+<div id="topCustomers">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================
+ORDERS
+===================================== -->
+
+<div class="tab-content" id="ordersTab">
+
+<div class="analytics-cards small">
+
+<div class="analytics-card">
+
+<h3 id="pendingOrders">
+
+0
+
+</h3>
+
+<p>
+
+Pending
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<h3 id="shippedOrders">
+
+0
+
+</h3>
+
+<p>
+
+Shipped
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<h3 id="deliveredOrders">
+
+0
+
+</h3>
+
+<p>
+
+Delivered
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<h3 id="cancelledOrders">
+
+0
+
+</h3>
+
+<p>
+
+Cancelled
+
+</p>
+
+</div>
+
+</div>
+
+<div class="chart-card">
+
+<canvas id="orderStatusChart"></canvas>
+
+</div>
+
+</div>
+
+<!-- =====================================
+TRAFFIC
+===================================== -->
+
+<div class="tab-content" id="trafficTab">
+
+<div class="chart-grid">
+
+<div class="chart-card">
+
+<h2>
+
+Traffic Sources
+
+</h2>
+
+<canvas id="trafficChart"></canvas>
+
+</div>
+
+<div class="chart-card">
+
+<h2>
+
+Devices
+
+</h2>
+
+<canvas id="deviceUsageChart"></canvas>
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================
+SEARCH
+===================================== -->
+
+<div class="tab-content" id="searchTab">
+
+<div class="section-card">
+
+<h2>
+
+Most Searched Keywords
+
+</h2>
+
+<div id="searchAnalyticsList">
+
+</div>
+
+</div>
+
+</div>
+
+<!-- =====================================
+REVIEWS
+===================================== -->
+
+<div class="tab-content" id="reviewsTab">
+
+<div class="analytics-cards small">
+
+<div class="analytics-card">
+
+<h3 id="averageRating">
+
+0
+
+</h3>
+
+<p>
+
+Average Rating
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<h3 id="totalReviews">
+
+0
+
+</h3>
+
+<p>
+
+Reviews
+
+</p>
+
+</div>
+
+</div>
+
+<div id="reviewAnalytics">
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+    console.log("Before Chart");
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3/dist/chart.umd.min.js"></script>
+
+<script>
+    console.log("After Chart");
+</script>
+
+<script
+type="module"
+src="/assets/js/analytics.js"></script>
+
+
+</body>
+
+</html>

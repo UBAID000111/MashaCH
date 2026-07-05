@@ -22,6 +22,13 @@ import {
 auth
 } from "../firebase/firebase-config.js";
 
+import{
+trackProductView,
+trackWishlist,
+trackCart
+}
+from "./services/analyticsService.js";
+
 import {
 onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
@@ -100,9 +107,12 @@ document.getElementById("wishlistBtn").click();
 LOAD PRODUCT
 =========================== */
 
+
 async function loadProduct(){
 
 productData = await getProduct(productId);
+
+await trackProductView(productId);
 
 if(!productData){
 
@@ -591,6 +601,9 @@ addedAt: serverTimestamp()
 
 });
 
+
+await trackWishlist(productId);
+
 setWishlistUI(true);
 
 console.log("Added to wishlist");
@@ -830,6 +843,9 @@ createdAt:serverTimestamp()
 }
 
 );
+
+
+await trackCart(productId);
 
 showToast("Added To Cart");
 

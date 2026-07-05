@@ -338,6 +338,10 @@ const response = await createOrder({
     receipt: "MCH_" + Date.now()
 });
 
+import {
+trackPurchase
+} from "./services/analyticsService.js";
+
 console.log("Function Response:", response.data);
 
         const order = response.data.order;
@@ -383,6 +387,26 @@ console.log("Function Response:", response.data);
         processingStep.innerText = "Saving your order...";
 
         await saveOrder(payment);
+
+        const cartSnap = await getDocs(
+collection(db,"users",currentUser.uid,"cart")
+);
+
+for(const cart of cartSnap.docs){
+
+const item=cart.data();
+
+await trackPurchase(
+
+item.productId,
+
+item.quantity,
+
+item.price*item.quantity
+
+);
+
+}
 
         processingStep.innerText = "Updating inventory...";
 

@@ -12,9 +12,14 @@ const content = document.getElementById("quickContent");
 OPEN QUICK VIEW
 ========================================== */
 
+import {
+trackProductView
+} from "./services/analyticsService.js";
+
 export async function quickView(productId){
 
 const product = await getProduct(productId);
+trackProductView(product.id);
 
 if(!product) return;
 

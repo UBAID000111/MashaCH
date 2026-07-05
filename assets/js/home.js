@@ -5,6 +5,10 @@ loadBestSeller,
 loadAllProducts
 } from "./services/homeService.js";
 
+import {
+trackVisitor
+} from "./services/analyticsService.js";
+
 async function initHome(){
 
 await loadCategories();
@@ -15,6 +19,9 @@ await loadBestSeller();
 
 await loadAllProducts();
 
+trackVisitor();
+
 }
 
 initHome();
+
