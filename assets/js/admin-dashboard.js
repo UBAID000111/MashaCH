@@ -105,13 +105,17 @@ async function loadPage(title, file) {
             await import("./categories.js");
             break;
 
-            case "analytics.html":
-            await import("./analytics.js");
-            break;
+          case "analytics.html":
+
+    await new Promise(resolve=>setTimeout(resolve,50));
+
+    await import("./analytics.js?"+Date.now());
+
+    break;
 
 
             case "index.html":
-            await import("home.js");
+            await import("./home.js");
             break;
 
         case "admin-media.html":

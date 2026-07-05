@@ -63,147 +63,100 @@ Year
 <div class="analytics-cards">
 
 <div class="analytics-card">
-
 <i class="fa-solid fa-users"></i>
-
-<h2 id="totalVisitors">
-
-0
-
-</h2>
-
-<p>
-
-Visitors
-
-</p>
-
+<h2 id="totalVisitors">0</h2>
+<p>Visitors</p>
 </div>
 
 <div class="analytics-card">
+<i class="fa-solid fa-user-group"></i>
+<h2 id="customerCount">0</h2>
+<p>Customers</p>
+</div>
 
+<div class="analytics-card">
 <i class="fa-solid fa-eye"></i>
-
-<h2 id="totalViews">
-
-0
-
-</h2>
-
-<p>
-
-Views
-
-</p>
-
+<h2 id="totalViews">0</h2>
+<p>Product Views</p>
 </div>
 
 <div class="analytics-card">
-
 <i class="fa-solid fa-cart-shopping"></i>
-
-<h2 id="totalOrders">
-
-0
-
-</h2>
-
-<p>
-
-Orders
-
-</p>
-
+<h2 id="totalOrders">0</h2>
+<p>Orders</p>
 </div>
 
 <div class="analytics-card">
-
 <i class="fa-solid fa-indian-rupee-sign"></i>
-
-<h2 id="totalRevenue">
-
-₹0
-
-</h2>
-
-<p>
-
-Revenue
-
-</p>
-
+<h2 id="totalRevenue">₹0</h2>
+<p>Revenue</p>
 </div>
 
 <div class="analytics-card">
-
 <i class="fa-solid fa-heart"></i>
-
-<h2 id="wishlistCount">
-
-0
-
-</h2>
-
-<p>
-
-Wishlist
-
-</p>
-
+<h2 id="wishlistCount">0</h2>
+<p>Wishlist Items</p>
 </div>
 
 <div class="analytics-card">
+<i class="fa-solid fa-user-heart"></i>
+<h2 id="wishlistUsers">0</h2>
+<p>Wishlist Users</p>
+</div>
 
+<div class="analytics-card">
 <i class="fa-solid fa-bag-shopping"></i>
-
-<h2 id="cartCount">
-
-0
-
-</h2>
-
-<p>
-
-Cart Adds
-
-</p>
-
+<h2 id="cartCount">0</h2>
+<p>Cart Items</p>
 </div>
 
 <div class="analytics-card">
-
-<i class="fa-solid fa-user-plus"></i>
-
-<h2 id="customerCount">
-
-0
-
-</h2>
-
-<p>
-
-Customers
-
-</p>
-
+<i class="fa-solid fa-cart-plus"></i>
+<h2 id="cartLeads">0</h2>
+<p>Cart Leads</p>
 </div>
 
 <div class="analytics-card">
+<i class="fa-solid fa-box"></i>
+<h2 id="soldProducts">0</h2>
+<p>Products Sold</p>
+</div>
 
+<div class="analytics-card">
+<i class="fa-solid fa-star"></i>
+<h2 id="reviewCount">0</h2>
+<p>Reviews</p>
+</div>
+
+<div class="analytics-card">
 <i class="fa-solid fa-chart-line"></i>
+<h2 id="conversionRate">0%</h2>
+<p>Conversion</p>
+</div>
 
-<h2 id="conversionRate">
+<div class="analytics-card">
+<i class="fa-solid fa-chart-line"></i>
+<h2 id="totalProducts">0</h2>
+<p>Total Products</p>
+</div>
 
-0%
 
-</h2>
+<div class="analytics-card">
+<i class="fa-solid fa-chart-line"></i>
+<h2 id="totalStock">0</h2>
+<p>Total Stock</p>
+</div>
 
-<p>
+<div class="analytics-card">
+<i class="fa-solid fa-chart-line"></i>
+<h2 id="lowStock">0</h2>
+<p>Low Stock</p>
+</div>
 
-Conversion
-
-</p>
-
+<div class="analytics-card">
+<i class="fa-solid fa-chart-line"></i>
+<h2 id="outOfStock">0</h2>
+<p>Out Of Stock</p>
 </div>
 
 </div>
@@ -414,7 +367,58 @@ placeholder="Search Product">
 
 </thead>
 
+<div class="section-card">
+
+<div class="section-header">
+
+<h2>Top Product Performance</h2>
+
+<input
+type="text"
+id="productAnalyticsSearch"
+placeholder="Search Product">
+
+</div>
+
+<div class="table-wrapper">
+
+<table class="analytics-table">
+
+<thead>
+
+<tr>
+
+<th>Image</th>
+
+<th>Product</th>
+
+<th>Views</th>
+
+<th>Wishlist</th>
+
+<th>Cart</th>
+
+<th>Sold</th>
+
+<th>Revenue</th>
+
+<th>Stock</th>
+
+<th>Status</th>
+
+</tr>
+
+</thead>
+
 <tbody id="productAnalyticsTable">
+
+</tbody>
+
+</table>
+
+</div>
+
+</div>
 
 </tbody>
 
@@ -742,16 +746,7 @@ Reviews
 
 </div>
 
-<script>
 
-    console.log("Before Chart");
-</script>
-
-<script src="https://cdn.jsdelivr.net/npm/chart.js@4.3/dist/chart.umd.min.js"></script>
-
-<script>
-    console.log("After Chart");
-</script>
 
 <script
 type="module"

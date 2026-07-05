@@ -338,9 +338,6 @@ const response = await createOrder({
     receipt: "MCH_" + Date.now()
 });
 
-import {
-trackPurchase
-} from "./services/analyticsService.js";
 
 console.log("Function Response:", response.data);
 
@@ -392,21 +389,7 @@ console.log("Function Response:", response.data);
 collection(db,"users",currentUser.uid,"cart")
 );
 
-for(const cart of cartSnap.docs){
 
-const item=cart.data();
-
-await trackPurchase(
-
-item.productId,
-
-item.quantity,
-
-item.price*item.quantity
-
-);
-
-}
 
         processingStep.innerText = "Updating inventory...";
 

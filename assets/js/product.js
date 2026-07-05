@@ -22,12 +22,6 @@ import {
 auth
 } from "../firebase/firebase-config.js";
 
-import{
-trackProductView,
-trackWishlist,
-trackCart
-}
-from "./services/analyticsService.js";
 
 import {
 onAuthStateChanged
@@ -112,7 +106,7 @@ async function loadProduct(){
 
 productData = await getProduct(productId);
 
-await trackProductView(productId);
+
 
 if(!productData){
 
@@ -583,7 +577,7 @@ oldPrice:selectedVariant.oldPrice,
 
 discount,
 
-stock:selectedVariant.stock,
+stock:selectedVariant.stock ?? 0,
 
 color:selectedVariant.color,
 
@@ -602,7 +596,7 @@ addedAt: serverTimestamp()
 });
 
 
-await trackWishlist(productId);
+
 
 setWishlistUI(true);
 
@@ -844,8 +838,6 @@ createdAt:serverTimestamp()
 
 );
 
-
-await trackCart(productId);
 
 showToast("Added To Cart");
 

@@ -97,17 +97,7 @@ views:increment(1)
 
 });
 
-await updateDoc(
 
-doc(db,"products",productId),
-
-{
-
-views:increment(1)
-
-}
-
-);
 
 }
 
