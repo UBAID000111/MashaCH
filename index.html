@@ -11,6 +11,7 @@
 href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
     <link rel="stylesheet" href="assets/css/navbar.css">
     <link rel="stylesheet" href="assets/css/home.css">
+    <link rel="stylesheet" href="/assets/css/intro.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/footer.css">
@@ -26,6 +27,96 @@ href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 
 <body>
+
+ <!-- =========================
+MASHA LUXURY INTRO
+========================= -->
+
+<div id="introScreen">
+
+    <canvas id="particleCanvas"></canvas>
+
+    <div class="introOverlay"></div>
+
+    <div class="introCenter">
+
+        <div class="logoContainer">
+
+            <img
+                id="mashaLogo"
+                src="assets/images/logoff-removebg-preview.png"
+                alt="MASHA">
+
+            <svg
+                id="loaderRing"
+                width="320"
+                height="320"
+                viewBox="0 0 320 320">
+
+                <defs>
+
+<linearGradient
+id="goldGradient"
+x1="0%"
+y1="0%"
+x2="100%"
+y2="0%">
+
+<stop offset="0%" stop-color="#b88922"/>
+
+<stop offset="50%" stop-color="#FFD97A"/>
+
+<stop offset="100%" stop-color="#b88922"/>
+
+</linearGradient>
+
+</defs>
+
+                <!-- Background Ring -->
+
+                <circle
+
+                    class="ring-bg"
+
+                    cx="160"
+
+                    cy="160"
+
+                    r="135"/>
+
+                <!-- Animated Ring -->
+
+                <circle
+
+                    id="ringProgress"
+
+                    class="ring-progress"
+
+                    cx="160"
+
+                    cy="160"
+
+                    r="135"/>
+
+            </svg>
+
+        </div>
+
+        <h2 id="loadingPercent">
+
+            0%
+
+        </h2>
+
+        <p id="loadingMessage">
+
+            Crafting Luxury...
+
+        </p>
+
+    </div>
+
+</div>
 
     <div class="top-bar">
 
@@ -439,6 +530,12 @@ controlsList="nodownload">
 <script type="module" src="assets/js/quick-view.js"></script>
 
 <script type="module" src="assets/js/homeVideo.js"></script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.13.0/gsap.min.js"></script>
+
+<script src="assets/js/particles.js"></script>
+
+<script src="assets/js/intro.js"></script>
 
 </body>
 
