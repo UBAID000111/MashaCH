@@ -1,0 +1,695 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>Invoice | MASHA Clothing Hub</title>
+
+<link
+rel="stylesheet"
+href="assets/css/invoice.css">
+
+<link
+rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<div class="invoice-actions no-print">
+
+<a
+href="javascript:history.back()"
+class="action-btn">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Back
+
+</a>
+
+<button
+id="printInvoice"
+class="action-btn">
+
+<i class="fa-solid fa-print"></i>
+
+Print
+
+</button>
+
+<button
+id="downloadPdf"
+class="action-btn gold">
+
+<i class="fa-solid fa-download"></i>
+
+Download PDF
+
+</button>
+
+</div>
+
+<div class="invoice-page">
+
+<div class="watermark">
+
+<img
+src="assets/images/logoff-removebg-preview.png">
+
+</div>
+
+<!-- HEADER -->
+
+<div class="invoice-header">
+
+<div class="company">
+
+<img
+src="assets/images/logoff-removebg-preview.png"
+class="company-logo">
+
+<div>
+
+<h1>MASHA Clothing Hub</h1>
+
+<p>
+
+B-8, Main Road,
+
+Near Dr. Lal Hospital,
+
+Part-2, Jaitpur Extension,
+
+Jaitpur,
+
+New Delhi - 110044
+
+</p>
+
+<p>
+
+📞 +91 78274 07735
+
+</p>
+
+<p>
+
+✉ styleupwithmasha@gmail.com
+
+</p>
+
+<p>
+
+🌐 www.mashawear.com
+
+</p>
+
+</div>
+
+</div>
+
+<div class="invoice-title">
+
+<h2>
+
+TAX INVOICE
+
+</h2>
+
+<span
+id="paymentBadge"
+class="badge paid">
+
+PAID
+
+</span>
+
+</div>
+
+</div>
+
+<hr>
+
+<!-- ORDER INFO -->
+
+<div class="invoice-grid">
+
+<div class="info-box">
+
+<h3>
+
+Invoice Details
+
+</h3>
+
+<table>
+
+<tr>
+
+<td>
+
+Invoice No
+
+</td>
+
+<td id="invoiceNo">
+
+INV-000001
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+Order ID
+
+</td>
+
+<td id="orderId">
+
+#MH00001
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+Invoice Date
+
+</td>
+
+<td id="invoiceDate">
+
+08 Jul 2026
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+Payment
+
+</td>
+
+<td id="paymentMethod">
+
+Razorpay
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+<div class="info-box">
+
+<h3>
+
+Order Status
+
+</h3>
+
+<div
+id="statusBadge"
+class="badge delivered">
+
+Delivered
+
+</div>
+
+</div>
+
+</div>
+
+<!-- CUSTOMER -->
+
+<div class="customer-grid">
+
+<div class="address-card">
+
+<h3>
+
+Bill To
+
+</h3>
+
+<p
+id="customerName">
+
+Customer Name
+
+</p>
+
+<p
+id="customerPhone">
+
++91 XXXXX XXXXX
+
+</p>
+
+<p
+id="customerEmail">
+
+customer@email.com
+
+</p>
+
+<p
+id="billingAddress">
+
+Address Here
+
+</p>
+
+</div>
+
+<div class="address-card">
+
+<h3>
+
+Ship To
+
+</h3>
+
+<p
+id="shippingName">
+
+Customer Name
+
+</p>
+
+<p
+id="shippingPhone">
+
++91 XXXXX XXXXX
+
+</p>
+
+<p
+id="shippingAddress">
+
+Shipping Address
+
+</p>
+
+</div>
+
+</div>
+
+<!-- PRODUCTS -->
+
+<div class="table-wrapper">
+
+<table
+class="invoice-table">
+
+<thead>
+
+<tr>
+
+<th>
+
+Product
+
+</th>
+
+<th>
+
+Size
+
+</th>
+
+<th>
+
+Color
+
+</th>
+
+<th>
+
+Qty
+
+</th>
+
+<th>
+
+Price
+
+</th>
+
+<th>
+
+Total
+
+</th>
+
+</tr>
+
+</thead>
+
+<tbody
+id="invoiceItems">
+
+<!-- JS -->
+
+</tbody>
+
+</table>
+
+</div>
+
+<!-- =========================
+TOTALS
+========================= -->
+
+<div class="invoice-summary">
+
+<div class="summary-box">
+
+<table>
+
+<tr>
+
+<td>
+
+Subtotal
+
+</td>
+
+<td id="subtotal">
+
+₹0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+Discount
+
+</td>
+
+<td id="discount">
+
+- ₹0
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+Shipping
+
+</td>
+
+<td id="shipping">
+
+FREE
+
+</td>
+
+</tr>
+
+<tr>
+
+<td>
+
+Tax
+
+</td>
+
+<td id="tax">
+
+Included
+
+</td>
+
+</tr>
+
+<tr class="grand-total">
+
+<td>
+
+Grand Total
+
+</td>
+
+<td id="grandTotal">
+
+₹0
+
+</td>
+
+</tr>
+
+</table>
+
+</div>
+
+</div>
+
+<!-- =========================
+PAYMENT
+========================= -->
+
+<div class="payment-section">
+
+<div class="payment-card">
+
+<h3>
+
+Payment Information
+
+</h3>
+
+<p>
+
+<b>Method :</b>
+
+<span id="paymentType">
+
+Razorpay
+
+</span>
+
+</p>
+
+<p>
+
+<b>Payment Status :</b>
+
+<span id="paymentStatusText">
+
+Paid
+
+</span>
+
+</p>
+
+<p>
+
+<b>Transaction ID :</b>
+
+<span id="transactionId">
+
+N/A
+
+</span>
+
+</p>
+
+</div>
+
+<div class="payment-card">
+
+<h3>
+
+Order Information
+
+</h3>
+
+<p>
+
+<b>Order Date :</b>
+
+<span id="orderDate">
+
+--
+
+</span>
+
+</p>
+
+<p>
+
+<b>Delivery Status :</b>
+
+<span id="deliveryStatus">
+
+Delivered
+
+</span>
+
+</p>
+
+<p>
+
+<b>Expected Delivery :</b>
+
+<span id="deliveryDate">
+
+--
+
+</span>
+
+</p>
+
+</div>
+
+</div>
+
+<!-- =========================
+NOTES
+========================= -->
+
+<div class="invoice-notes">
+
+<h3>
+
+Important Information
+
+</h3>
+
+<ul>
+
+<li>
+
+This is a computer-generated invoice and does not require a physical signature.
+
+</li>
+
+<li>
+
+Items can only be returned or exchanged according to the MASHA Return & Exchange Policy.
+
+</li>
+
+<li>
+
+Please keep this invoice for future reference.
+
+</li>
+
+<li>
+
+For any assistance, contact our support team.
+
+</li>
+
+</ul>
+
+</div>
+
+<!-- =========================
+THANK YOU
+========================= -->
+
+<div class="thank-you">
+
+<img
+src="assets/images/logoff-removebg-preview.png"
+class="footer-logo">
+
+<h2>
+
+Thank You For Shopping With MASHA
+
+</h2>
+
+<p>
+
+Premium Clothing Hub
+
+</p>
+
+<p>
+
+We appreciate your trust and hope you enjoy your purchase.
+
+</p>
+
+</div>
+
+<!-- =========================
+FOOTER
+========================= -->
+
+<div class="invoice-footer">
+
+<div>
+
+<strong>
+
+MASHA Clothing Hub
+
+</strong>
+
+</div>
+
+<div>
+
+📞 +91 78274 07735
+
+</div>
+
+<div>
+
+✉ styleupwithmasha@gmail.com
+
+</div>
+
+<div>
+
+B-8, Main Road,
+Near Dr. Lal Hospital,
+Part-2,
+Jaitpur Extension,
+New Delhi - 110044
+
+</div>
+
+</div>
+
+</div>
+
+<script
+type="module"
+src="assets/js/invoice.js"></script>
+
+</body>
+
+</html>
