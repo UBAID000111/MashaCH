@@ -85,20 +85,58 @@ aspect-ratio:3/4;
         font-size:14px;
     }
     
-    .logo img{
-        height: 70px;
-        width: 70px;
-        
-    }
+ 
 
-    .logo-text{
-        font-size: 22px;
-        letter-spacing: 2px;
-    }
+.nav-container{
+
+padding:12px 16px;
+
+}
+
+.hamburger{
+
+transform:translateX(-10px);
+
+}
+
+.logo{
+
+gap:14px;
+
+}
+
+.logo img{
+
+height:56px;
+
+}
+
+.logo-text{
+
+font-size:26px;
+
+letter-spacing:2px;
+
+}
+
+.nav-icons{
+
+gap:16px;
+
+transform:translateX(8px);
+
+}
+
+.nav-icons svg{
+
+width:24px;
+height:24px;
+
+}
+
+
     
-     .nav-container{
-        padding: 12px 16px;
-     }
+    
 
     .category-grid{
         grid-template-columns:repeat(2,1fr);
