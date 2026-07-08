@@ -85,8 +85,13 @@ aspect-ratio:3/4;
     }
     
     .logo img{
-        height: 80px;
+        height: 48px;
         
+    }
+
+    .logo-text{
+        font-size: 22px;
+        letter-spacing: 2px;
     }
     
      .nav-container{

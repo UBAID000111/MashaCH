@@ -63,22 +63,36 @@ width:100%;
 .logo{
     display: flex;
     align-items: center;
+    gap: 12px;
     color:white;
     text-decoration:none;
-    font-size:28px;
+    letter-spacing: 3px;
+    font-size:30px;
     font-weight:700;
 }
 
 .logo img{
     width: auto;
-    height: 70px;
+    height: 60px;
     display: block;
     object-fit: contain;
     transition: 0.3s ease;
 }
 
+.logo-text{
+    font-size: 30px;
+    font-weight:700;
+    letter-spacing: 3px;
+    color: #fbc43b;
+    transition: 0.3s;
+}
+
 .logo image:hover{
-    transform: scale(1.05);
+    transform:scale(1.08) rotate(-3deg);
+}
+
+.logo:hover .logo-text{
+    color:#fdc331;
 }
 
 .nav-links{
