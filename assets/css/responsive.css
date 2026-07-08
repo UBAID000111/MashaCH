@@ -91,7 +91,7 @@ aspect-ratio:3/4;
     }
 
     .logo-text{
-        font-size: 16px;
+        font-size: 22px;
         letter-spacing: 2px;
     }
     
@@ -351,6 +351,7 @@ width:100%;
 }
 
 .hamburger{
+    right: 10px;
     font-size: 20px;
 }
 
