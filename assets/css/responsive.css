@@ -85,7 +85,8 @@ aspect-ratio:3/4;
     }
     
     .logo img{
-        height: 30px;
+        height: 70px;
+        width: 70px;
         
     }
 
@@ -347,6 +348,10 @@ width:100%;
 
     border-radius:14px;
 
+}
+
+.hamburger{
+    font-size: 20px;
 }
 
 
