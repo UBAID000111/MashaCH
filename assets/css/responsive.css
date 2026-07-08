@@ -360,6 +360,10 @@ width:100%;
 
 @media(max-width:576px){
 
+    .hamburger{
+    right: 10px;
+    }
+
 .products-grid{
 
 grid-template-columns:repeat(2,1fr);
@@ -444,6 +448,10 @@ body{
 
 .logo img{
     height: 70px;
+}
+
+.hamburger{
+    right: 10px;
 }
 
 .products-grid{
