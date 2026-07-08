@@ -170,19 +170,33 @@ const checkbox = card.querySelector(
 `.variantSize[value="${size.name}"]`
 );
 
-const stockInput = card.querySelector(
-`.sizeStock[data-size="${size.name}"]`
-);
-
 if(checkbox){
 
 checkbox.checked = true;
 
-}
+const stockInput = card.querySelector(
+`.sizeStock[data-size="${size.name}"]`
+);
 
 if(stockInput){
 
 stockInput.value = size.stock;
+
+}
+
+}else{
+
+const custom = card.querySelector(".variantCustomSize");
+
+custom.checked = true;
+
+card.querySelector(".customSizeName").style.display="block";
+
+card.querySelector(".customSizeStock").style.display="block";
+
+card.querySelector(".customSizeName").value=size.name;
+
+card.querySelector(".customSizeStock").value=size.stock;
 
 }
 
@@ -236,6 +250,25 @@ card.remove();
 
 variantsContainer.appendChild(clone);
 
+const customBox = card.querySelector(".variantCustomSize");
+
+if(customBox){
+
+customBox.addEventListener("change",()=>{
+
+const nameInput = card.querySelector(".customSizeName");
+const stockInput = card.querySelector(".customSizeStock");
+
+nameInput.style.display =
+customBox.checked ? "block" : "none";
+
+stockInput.style.display =
+customBox.checked ? "block" : "none";
+
+});
+
+}
+
 }
 
 /* ===========================
@@ -288,6 +321,8 @@ gallery.push(await uploadImage(file));
 
 const sizes=[];
 
+/* Standard Sizes */
+
 card.querySelectorAll(".variantSize").forEach(box=>{
 
 if(box.checked){
@@ -311,6 +346,27 @@ stock
 }
 
 });
+
+/* Custom Size */
+
+const customBox =
+card.querySelector(".variantCustomSize");
+
+if(customBox && customBox.checked){
+
+sizes.push({
+
+name:card.querySelector(".customSizeName").value.trim(),
+
+stock:Number(
+
+card.querySelector(".customSizeStock").value || 0
+
+)
+
+});
+
+}
 
 variants.push({
 
@@ -707,6 +763,23 @@ row.style.display=row.innerText.toLowerCase().includes(key) ? "" : "none";
 });
 
 };
+
+
+document.querySelectorAll(".variantCustomSize").forEach(box=>{
+
+box.addEventListener("change",()=>{
+
+const parent=box.closest(".size-stock-item");
+
+parent.querySelector(".customSizeName").style.display=
+box.checked ? "block":"none";
+
+parent.querySelector(".customSizeStock").style.display=
+box.checked ? "block":"none";
+
+});
+
+});
 
 /* ===========================
 START
