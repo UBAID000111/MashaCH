@@ -350,19 +350,14 @@ width:100%;
 
 }
 
-.hamburger{
-    right: 10px;
-    font-size: 20px;
-}
+
 
 
 }
 
 @media(max-width:576px){
 
-    .hamburger{
-    right: 10px;
-    }
+  
 
 .products-grid{
 
@@ -450,9 +445,7 @@ body{
     height: 70px;
 }
 
-.hamburger{
-    right: 10px;
-}
+
 
 .products-grid{
 
