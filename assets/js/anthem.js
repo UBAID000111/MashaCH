@@ -53,11 +53,19 @@ AFTER PAYMENT
 
 const params = new URLSearchParams(window.location.search);
 
-if(params.get("anthem")==="1"){
+window.addEventListener("load",()=>{
 
-    openAnthem();
+    const params = new URLSearchParams(window.location.search);
 
-}
+    if(params.get("anthem")==="1"){
+
+        console.log("Anthem Triggered");
+
+        openAnthem();
+
+    }
+
+});
 
 /* ===========================
 CLOSE BUTTON
