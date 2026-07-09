@@ -219,21 +219,13 @@ grid-template-columns:1fr;
 
 @media(max-width:768px){
 
-.about-container{
-
-grid-template-columns:1fr;
-
-}
-
 .about-image{
 
-width:100%;
+height:auto !important;
 
-height:auto;
+min-height:auto;
 
 overflow:visible;
-
-box-shadow:none;
 
 }
 
@@ -241,9 +233,7 @@ box-shadow:none;
 
 width:100%;
 
-height:auto;
-
-max-height:none;
+height:auto !important;
 
 object-fit:contain;
 
