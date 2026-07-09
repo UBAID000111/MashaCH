@@ -909,6 +909,7 @@ color:#fff;
 }
 
 </style>
+<link rel="stylesheet" href="/assets/css/anthem.css">
 
 
 
@@ -971,12 +972,73 @@ After stepping out of a successful corporate career of 5 years, our founder—an
 
             </div>
 
+     
+
             <a href="shop.html" class="about-btn">
                 Explore Collection →
             </a>
+
 
         </div>
 
     </div>
 
 </section>
+
+
+       <section class="anthem-section">
+
+<h2>🎵 MASHA Anthem</h2>
+
+<p>
+
+Experience the heart of MASHA.
+
+</p>
+
+<button id="playAnthem">
+
+Play Anthem
+
+</button>
+
+</section>
+
+
+
+<!-- =========================
+MASHA ANTHEM POPUP
+========================= -->
+
+<div id="anthemPopup" class="anthem-popup">
+
+    <div class="anthem-box">
+
+        <button id="closeAnthem">&times;</button>
+
+        <img
+        src="/assets/images/logoff-removebg-preview.png"
+        class="anthem-logo"
+        alt="MASHA Logo">
+
+        <h2>MASHA Anthem</h2>
+
+        <p>
+            Experience the Soul of MASHA
+        </p>
+
+        <audio id="anthemAudio">
+
+            <source
+            src="/assets/audio/tili.mp3"
+            type="audio/mpeg">
+
+            Your browser does not support audio.
+
+        </audio>
+
+    </div>
+
+</div>
+
+<script src="assets/js/anthem.js"></script>

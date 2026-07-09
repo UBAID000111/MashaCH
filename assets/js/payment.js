@@ -420,7 +420,7 @@ collection(db,"users",currentUser.uid,"cart")
         sessionStorage.removeItem("promotion");
         sessionStorage.removeItem("discount");
 
-        window.location.replace("my-orders.html");
+        window.location.replace("my-orders.html?anthem=1");
 
     }catch(err){
 
