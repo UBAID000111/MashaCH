@@ -1077,3 +1077,101 @@ font-size:20px;
 }
 
 }
+
+/* ==========================================
+iMAC / LARGE DESKTOP (1600px+)
+========================================== */
+
+@media (min-width:1600px){
+
+.shop-banner{
+    height:220px;
+}
+
+.shop-banner h1{
+    font-size:54px;
+}
+
+.shop-banner p{
+    font-size:18px;
+}
+
+.search-section{
+    max-width:1800px;
+}
+
+.shop-container{
+    max-width:1800px;
+    grid-template-columns:320px 1fr;
+    gap:50px;
+    padding:30px 40px;
+}
+
+.filters{
+    padding:30px;
+}
+
+.filters h3{
+    font-size:28px;
+}
+
+.filter-group h4{
+    font-size:18px;
+}
+
+.filter-group select{
+    height:56px;
+    font-size:17px;
+}
+
+.shop-header h2{
+    font-size:38px;
+}
+
+.shop-header select{
+    height:52px;
+    font-size:16px;
+    min-width:260px;
+}
+
+.products-grid{
+    grid-template-columns:repeat(5,1fr);
+    gap:30px;
+}
+
+.product-card{
+    border-radius:22px;
+}
+
+.product-card img{
+    height:420px;
+}
+
+.product-card h3{
+    font-size:20px;
+    min-height:56px;
+}
+
+.product-card p{
+    font-size:15px;
+}
+
+.price span{
+    font-size:28px;
+}
+
+.price del{
+    font-size:18px;
+}
+
+.color-dot{
+    width:22px;
+    height:22px;
+}
+
+.back-btn{
+    padding:15px 22px;
+    font-size:16px;
+}
+
+}

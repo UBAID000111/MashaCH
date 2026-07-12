@@ -2166,3 +2166,150 @@ display:none;
 }
     
 }
+
+/* ==========================================
+iMAC / LARGE DESKTOP (1600px+)
+========================================== */
+
+@media (min-width:1600px){
+
+.product-section{
+    max-width:1900px;
+    padding:60px 40px 100px;
+}
+
+.product-container{
+    grid-template-columns:55% 45%;
+    gap:60px;
+    padding:45px;
+}
+
+.left-side{
+    gap:28px;
+}
+
+/* Gallery */
+
+.thumbnail-list{
+    max-height:850px;
+}
+
+.thumbnail-list img{
+    width:110px;
+    height:135px;
+}
+
+.main-image-box{
+    height:850px;
+}
+
+/* Right Side */
+
+.right-side{
+    top:120px;
+    padding:20px;
+}
+
+.right-side h1{
+    font-size:52px;
+}
+
+.product-category{
+    font-size:16px;
+}
+
+.description{
+    font-size:18px;
+    line-height:2;
+}
+
+/* Price */
+
+.current-price{
+    font-size:52px;
+}
+
+.old-price{
+    font-size:26px;
+}
+
+.discount{
+    font-size:16px;
+    padding:10px 18px;
+}
+
+/* Colors */
+
+.color-dot{
+    width:50px;
+    height:50px;
+}
+
+/* Sizes */
+
+.size-btn{
+    padding:16px 24px;
+    font-size:17px;
+}
+
+/* Quantity */
+
+.quantity-box{
+    width:210px;
+    height:64px;
+}
+
+.quantity-box button{
+    width:64px;
+    font-size:28px;
+}
+
+.quantity-box input{
+    font-size:22px;
+}
+
+/* Buttons */
+
+.button-group{
+    gap:22px;
+}
+
+.add-cart,
+.buy-now{
+    height:68px;
+    font-size:19px;
+}
+
+/* Accordion */
+
+.accordion-item summary{
+    font-size:20px;
+}
+
+.accordion-content{
+    font-size:17px;
+}
+
+.size-chart th,
+.size-chart td{
+    padding:16px;
+    font-size:16px;
+}
+
+/* Reviews */
+
+.reviews-section{
+    padding:40px;
+}
+
+.review-user img{
+    width:60px;
+    height:60px;
+}
+
+.review-images img{
+    width:120px;
+    height:120px;
+}
+
+}

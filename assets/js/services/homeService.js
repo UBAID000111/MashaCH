@@ -652,6 +652,7 @@ BEST SELLER
 export async function loadBestSeller(){
 
 const products = await getBestSellers();
+console.log("Best Sellers:", products);
 
 if(products.length===0){
 
@@ -690,4 +691,3 @@ products.slice(0,10)
 );
 
 }
-

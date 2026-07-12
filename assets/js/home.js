@@ -7,16 +7,27 @@ loadAllProducts
 
 
 
+
 async function initHome(){
 
-await loadCategories();
+    await loadCategories();
+    await loadNewArrival();
+    await loadBestSeller();
+    await loadAllProducts();
 
-await loadNewArrival();
+    if(window.location.hash === "#bestSellerSection"){
 
-await loadBestSeller();
+        setTimeout(() => {
 
-await loadAllProducts();
+            document.getElementById("bestSellerSection")
+                ?.scrollIntoView({
+                    behavior:"smooth",
+                    block:"start"
+                });
 
+        },1200); // wait until products are rendered
+
+    }
 
 }
 

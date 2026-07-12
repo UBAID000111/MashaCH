@@ -283,3 +283,63 @@ MOBILE
 }
 
 }
+
+/*==================================
+iMAC / LARGE DESKTOP
+==================================*/
+
+@media (min-width:1600px){
+
+.footer{
+    padding:90px 50px 40px;
+}
+
+.footer-grid{
+    max-width:1800px;
+    grid-template-columns:2.5fr 1.2fr 1.2fr 1.5fr;
+    gap:80px;
+}
+
+.footer h3{
+    font-size:28px;
+    margin-bottom:28px;
+}
+
+.footer h3::after{
+    width:60px;
+    height:4px;
+}
+
+.footer p{
+    font-size:17px;
+    line-height:2;
+}
+
+.footer a{
+    font-size:17px;
+    margin:18px 0;
+}
+
+.footer-divider{
+    max-width:1800px;
+}
+
+.footer-bottom{
+    max-width:1800px;
+}
+
+.footer-bottom p{
+    font-size:16px;
+}
+
+.footer-social{
+    gap:20px;
+}
+
+.footer-social a{
+    width:56px;
+    height:56px;
+    font-size:24px;
+}
+
+}

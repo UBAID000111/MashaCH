@@ -33,7 +33,7 @@ PART 1
 
 --transition:.35s ease;
 
---container:1450px;
+--container:1800px;
 
 }
 
@@ -302,6 +302,10 @@ section{
 
 padding:45px 20px;
 
+}
+
+#bestSellerSection{
+    scroll-margin-top:100px;
 }
 
 .section-header{

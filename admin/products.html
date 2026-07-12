@@ -3,6 +3,9 @@
     /* ===========================
    PRODUCT MANAGEMENT
 =========================== */
+:root{
+    --container:1900px;
+}
 
 .content{
 
@@ -537,6 +540,55 @@ flex-direction:column;
 
 width:100%;
 
+}
+
+}
+
+/* ===========================
+iMac / Large Desktop
+=========================== */
+
+@media (min-width:1800px){
+
+.form-container{
+    max-width:1800px;
+    margin:auto;
+}
+
+.form-row{
+    grid-template-columns:repeat(3,1fr);
+    gap:30px;
+}
+
+.variant-grid{
+    grid-template-columns:repeat(4,1fr);
+    gap:24px;
+}
+
+.section-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.header-actions{
+    display:flex;
+    gap:16px;
+    align-items:center;
+}
+
+.header-actions input{
+    width:420px;
+}
+
+.form-buttons{
+    display:flex;
+    justify-content:flex-end;
+    gap:16px;
+}
+
+.form-buttons button{
+    min-width:180px;
 }
 
 }

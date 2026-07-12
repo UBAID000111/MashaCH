@@ -663,3 +663,128 @@ color:#cd104d;
 
 
 }
+
+/* ==========================================
+LARGE DESKTOP / iMAC
+========================================== */
+
+@media (min-width:1600px){
+
+:root{
+    --container:2100px;
+}
+
+.nav-container{
+    max-width:var(--container);
+    padding:18px 40px;
+}
+
+.hero{
+    min-height:950px;
+}
+
+.hero-content{
+    max-width:var(--container);
+}
+
+.hero-content h1{
+    font-size:110px;
+}
+
+.hero-content p{
+    font-size:22px;
+    max-width:620px;
+}
+
+.hero-btn{
+    padding:20px 45px;
+    font-size:18px;
+}
+
+/* Categories */
+
+.category-grid{
+    grid-template-columns:repeat(4,1fr);
+    gap:32px;
+}
+
+.category-card img{
+    height:600px;
+}
+
+/* Products */
+
+.products-grid{
+    grid-template-columns:repeat(4,1fr);
+    gap:30px;
+    max-width: var(--container);
+}
+
+.product-card{
+
+    border-radius:24px;
+}
+
+.product-image img{
+    height: auto;
+    object-fit:cover;
+}
+
+.product-info{
+    padding:20px;
+}
+
+.product-info h3{
+    font-size:20px;
+}
+
+.current-price{
+    font-size:26px;
+}
+
+.old-price{
+    font-size:18px;
+}
+
+.cart-btn{
+    height:54px;
+    font-size:16px;
+}
+
+/* Features */
+
+.features-grid{
+    grid-template-columns:repeat(4,1fr);
+    gap:35px;
+    max-width: var(--container);
+}
+
+/* Newsletter */
+
+.newsletter{
+    max-width:var(--container);
+    padding:70px;
+}
+
+.newsletter h2{
+    font-size:46px;
+}
+
+/* Footer */
+
+.footer-grid{
+    max-width:var(--container);
+    margin:auto;
+    gap:60px;
+}
+
+.footer h3{
+    font-size:24px;
+}
+
+.footer p,
+.footer a{
+    font-size:16px;
+}
+
+}

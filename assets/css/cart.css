@@ -584,3 +584,107 @@ font-size:16px;
 }
 
 }
+/*==================================
+iMAC / LARGE DESKTOP
+==================================*/
+
+@media (min-width:1600px){
+
+.cart-section{
+    max-width:1900px;
+    grid-template-columns:1fr 420px;
+    gap:40px;
+    padding:35px 40px;
+}
+
+.cart-section h1{
+    font-size:52px;
+    margin-bottom:20px;
+}
+
+.cart-card{
+    gap:30px;
+    padding:28px;
+    border-radius:20px;
+}
+
+.cart-card img{
+    width:220px;
+    height:280px;
+    border-radius:16px;
+}
+
+.cart-info h3{
+    font-size:30px;
+}
+
+.cart-info p{
+    font-size:18px;
+}
+
+.cart-info h4{
+    font-size:38px;
+}
+
+.qty{
+    width:170px;
+    height:56px;
+}
+
+.qty button{
+    width:56px;
+    height:56px;
+    font-size:28px;
+}
+
+.qty span{
+    font-size:22px;
+}
+
+.remove-btn{
+    width:170px;
+    height:52px;
+    font-size:17px;
+}
+
+.cart-summary{
+    width:420px;
+    padding:35px;
+    border-radius:22px;
+}
+
+.cart-summary h2{
+    font-size:34px;
+}
+
+.summary-row{
+    font-size:20px;
+}
+
+.summary-row.total{
+    font-size:30px;
+}
+
+#checkoutBtn{
+    height:64px;
+    font-size:20px;
+}
+
+.empty-cart{
+    padding:120px 50px;
+}
+
+.empty-cart h2{
+    font-size:46px;
+}
+
+.empty-cart p{
+    font-size:20px;
+}
+
+.empty-cart a{
+    padding:18px 36px;
+    font-size:18px;
+}
+
+}
