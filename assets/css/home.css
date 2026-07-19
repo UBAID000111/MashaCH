@@ -456,6 +456,9 @@ color:#fff;
 
 .hero h1{
 
+position: relative;
+
+left: 500px;
 font-size:95px;
 
 line-height:.95;
@@ -468,6 +471,10 @@ letter-spacing:4px;
 
 .hero h2{
 
+
+position: relative;
+
+left: 500px;
 font-size:48px;
 
 font-weight:500;
@@ -480,6 +487,9 @@ color:var(--gold-light);
 
 .hero p{
 
+position: relative;
+
+left: 500px;
 margin:35px 0;
 
 font-size:20px;
@@ -492,6 +502,10 @@ max-width:520px;
 
 .hero-btn{
 
+
+position: relative;
+
+left: 500px;
 display:inline-flex;
 
 align-items:center;
@@ -1245,6 +1259,8 @@ padding:35px 0;
 
 }
 
+
+
 #modalVideo{
 
 width:96vw;
@@ -1774,6 +1790,29 @@ box-shadow:none;
 
 }
 
+.hero h1{
+    
+    position: relative;
+    left: 0px;
+}
+
+.hero h2{
+    position: relative;
+    left: 0px;
+}
+
+.hero p{
+    position: relative;
+    left: 0px;
+}
+
+.hero-btn{
+    position: relative;
+    left: 0px;
+}
+
+
+
 .newsletter-box input{
 
 height:50px;
@@ -1847,6 +1886,8 @@ height:45px;
     object-fit: cover;
     object-position: 20% center;
 }
+
+
 
 }
 
