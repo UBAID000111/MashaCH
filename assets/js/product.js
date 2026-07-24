@@ -322,33 +322,40 @@ function loadSizes(variant){
 
 sizeList.innerHTML="";
 
-variant.sizes.forEach((size,index)=>{
+const ALL_SIZES=[
+"Free Size",
+"XS",
+"S",
+"M",
+"L",
+"XL",
+"XXL",
+"3XL",
+"4XL",
+"5XL"
+];
+
+let firstAvailable=null;
+
+ALL_SIZES.forEach(sizeName=>{
+
+const size=variant.sizes.find(s=>s.name===sizeName);
 
 const btn=document.createElement("button");
 
 btn.type="button";
-
 btn.className="size-btn";
+btn.innerText=sizeName;
 
-btn.innerText=size.name;
-
-if(size.stock<=0){
+if(!size || size.stock<=0){
 
 btn.disabled=true;
-
 btn.classList.add("out-of-stock");
 
-}
+}else{
 
-if(index===0 && size.stock>0){
-
-btn.classList.add("active");
-
-stock.innerHTML=`
-<span style="color:#16a34a;font-weight:700;">
-${size.stock} Available
-</span>`;
-
+if(!firstAvailable){
+firstAvailable=btn;
 }
 
 btn.onclick=()=>{
@@ -361,27 +368,31 @@ b.classList.remove("active");
 
 btn.classList.add("active");
 
-if(size.stock<=0){
+stock.innerHTML=`
+<span style="color:#16a34a;font-weight:700;">
+${size.stock} Available
+</span>`;
+
+};
+
+}
+
+sizeList.appendChild(btn);
+
+});
+
+if(firstAvailable){
+
+firstAvailable.click();
+
+}else{
 
 stock.innerHTML=`
 <span style="color:#dc2626;font-weight:700;">
 Out of Stock
 </span>`;
 
-}else{
-
-stock.innerHTML=`
-<span style="color:#16a34a;font-weight:700;">
-${size.stock} Available
-</span>`;
-
 }
-
-};
-
-sizeList.appendChild(btn);
-
-});
 
 }
 
