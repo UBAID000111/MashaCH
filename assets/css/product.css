@@ -1140,6 +1140,7 @@ IMAGE HOVER
 ========================================== */
 
 .main-image-box{
+contain: paint;
 
 overflow:hidden;
 
@@ -1150,6 +1151,12 @@ cursor:zoom-in;
 }
 
 .main-image-box img{
+
+will-change: transform;
+
+backface-visibility: hidden;
+
+transform: translateZ(0);
 
 transition:
 
@@ -1163,7 +1170,7 @@ filter .4s ease;
 
 transform:scale(1.12);
 
-filter:brightness(1.03);
+
 
 }
 
@@ -1355,6 +1362,10 @@ margin-top:28px;
 
 .add-cart,
 .buy-now{
+
+width: 100%;
+
+min-width: 220px;
 
 height:58px;
 
@@ -1714,6 +1725,12 @@ top:50%;
 
 transform:translateY(-50%);
 
+}
+
+#mainImage{
+    display:block !important;
+    visibility: visible;
+    background: #ffff;
 }
 
 /* ==========================================
