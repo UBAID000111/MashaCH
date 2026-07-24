@@ -335,6 +335,12 @@ const ALL_SIZES=[
 "5XL"
 ];
 
+variant.sizes.forEach(s=>{
+    if(!ALL_SIZES.includes(s.name)){
+        ALL_SIZES.push(s.name);
+    }
+});
+
 let firstAvailable=null;
 
 ALL_SIZES.forEach(sizeName=>{
