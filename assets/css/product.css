@@ -115,7 +115,7 @@ SECTION
 
 .product-section{
 
-max-width:1500px;
+max-width:1600px;
 
 margin:auto;
 
@@ -132,6 +132,7 @@ PRODUCT CARD
 display:grid;
 
 grid-template-columns:58% 42%;
+
 
 gap:45px;
 
@@ -566,6 +567,8 @@ flex-direction:column;
 gap:16px;
 
 padding:8px;
+
+margin-bottom: 15px;
 
 max-height:720px;
 
@@ -1822,17 +1825,19 @@ flex:none;
 
 border-radius:0;
 
-min-height:500px;
-
+min-height:auto;
+padding: 20px;
+height: auto;
 box-shadow:none;
 
 }
 
 .main-image-box img{
+width: 100%;
+height:auto;
+max-height: 500px;
 
-height:500px;
-
-object-fit:cover;
+object-fit:contain;
 
 }
 
