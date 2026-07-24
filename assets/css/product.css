@@ -219,9 +219,9 @@ RIGHT
 
 .right-side{
 
-position:sticky;
+position:static;
 
-top:100px;
+top:auto;
 
 height:max-content;
 
@@ -1140,7 +1140,6 @@ IMAGE HOVER
 ========================================== */
 
 .main-image-box{
-contain: paint;
 
 overflow:hidden;
 
