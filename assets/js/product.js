@@ -121,7 +121,9 @@ return;
 
 }
 
-productName.innerText = productData.name;
+const variant = productData.variants[currentVariantIndex];
+productName.innerText =
+`${variant.color.name} ${productData.name}`;
 
 productCategory.innerText = productData.category;
 
@@ -618,7 +620,7 @@ await setDoc(ref,{
 
 productId,
 
-productName:productData.name,
+productName: `${variant.color.name} ${productData.name}`,
 
 category:productData.category,
 
@@ -867,7 +869,7 @@ currentUser.uid,
 
 productId:productId,
 
-productName:productData.name,
+productName: `${variant.color.name} ${productData.name}`,
 
 category:productData.category,
 
