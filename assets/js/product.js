@@ -619,6 +619,9 @@ const discount=Math.round(
 /selectedVariant.oldPrice)*100
 );
 
+const variant =
+productData.variants[variantIndex];
+
 await setDoc(ref,{
 
 productId,
