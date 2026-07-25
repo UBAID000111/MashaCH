@@ -382,7 +382,6 @@ price:Number(card.querySelector(".variantPrice").value),
 
 oldPrice:Number(card.querySelector(".variantOldPrice").value),
 
-displayName: card.querySelector(".variantDisplayName").value.trim(),
 
 sku:card.querySelector(".variantSku").value.trim(),
 
