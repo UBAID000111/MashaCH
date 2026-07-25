@@ -121,7 +121,8 @@ return;
 
 }
 
-productName.innerText = productData.name;
+productName.innerText = 
+variant.displayName || productData.name;
 
 productCategory.innerText = productData.category;
 
@@ -618,7 +619,7 @@ await setDoc(ref,{
 
 productId,
 
-productName:productData.name,
+productName: variant.displayName || productData.name,
 
 category:productData.category,
 
@@ -867,7 +868,7 @@ currentUser.uid,
 
 productId:productId,
 
-productName:productData.name,
+productName:variant.displayName || productData.name,
 
 category:productData.category,
 
