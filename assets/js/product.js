@@ -320,6 +320,43 @@ SIZES
 =========================== */
 function loadSizes(variant){
 
+    const standardSizes = [
+    "Free Size",
+    "XS",
+    "S",
+    "M",
+    "L",
+    "XL",
+    "XXL",
+    "3XL",
+    "4XL",
+    "5XL"
+];
+
+const isCustom =
+    variant.sizes.length === 1 &&
+    !standardSizes.includes(variant.sizes[0].name);
+
+if(isCustom){
+
+    sizeList.innerHTML = "";
+
+    const btn = document.createElement("button");
+
+    btn.className = "size-btn active";
+
+    btn.innerText = variant.sizes[0].name;
+
+    sizeList.appendChild(btn);
+
+    stock.innerHTML = `
+    <span style="color:#16a34a;font-weight:700;">
+        ${variant.sizes[0]?.stock || 0} Available
+    </span>`;
+
+    return;
+}
+
 sizeList.innerHTML="";
 
 const ALL_SIZES=[

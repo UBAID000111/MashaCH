@@ -385,6 +385,11 @@ oldPrice:Number(card.querySelector(".variantOldPrice").value),
 sku:card.querySelector(".variantSku").value.trim(),
 
 sizes,
+isCustomSize : customBox?.checked || false,
+
+customSizeLabel : customBox?.checked
+? card.querySelector(".customSizeName").value.trim()
+: "",
 
 image,
 
