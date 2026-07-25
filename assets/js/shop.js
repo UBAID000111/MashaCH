@@ -138,8 +138,9 @@ class="color-dot ${index===0?"active":""}"
 style="background:${variant.color.hex};"
 data-image="${optimizeImage(variant.image,500)}"
 data-price="${variant.price}"
-data-oldprice="${variant.oldPrice}">
-
+data-oldprice="${variant.oldPrice}"
+data-color="${variant.color.name}"
+data-name="${product.name}">
 </span>
 
 `).join("");
@@ -157,7 +158,9 @@ alt="${product.name}">
 
 </a>
 
-<h3>${product.name}</h3>
+<h3 class="product-title">
+${firstVariant.color.name} ${product.name}
+</h3>
 
 <div class="color-list">
 
@@ -222,6 +225,11 @@ image.src=dot.dataset.image;
 currentPrice.innerText="₹"+dot.dataset.price;
 
 oldPrice.innerText="₹"+dot.dataset.oldprice;
+
+const title = card.querySelector(".product-title");
+
+title.innerText =
+`${dot.dataset.color} ${dot.dataset.name}`;
 
 });
 

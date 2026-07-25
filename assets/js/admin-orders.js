@@ -127,7 +127,7 @@ table.innerHTML="";
 
 list.forEach(order=>{
 
-const item=order.items?.[0]||{};
+const items =order.items || [];
 
 const date=order.createdAt?.toDate
 
@@ -141,17 +141,58 @@ table.innerHTML+=`
 
 <td>
 
-<div class="product-cell">
+<div class="order-summary">
 
-<img src="${optimizeImage(item.image||'',300)}">
+<b>📦 ${items.length} Item${items.length>1?"s":""}</b>
+
+<button
+class="toggle-items"
+onclick="toggleItems('${order.id}')">
+
+▼ View Items
+
+</button>
+
+<div
+class="items-dropdown"
+id="items-${order.id}">
+
+${items.map(item=>`
+
+<div class="dropdown-item">
+
+<img
+src="${optimizeImage(item.image||'',250)}">
 
 <div>
 
-<b>${item.productName||""}</b>
+<b>${item.productName}</b>
 
-<br>
+<p>
 
-${item.selectedSize||""}
+${item.selectedColor?.name || ""}
+
+|
+
+${item.selectedSize}
+
+×
+
+${item.quantity}
+
+</p>
+
+<p>
+
+₹${item.price}
+
+</p>
+
+</div>
+
+</div>
+
+`).join("")}
 
 </div>
 
@@ -321,7 +362,7 @@ const value=search.value.toLowerCase();
 
 const filtered=allOrders.filter(order=>{
 
-const item=order.items?.[0]||{};
+const item=order.items || [];
 
 return(
 
@@ -337,11 +378,11 @@ order.id.toLowerCase().includes(value)
 
 ||
 
-(item.productName||"")
-
+items.some(item =>
+(item.productName || "")
 .toLowerCase()
-
 .includes(value)
+)
 
 ||
 
@@ -402,3 +443,11 @@ render(allOrders);
 alert("Order Updated");
 
 });
+
+window.toggleItems = function(id){
+
+const box = document.getElementById(`items-${id}`);
+
+box.classList.toggle("show");
+
+}
