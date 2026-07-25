@@ -123,7 +123,7 @@ return;
 
 const variant = productData.variants[currentVariantIndex];
 productName.innerText =
-`${variant.color.name} ${productData.name}`;
+`${variant[index].color.name} ${productData.name}`;
 
 productCategory.innerText = productData.category;
 
@@ -620,7 +620,7 @@ await setDoc(ref,{
 
 productId,
 
-productName: `${variant.color.name} ${productData.name}`,
+productName: `${variant[index].color.name} ${productData.name}`,
 
 category:productData.category,
 
@@ -869,7 +869,7 @@ currentUser.uid,
 
 productId:productId,
 
-productName: `${variant.color.name} ${productData.name}`,
+productName: `${variant[index].color.name} ${productData.name}`,
 
 category:productData.category,
 
