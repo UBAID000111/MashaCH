@@ -642,6 +642,46 @@ Buy Now
 
 <script type="module" src="/assets/js/services/toastService.js"></script>
  
+<!-- Added To Cart Popup -->
+<div id="cartSuggestionPopup" class="cart-suggestion-popup">
+
+    <div class="cart-suggestion-content">
+
+        <div class="popup-top">
+
+            <div class="popup-success">
+                <i class="fa-solid fa-circle-check"></i>
+                <span>Added to Cart</span>
+            </div>
+
+            <button id="closeSuggestionPopup" class="popup-close">
+                <i class="fa-solid fa-xmark"></i>
+            </button>
+
+        </div>
+
+        <h3>See More Like This</h3>
+
+        <div id="suggestionProducts" class="suggestion-grid">
+            <!-- Products loaded by JS -->
+        </div>
+
+        <div class="popup-footer">
+
+            <button id="continueShoppingBtn" class="continue-btn">
+                Continue Shopping
+            </button>
+
+            <a href="cart.html" class="goto-cart-btn">
+                Go To Cart
+            </a>
+
+        </div>
+
+    </div>
+
+</div>
+
 </body>
 
 </html>

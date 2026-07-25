@@ -15,7 +15,8 @@ where,
 getDocs,
 setDoc,
 deleteDoc,
-serverTimestamp
+serverTimestamp,
+limit
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 import {
@@ -893,7 +894,7 @@ createdAt:serverTimestamp()
 );
 
 
-showToast("Added To Cart");
+showAddedToCartPopup(productData.category, productId);
 
 const userSnap = await getDoc(
     doc(db, "users", currentUser.uid)
@@ -1106,6 +1107,84 @@ ${review.images.map(img=>`
 `;
 
 }
+
+async function showAddedToCartPopup(category, currentProductId){
+
+    const popup = document.getElementById("cartSuggestionPopup");
+    const container = document.getElementById("suggestionProducts");
+
+    container.innerHTML = "";
+
+    const q = query(
+        collection(db, "products"),
+        where("category", "==", category),
+        limit(20)
+    );
+
+    const snap = await getDocs(q);
+
+    let products = [];
+
+    snap.forEach(docSnap => {
+
+        if(docSnap.id !== currentProductId){
+
+            products.push({
+                id: docSnap.id,
+                ...docSnap.data()
+            });
+
+        }
+
+    });
+
+    products.sort(() => Math.random() - 0.5);
+
+    products.slice(0,4).forEach(product=>{
+
+        const variant = product.variants[0];
+
+        container.innerHTML += `
+
+        <div class="suggestion-card"
+        onclick="location.href='product.html?id=${product.id}'">
+
+            <img
+            src="${optimizeImage(variant.image,400)}">
+
+            <h4>${product.name}</h4>
+
+            <p>₹${variant.price}</p>
+
+        </div>
+
+        `;
+
+    });
+
+    popup.classList.add("show");
+
+}
+
+document
+.getElementById("closeSuggestionPopup")
+?.addEventListener("click",()=>{
+
+document
+.getElementById("cartSuggestionPopup")
+.classList.remove("show");
+
+});
+
+document
+.getElementById("continueShoppingBtn")
+?.addEventListener("click",()=>{
+
+document
+.getElementById("cartSuggestionPopup")
+.classList.remove("show");
+
+});
 
 function openImageViewer(){
 
