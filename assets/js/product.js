@@ -805,8 +805,13 @@ return;
 if(addCartBtn.disabled) return;
 
 addCartBtn.disabled = true;
+addCartBtn.innerText = "Adding...";
 
-addCartBtn.innerText = "Adding...";    
+const mobileBtn = document.getElementById("mobileAddCartBtn");
+if (mobileBtn) {
+    mobileBtn.disabled = true;
+    mobileBtn.innerText = "Adding...";
+}  
 
 if(!currentUser){
 
@@ -930,8 +935,13 @@ lastUpdated:serverTimestamp()
     }finally{
 
 addCartBtn.disabled = false;
+addCartBtn.innerText = "🛒 Add To Cart";
 
-addCartBtn.innerText = "Add To Cart";
+const mobileBtn = document.getElementById("mobileAddCartBtn");
+if (mobileBtn) {
+    mobileBtn.disabled = false;
+    mobileBtn.innerText = "🛒 Cart";
+}
 
 }
 }
