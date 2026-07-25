@@ -122,8 +122,9 @@ return;
 }
 
 const variant = productData.variants[currentVariantIndex];
+
 productName.innerText =
-`${variant[index].color.name} ${productData.name}`;
+`${variant.color.name} ${productData.name}`;
 
 productCategory.innerText = productData.category;
 
@@ -210,6 +211,8 @@ function loadVariant(index){
     currentVariantIndex = index;
 
 const variant = productData.variants[index];
+
+productName.innerText = `${variant.color.name} ${productData.name}`;
 
 imageLoader.style.display="block";
 
@@ -620,7 +623,7 @@ await setDoc(ref,{
 
 productId,
 
-productName: `${variant[index].color.name} ${productData.name}`,
+productName: `${variant.color.name} ${productData.name}`,
 
 category:productData.category,
 
@@ -869,7 +872,7 @@ currentUser.uid,
 
 productId:productId,
 
-productName: `${variant[index].color.name} ${productData.name}`,
+productName: `${variant.color.name} ${productData.name}`,
 
 category:productData.category,
 
