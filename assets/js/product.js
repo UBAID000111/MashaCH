@@ -620,7 +620,7 @@ const discount=Math.round(
 );
 
 const variant =
-productData.variants[variantIndex];
+productData.variants[currentVariantIndex];
 
 await setDoc(ref,{
 
