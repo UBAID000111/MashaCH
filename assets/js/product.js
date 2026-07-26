@@ -328,15 +328,11 @@ function loadSizes(variant){
 
     const standardSizes = [
     "Free Size",
-    "XS",
     "S",
     "M",
     "L",
     "XL",
-    "XXL",
-    "3XL",
-    "4XL",
-    "5XL"
+    "XXL"
 ];
 
 const isCustom =
@@ -367,15 +363,11 @@ sizeList.innerHTML="";
 
 const ALL_SIZES=[
 "Free Size",
-"XS",
 "S",
 "M",
 "L",
 "XL",
-"XXL",
-"3XL",
-"4XL",
-"5XL"
+"XXL"
 ];
 
 variant.sizes.forEach(s=>{
