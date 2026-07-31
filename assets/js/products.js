@@ -208,17 +208,74 @@ const preview=
 
 card.querySelector(".variantPreview");
 
+card.querySelector(".variantGallery").onchange=e=>{
+
+Array.from(e.target.files).forEach(file=>{
+
+const reader=new FileReader();
+
+reader.onload=x=>{
+
+const div=document.createElement("div");
+
+div.className="preview-item";
+
+div.innerHTML=`
+<img src="${x.target.result}">
+`;
+
+preview.appendChild(div);
+
+};
+
+reader.readAsDataURL(file);
+
+});
+
+};
+
+function addPreview(src,type){
+
+const div=document.createElement("div");
+
+div.className="preview-item";
+
+div.innerHTML=`
+<img src="${src}">
+<button
+type="button"
+class="remove-preview">×</button>
+`;
+
+div.querySelector(".remove-preview").onclick=()=>{
+
+div.remove();
+
+if(type==="main"){
+
+card.dataset.oldImage="";
+
+}else{
+
+let gallery=
+JSON.parse(card.dataset.oldGallery||"[]");
+
+gallery=gallery.filter(img=>img!==src);
+
+card.dataset.oldGallery=
+JSON.stringify(gallery);
+
+}
+
+};
+
+preview.appendChild(div);
+
+}
+
 if(data.image){
 
-preview.innerHTML+=`
-
-<img
-
-src="${data.image}"
-
-style="width:90px;height:110px;object-fit:cover;border-radius:8px;">
-
-`;
+addPreview(data.image,"main");
 
 }
 
@@ -226,15 +283,7 @@ if(data.gallery){
 
 data.gallery.forEach(img=>{
 
-preview.innerHTML+=`
-
-<img
-
-src="${img}"
-
-style="width:90px;height:110px;object-fit:cover;border-radius:8px;">
-
-`;
+addPreview(img,"gallery");
 
 });
 
