@@ -849,7 +849,10 @@ border-radius:14px;
 }
 
 .product-card img{
-
+width: 100%;
+aspect-ratio: 4 / 5;
+object-fit: contain;
+background-color: #ffff;
 height:auto;
 
 }
