@@ -12,6 +12,7 @@ href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"
     <link rel="stylesheet" href="assets/css/navbar.css">
     <link rel="stylesheet" href="assets/css/home.css">
     <link rel="stylesheet" href="/assets/css/intro.css">
+    <link rel="stylesheet" href="assets/css/helpbot.css">
     <link rel="stylesheet" href="assets/css/responsive.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="assets/css/footer.css">
@@ -517,11 +518,173 @@ controlsList="nodownload">
 
 <script type="module" src="assets/js/homeVideo.js"></script>
 
+<!-- ==========================================
+MASHA SUPPORT BOT
+========================================== -->
+
+<!-- Floating Button -->
+
+<button id="helpBotBtn" class="helpbot-btn">
+
+    <svg xmlns="http://www.w3.org/2000/svg"
+        width="24"
+        height="24"
+        fill="none"
+        viewBox="0 0 24 24">
+
+        <path
+            d="M12 3C6.48 3 2 6.94 2 11.8c0 2.7 1.39 5.12 3.58 6.72L5 22l3.92-2.06c.98.27 2.01.41 3.08.41 5.52 0 10-3.94 10-8.8S17.52 3 12 3Z"
+            stroke="currentColor"
+            stroke-width="2"
+            stroke-linecap="round"
+            stroke-linejoin="round"/>
+
+    </svg>
+
+</button>
+
+<!-- ===================================== -->
+
+<div id="helpBotOverlay"></div>
+
+<div id="helpBotWindow">
+
+    <!-- Header -->
+
+    <div class="helpbot-header">
+
+        <div>
+
+            <h3>MASHA Support</h3>
+
+            <p>
+
+                Online • Usually replies instantly
+
+            </p>
+
+        </div>
+
+        <button id="closeHelpBot">
+
+            ✕
+
+        </button>
+
+    </div>
+
+    <!-- Messages -->
+
+    <div id="chatMessages" class="chat-messages">
+
+        <!-- Welcome -->
+
+        <div class="bot-message">
+
+            <div class="bot-avatar">
+
+                M
+
+            </div>
+
+            <div class="message">
+
+                <h4>
+
+                    👋 Welcome to MASHA Support
+
+                </h4>
+
+                <p>
+
+                    Hi! I'm here to help you.
+
+                    Choose a quick option below or type your question.
+
+                </p>
+
+            </div>
+
+        </div>
+
+    </div>
+
+    <!-- Quick Actions -->
+
+    <div class="quick-menu">
+
+<button id="quickToggle" class="quick-toggle">
+
+☰ Quick Questions
+
+</button>
+
+<div id="quickDropdown" class="quick-dropdown">
+
+<button class="quick-chip">📦 Track Order</button>
+
+<button class="quick-chip">🚚 Delivery</button>
+
+<button class="quick-chip">↩ Return</button>
+
+<button class="quick-chip">💰 Refund</button>
+
+<button class="quick-chip">📏 Size Guide</button>
+
+<button class="quick-chip">💳 Payment</button>
+
+<button class="quick-chip">☎ Contact</button>
+
+</div>
+
+</div>
+
+    <!-- Typing -->
+
+    <div id="typingBox" class="typing-box">
+
+        <div class="bot-avatar">
+
+            M
+
+        </div>
+
+        <div class="typing-bubble">
+
+            <span></span>
+
+            <span></span>
+
+            <span></span>
+
+        </div>
+
+    </div>
+
+    <!-- Input -->
+
+    <div class="chat-input">
+
+        <input
+            id="helpInput"
+            type="text"
+            placeholder="Ask anything...">
+
+        <button id="sendHelp">
+
+            Send
+
+        </button>
+
+    </div>
+
+</div>
 
 
 </body>
 
 <script type="module" src="assets/js/home.js"></script>
+<script type="module" src="assets/js/helpbot.js"></script>
 
 </html>
 
