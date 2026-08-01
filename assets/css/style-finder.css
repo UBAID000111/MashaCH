@@ -1702,6 +1702,11 @@ font-size:14px;
 
 }
 
+.finder-hero{
+    padding:50px 15px 30px;
+    text-align:center;
+}
+
 .match-badge,
 
 .discount-badge{
