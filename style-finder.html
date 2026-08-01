@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>MASHA Stylist</title>
+
+<link rel="icon" type="image/jpeg" href="/assets/images/logoff-removebg-preview.png">
+
+<link rel="stylesheet" href="assets/css/navbar.css">
+<link rel="stylesheet" href="assets/css/footer.css">
+<link rel="stylesheet" href="assets/css/style-finder.css">
+<link rel="stylesheet" href="assets/css/responsive.css">
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet"
+href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css">
+
+</head>
+
+<body>
+
+<!-- NAVBAR -->
+
+<nav class="navbar">
+
+<div class="nav-container">
+
+<a href="index.html" class="home-btn">
+<i class="fa-solid fa-house"></i>
+</a>
+
+<ul class="nav-links">
+
+<li><a href="index.html">Home</a></li>
+
+<li><a href="shop.html">Shop</a></li>
+
+<li><a href="#">New Arrivals</a></li>
+
+<li><a href="#">Best Sellers</a></li>
+
+<li><a href="#">Sale</a></li>
+
+<li><a href="about.html">About</a></li>
+
+</ul>
+
+<a href="index.html" class="logo">
+
+<img src="/assets/images/logo/logoFinal.png">
+
+<span class="logo-text">MASHA</span>
+
+</a>
+
+<div class="nav-icons">
+
+<a href="wishlist.html">
+<i class="fa-regular fa-heart"></i>
+</a>
+
+<a href="cart.html">
+<i class="fa-solid fa-cart-shopping"></i>
+</a>
+
+</div>
+
+</div>
+
+</nav>
+
+<!-- HERO -->
+
+<section class="finder-hero">
+
+<div class="finder-hero-content">
+
+<h1>
+
+✨ MASHA Stylist
+
+</h1>
+
+<p>
+
+Find your perfect outfit in less than a minute.
+
+</p>
+
+</div>
+
+</section>
+
+<!-- QUIZ -->
+
+<section class="finder-section">
+
+<div class="finder-card">
+
+<div class="progress-box">
+
+<div class="progress-text">
+
+Step
+
+<span id="stepNo">
+
+1
+
+</span>
+
+of 4
+
+</div>
+
+<div class="progress-bar">
+
+<div
+class="progress-fill"
+id="progressFill">
+
+</div>
+
+</div>
+
+</div>
+
+<h2 id="questionTitle">
+
+What's the occasion?
+
+</h2>
+
+<p id="questionSubtitle">
+
+Choose one option
+
+</p>
+
+<div id="questionArea">
+
+</div>
+
+<div class="finder-buttons">
+
+<button
+id="backBtn">
+
+<i class="fa-solid fa-arrow-left"></i>
+
+Back
+
+</button>
+
+<button
+id="nextBtn">
+
+Next
+
+<i class="fa-solid fa-arrow-right"></i>
+
+</button>
+
+</div>
+
+</div>
+
+</section>
+
+<!-- LOADING -->
+
+<section
+id="loadingScreen"
+class="loading-screen">
+
+<div class="loading-card">
+
+<div class="loader"></div>
+
+<h2>
+
+✨ MASHA Stylist
+
+</h2>
+
+<p>
+
+Finding your perfect outfit...
+
+</p>
+
+<ul>
+
+<li>
+
+✔ Matching Occasion
+
+</li>
+
+<li>
+
+✔ Checking Budget
+
+</li>
+
+<li>
+
+✔ Searching Favourite Colours
+
+</li>
+
+<li>
+
+✔ Looking For Your Size
+
+</li>
+
+<li>
+
+✔ Preparing Recommendations
+
+</li>
+
+</ul>
+
+</div>
+
+</section>
+
+<!-- RESULTS -->
+
+<section
+id="resultsSection"
+class="results-section">
+
+<div class="results-header">
+
+<h2>
+
+✨ Your Perfect Matches
+
+</h2>
+
+<p>
+
+Based on your preferences
+
+</p>
+
+<div id="selectedFilters"
+class="selected-filters">
+
+</div>
+
+</div>
+
+<div
+id="productsGrid"
+class="products-grid">
+
+</div>
+
+<div
+id="noResults"
+class="no-results">
+
+<h2>
+
+😔 No Exact Match Found
+
+</h2>
+
+<p>
+
+Don't worry ❤️
+
+We found similar outfits you may like.
+
+</p>
+
+</div>
+
+<div
+id="recommendedSection">
+
+<h3>
+
+✨ Recommended In Your Size
+
+</h3>
+
+<div
+id="recommendedGrid"
+class="products-grid">
+
+</div>
+
+</div>
+
+<div
+id="trendingSection">
+
+<h3>
+
+🔥 Trending This Week
+
+</h3>
+
+<div
+id="trendingGrid"
+class="products-grid">
+
+</div>
+
+</div>
+
+</section>
+
+<!-- FOOTER -->
+
+<footer class="footer">
+
+<div class="footer-grid">
+
+<div>
+
+<h3>
+
+MASHA™
+
+</h3>
+
+<p>
+
+Premium Clothing Brand
+
+</p>
+
+</div>
+
+<div>
+
+<h3>
+
+Quick Links
+
+</h3>
+
+<a href="shop.html">
+
+Shop
+
+</a>
+
+<a href="#">
+
+Track Order
+
+</a>
+
+<a href="contact.html">
+
+Contact
+
+</a>
+
+</div>
+
+<div>
+
+<h3>
+
+Policies
+
+</h3>
+
+<a href="#">
+
+Privacy Policy
+
+</a>
+
+<a href="refund-policy.html">
+
+Refund Policy
+
+</a>
+
+</div>
+
+<div>
+
+<h3>
+
+Follow Us
+
+</h3>
+
+<a href="#">
+
+Instagram
+
+</a>
+
+<a href="#">
+
+Facebook
+
+</a>
+
+</div>
+
+</div>
+
+</footer>
+
+<script type="module" src="assets/js/style-finder.js"></script>
+
+</body>
+
+</html>

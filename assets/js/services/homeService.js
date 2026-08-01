@@ -46,6 +46,62 @@ document.getElementById("bestSellerGrid");
 const allProductsGrid =
 document.getElementById("allProductsGrid");
 
+const stylistCard = document.getElementById("stylistCard");
+const toggleBtn = document.getElementById("toggleStylist");
+const stylistHeader = document.querySelector(".stylist-header");
+
+if (stylistCard && toggleBtn && stylistHeader) {
+
+    toggleBtn.addEventListener("click", (e) => {
+
+        e.stopPropagation();
+
+        stylistCard.classList.toggle("active");
+
+    });
+
+    stylistHeader.addEventListener("click", () => {
+
+        stylistCard.classList.toggle("active");
+
+    });
+
+}
+
+document.querySelector(".stylist-header").addEventListener("click", () => {
+    stylistCard.classList.toggle("active");
+});
+const startQuizBtn = document.getElementById("startQuizBtn");
+const aiSearchBtn = document.getElementById("aiSearchBtn");
+const aiSearchInput = document.getElementById("aiSearchInput");
+
+/* Quiz */
+
+startQuizBtn.addEventListener("click", () => {
+
+    location.href = "style-finder.html";
+
+});
+
+/* AI Search */
+
+aiSearchBtn.addEventListener("click", () => {
+
+    const text = aiSearchInput.value.trim();
+
+    if(!text){
+
+        alert("Describe the outfit first.");
+
+        return;
+
+    }
+
+    location.href =
+        `style-finder.html?mode=ai&q=${encodeURIComponent(text)}`;
+
+});
+
 
 
 /*Load Categories*/
