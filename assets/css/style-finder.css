@@ -1707,6 +1707,13 @@ font-size:14px;
     text-align:center;
 }
 
+.finder-section{
+    padding:20px;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+}
+
 .match-badge,
 
 .discount-badge{
