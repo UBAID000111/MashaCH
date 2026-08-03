@@ -71,7 +71,25 @@ lastFirestoreDoc=result.lastDoc;
 
 finishedLoading=result.finished;
 
-allProducts.push(...result.products);
+const flattened = [];
+
+result.products.forEach(product => {
+
+    product.variants.forEach(variant => {
+
+        flattened.push({
+
+            ...product,
+
+            variant
+
+        });
+
+    });
+
+});
+
+allProducts.push(...flattened);
 
 /* Build Filters */
 
@@ -126,40 +144,39 @@ console.log(products);
 
 products.forEach(product=>{
 
-console.log(product.name, product.category);
+    const variant = product.variant;
 
-
-const firstVariant=product.variants[0];
-
-const colorDots=product.variants.map((variant,index)=>`
+    const colorDots = product.variants.map((v,index)=>`
 
 <span
-class="color-dot ${index===0?"active":""}"
-style="background:${variant.color.hex};"
-data-image="${optimizeImage(variant.image,500)}"
-data-price="${variant.price}"
-data-oldprice="${variant.oldPrice}"
-data-color="${variant.color.name}"
+class="color-dot ${v.color.name===variant.color.name ? "active" : ""}"
+style="background:${v.color.hex};"
+data-image="${optimizeImage(v.image,500)}"
+data-price="${v.price}"
+data-oldprice="${v.oldPrice}"
+data-color="${v.color.name}"
 data-name="${product.name}">
 </span>
 
 `).join("");
 
-productsGrid.innerHTML+=`
+    productsGrid.innerHTML += `
 
 <div class="product-card">
 
-<a href="product.html?id=${product.id}">
+<a href="product.html?id=${product.id}&color=${encodeURIComponent(variant.color.name)}">
 
 <img
 class="product-image"
-src="${optimizeImage(firstVariant.image,500)}"
+src="${optimizeImage(variant.image,500)}"
 alt="${product.name}">
 
 </a>
 
 <h3 class="product-title">
-${firstVariant.color.name} ${product.name}
+
+${variant.color.name} ${product.name}
+
 </h3>
 
 <div class="color-list">
@@ -172,13 +189,13 @@ ${colorDots}
 
 <span class="current-price">
 
-₹${firstVariant.price}
+₹${variant.price}
 
 </span>
 
 <del class="old-price">
 
-₹${firstVariant.oldPrice}
+₹${variant.oldPrice}
 
 </del>
 
@@ -366,7 +383,29 @@ if(price){
 
 products=products.filter(product=>{
 
-const amount=product.variants[0].price;
+const hasPrice=product.variants.some(v=>{
+
+const amount=v.price;
+
+switch(price){
+
+case "0-999":
+return amount<=999;
+
+case "1000-1999":
+return amount>=1000&&amount<=1999;
+
+case "2000-2999":
+return amount>=2000&&amount<=2999;
+
+case "3000":
+return amount>=3000;
+
+}
+
+});
+
+return hasPrice;
 
 switch(price){
 

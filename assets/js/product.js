@@ -36,6 +36,8 @@ const params = new URLSearchParams(window.location.search);
 
 const productId = params.get("id");
 
+const selectedColor = params.get("color");
+
 const avgRating=document.getElementById("avgRating");
 
 const totalReviews=document.getElementById("totalReviews");
@@ -121,16 +123,29 @@ return;
 
 }
 
-const variant = productData.variants[currentVariantIndex];
-
-productName.innerText =
-`${variant.color.name} ${productData.name}`;
-
 productCategory.innerText = productData.category;
 
 productDescription.innerText = productData.description;
 
-loadVariant(0);
+/* Find variant from URL */
+
+if(selectedColor){
+
+    const index = productData.variants.findIndex(v =>
+        v.color.name.toLowerCase() === selectedColor.toLowerCase()
+    );
+
+    if(index !== -1){
+
+        currentVariantIndex = index;
+
+    }
+
+}
+
+/* Load selected variant */
+
+loadVariant(currentVariantIndex);
 
 loadColorButtons();
 await loadReviews();
@@ -170,7 +185,7 @@ function loadColorButtons(){
 
         dot.dataset.index=index;
 
-        if(index===0){
+        if(index===currentVariantIndex){
 
             dot.classList.add("active");
 
@@ -1152,7 +1167,21 @@ async function showAddedToCartPopup(category, currentProductId){
 
     products.slice(0,4).forEach(product=>{
 
-        const variant = product.variants[0];
+        let selectedVariant;
+
+if (selectedColor) {
+
+    selectedVariant = product.variants.find(v =>
+        v.color.name === selectedColor
+    );
+
+}
+
+if (!selectedVariant) {
+
+    selectedVariant = product.variants[0];
+
+}
 
         container.innerHTML += `
 
