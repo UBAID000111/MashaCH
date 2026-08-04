@@ -1,9 +1,11 @@
 import { db } from "../../firebase/firebase-config.js";
 
-import{
+import {
 collection,
+doc,
+getDoc,
 getDocs
-}from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 export async function loadOverview(){
 
@@ -11,83 +13,76 @@ const users=await getDocs(collection(db,"users"));
 
 const products=await getDocs(collection(db,"products"));
 
-const orders=await getDocs(collection(db,"orders"));
-
 const reviews=await getDocs(collection(db,"reviews"));
 
-let revenue = 0;
+const analyticsSnap=await getDoc(
+doc(db,"analytics","overview")
+);
 
-let sold = 0;
+const analytics=analyticsSnap.exists()
+?analyticsSnap.data()
+:{};
 
-let wishlistItems = 0;
-let wishlistUsers = 0;
+let wishlistItems=0;
+let wishlistUsers=0;
 
-let cartItems = 0;
-let cartUsers = 0;
+let cartItems=0;
+let cartUsers=0;
 
-let totalProducts = products.size;
+let totalStock=0;
+let lowStock=0;
+let outOfStock=0;
 
-let outOfStock = 0;
-
-let lowStock = 0;
-
-let totalStock = 0;
+const totalProducts=products.size;
 
 for(const user of users.docs){
 
 const wishlist=await getDocs(
-
 collection(db,"users",user.id,"wishlist")
-
 );
 
 wishlistItems+=wishlist.size;
 
 if(wishlist.size>0){
-
 wishlistUsers++;
-
 }
 
 const cart=await getDocs(
-
 collection(db,"users",user.id,"cart")
-
 );
 
 cartItems+=cart.size;
 
 if(cart.size>0){
-
 cartUsers++;
-
 }
 
 }
 
 products.forEach(doc=>{
 
-const p = doc.data();
+const product=doc.data();
 
-let productStock = 0;
+let stock=0;
 
-(p.variants || []).forEach(variant=>{
+(product.variants||[]).forEach(variant=>{
 
-const stock = Number(variant.stock || 0);
+(variant.sizes||[]).forEach(size=>{
 
-productStock += stock;
+stock+=Number(size.stock||0);
 
 });
 
-totalStock += productStock;
+});
 
-if(productStock==0){
+totalStock+=stock;
+
+if(stock===0){
 
 outOfStock++;
 
 }
-
-if(productStock>0 && productStock<=5){
+else if(stock<=5){
 
 lowStock++;
 
@@ -95,58 +90,75 @@ lowStock++;
 
 });
 
-orders.forEach(doc=>{
+/* ===========================
+TOP CARDS
+=========================== */
 
-const order = doc.data();
+document.getElementById("totalVisitors").textContent=
+analytics.totalVisitors||0;
 
-revenue += Number(order.total || 0);
+document.getElementById("customerCount").textContent=
+users.size;
 
-(order.items || []).forEach(item=>{
+document.getElementById("totalViews").textContent=
+analytics.totalViews||0;
 
-sold += Number(item.quantity || 0);
+document.getElementById("wishlistCount").textContent=
+wishlistItems;
 
-});
+document.getElementById("wishlistUsers").textContent=
+wishlistUsers;
 
-});
+document.getElementById("cartCount").textContent=
+cartItems;
 
-document.getElementById("totalVisitors").textContent=users.size;
+document.getElementById("cartLeads").textContent=
+cartUsers;
 
-document.getElementById("customerCount").textContent=users.size;
+document.getElementById("soldProducts").textContent=
+analytics.soldProducts||0;
 
-document.getElementById("wishlistCount").textContent=wishlistItems;
+document.getElementById("reviewCount").textContent=
+reviews.size;
 
-document.getElementById("wishlistUsers").textContent=wishlistUsers;
-
-document.getElementById("cartCount").textContent=cartItems;
-
-document.getElementById("cartLeads").textContent=cartUsers;
-
-document.getElementById("soldProducts").textContent=sold;
-
-document.getElementById("reviewCount").textContent=reviews.size;
-
-document.getElementById("totalOrders").textContent=orders.size;
-
-document.getElementById("totalProducts").textContent = totalProducts;
-
-document.getElementById("totalStock").textContent = totalStock;
-
-document.getElementById("lowStock").textContent = lowStock;
-
-document.getElementById("outOfStock").textContent = outOfStock;
-
-
+document.getElementById("totalOrders").textContent=
+analytics.totalOrders||0;
 
 document.getElementById("totalRevenue").textContent=
-"₹"+revenue.toLocaleString("en-IN");
-
-const conversion =
-users.size
-?
-((orders.size/users.size)*100).toFixed(1)
-:0;
+"₹"+Number(
+analytics.totalRevenue||0
+).toLocaleString("en-IN");
 
 document.getElementById("conversionRate").textContent=
-conversion+"%";
+
+analytics.totalVisitors
+
+?
+
+(
+
+(analytics.totalOrders||0)
+
+/
+
+analytics.totalVisitors
+
+*100
+
+).toFixed(1)+"%"
+
+:"0%";
+
+document.getElementById("totalProducts").textContent=
+totalProducts;
+
+document.getElementById("totalStock").textContent=
+totalStock;
+
+document.getElementById("lowStock").textContent=
+lowStock;
+
+document.getElementById("outOfStock").textContent=
+outOfStock;
 
 }

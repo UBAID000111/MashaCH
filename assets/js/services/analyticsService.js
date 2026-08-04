@@ -1,196 +1,390 @@
 import { db } from "../../firebase/firebase-config.js";
 
-import{
+import {
 doc,
 setDoc,
-updateDoc,
-getDoc,
 increment,
 serverTimestamp
-}from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-/*==========================
+/* ===================================
 TODAY
-==========================*/
+=================================== */
 
-function today(){
+function todayKey(){
 
-return new Date()
-
-.toISOString()
-
-.substring(0,10);
+    return new Date().toISOString().split("T")[0];
 
 }
 
-/*==========================
-CREATE DAY
-==========================*/
-
-async function ensureDay(){
-
-const ref=doc(
-
-db,
-
-"dailyAnalytics",
-
-today()
-
-);
-
-const snap=await getDoc(ref);
-
-if(snap.exists()) return ref;
-
-await setDoc(ref,{
-
-date:today(),
-
-visitors:0,
-
-views:0,
-
-orders:0,
-
-revenue:0,
-
-wishlist:0,
-
-cart:0,
-
-createdAt:serverTimestamp()
-
-});
-
-return ref;
-
-}
-
-/*==========================
+/* ===================================
 VISITOR
-==========================*/
+=================================== */
 
 export async function trackVisitor(){
 
-const ref=await ensureDay();
+    const today=todayKey();
 
-await updateDoc(ref,{
+    const overviewRef=
+    doc(db,"analytics","overview");
 
-visitors:increment(1)
+    const dailyRef=
+    doc(db,"analytics_daily",today);
 
-});
+    /* Every page load */
+
+    await setDoc(overviewRef,{
+
+        totalVisits:increment(1),
+
+        updatedAt:serverTimestamp()
+
+    },{merge:true});
+
+    await setDoc(dailyRef,{
+
+        visits:increment(1),
+
+        updatedAt:serverTimestamp()
+
+    },{merge:true});
+
+    /* Unique visitor once/day */
+
+    if(localStorage.getItem("masha_visit")==today){
+
+        return;
+
+    }
+
+    localStorage.setItem("masha_visit",today);
+
+    await setDoc(overviewRef,{
+
+        totalVisitors:increment(1),
+
+        updatedAt:serverTimestamp()
+
+    },{merge:true});
+
+    await setDoc(dailyRef,{
+
+        visitors:increment(1),
+
+        updatedAt:serverTimestamp()
+
+    },{merge:true});
 
 }
 
-/*==========================
+/* ===================================
 PRODUCT VIEW
-==========================*/
+=================================== */
 
 export async function trackProductView(productId){
 
-const ref=await ensureDay();
+    if(!productId) return;
 
-await updateDoc(ref,{
+    const key="view_"+productId;
 
-views:increment(1)
+    if(sessionStorage.getItem(key)){
 
-});
+        return;
 
+    }
 
+    sessionStorage.setItem(key,"1");
+
+    await setDoc(
+
+        doc(db,"products",productId),
+
+        {
+
+            views:increment(1)
+
+        },
+
+        {merge:true}
+
+    );
+
+    await setDoc(
+
+        doc(db,"analytics_products",productId),
+
+        {
+
+            views:increment(1),
+
+            updatedAt:serverTimestamp()
+
+        },
+
+        {merge:true}
+
+    );
+
+    await setDoc(
+
+        doc(db,"analytics","overview"),
+
+        {
+
+            totalViews:increment(1)
+
+        },
+
+        {merge:true}
+
+    );
 
 }
 
-/*==========================
+/* ===================================
+CATEGORY VIEW
+=================================== */
+
+export async function trackCategory(category){
+
+    if(!category) return;
+
+    await setDoc(
+
+        doc(db,"analytics_categories",category),
+
+        {
+
+            views:increment(1),
+
+            updatedAt:serverTimestamp()
+
+        },
+
+        {merge:true}
+
+    );
+
+}
+
+/* ===================================
+SEARCH
+=================================== */
+
+export async function trackSearch(keyword){
+
+    keyword=keyword.trim().toLowerCase();
+
+    if(keyword.length<2) return;
+
+    await setDoc(
+
+        doc(db,"analytics_search",keyword),
+
+        {
+
+            count:increment(1),
+
+            updatedAt:serverTimestamp()
+
+        },
+
+        {merge:true}
+
+    );
+
+}
+
+/* ===================================
+DEVICE
+=================================== */
+
+export async function trackDevice(){
+
+    const today=todayKey();
+
+    const key="device_"+today;
+
+    if(localStorage.getItem(key)){
+
+        return;
+
+    }
+
+    localStorage.setItem(key,"1");
+
+    let device="desktop";
+
+    if(/Tablet|iPad/i.test(navigator.userAgent)){
+
+        device="tablet";
+
+    }
+    else if(/Mobile/i.test(navigator.userAgent)){
+
+        device="mobile";
+
+    }
+
+    await setDoc(
+
+        doc(db,"analytics_devices","overview"),
+
+        {
+
+            [device]:increment(1),
+
+            updatedAt:serverTimestamp()
+
+        },
+
+        {merge:true}
+
+    );
+
+}
+
+/* ===================================
 WISHLIST
-==========================*/
+=================================== */
 
 export async function trackWishlist(productId){
 
-const ref=await ensureDay();
+    if(!productId) return;
 
-await updateDoc(ref,{
+    await setDoc(
 
-wishlist:increment(1)
+        doc(db,"products",productId),
 
-});
+        {
 
-await updateDoc(
+            wishlist:increment(1)
 
-doc(db,"products",productId),
+        },
 
-{
+        {merge:true}
 
-wishlist:increment(1)
+    );
+
+    await setDoc(
+
+        doc(db,"analytics","overview"),
+
+        {
+
+            wishlist:increment(1),
+            updatedAt:serverTimestamp()
+
+        },
+
+        {merge:true}
+
+    );
 
 }
 
-);
-
-}
-
-/*==========================
+/* ===================================
 ADD TO CART
-==========================*/
+=================================== */
 
 export async function trackCart(productId){
 
-const ref=await ensureDay();
+    if(!productId) return;
 
-await updateDoc(ref,{
+    await setDoc(
 
-cart:increment(1)
+        doc(db,"products",productId),
 
-});
+        {
 
-await updateDoc(
+            cartAdds:increment(1),
+            updatedAt:serverTimestamp()
 
-doc(db,"products",productId),
+        },
 
-{
+        {merge:true}
 
-cartAdds:increment(1)
+    );
+
+    await setDoc(
+
+        doc(db,"analytics","overview"),
+
+        {
+
+            cartAdds:increment(1)
+
+        },
+
+        {merge:true}
+
+    );
 
 }
 
-);
-
-}
-
-/*==========================
+/* ===================================
 PURCHASE
-==========================*/
+=================================== */
 
-export async function trackPurchase(
+export async function trackPurchase(productId, qty, amount){
 
-productId,
+    if(!productId) return;
 
-qty,
+    // Product document
+    await setDoc(
 
-amount
+        doc(db,"products",productId),
 
-){
+        {
 
-const ref=await ensureDay();
+            sold:increment(qty),
 
-await updateDoc(ref,{
+            revenue:increment(amount)
 
-orders:increment(qty),
+        },
 
-revenue:increment(amount)
+        {merge:true}
 
-});
+    );
 
-await updateDoc(
+    // Analytics product document
+    await setDoc(
 
-doc(db,"products",productId),
+        doc(db,"analytics_products",productId),
 
-{
+        {
 
-sold:increment(qty)
+            sold:increment(qty),
 
-}
+            revenue:increment(amount),
 
-);
+            updatedAt:serverTimestamp()
+
+        },
+
+        {merge:true}
+
+    );
+
+    // Overview
+    await setDoc(
+
+        doc(db,"analytics","overview"),
+
+        {
+
+            totalRevenue:increment(amount),
+
+            totalOrders:increment(1),
+
+            soldProducts:increment(qty),
+
+            updatedAt:serverTimestamp()
+
+        },
+
+        {merge:true}
+
+    );
 
 }

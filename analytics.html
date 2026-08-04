@@ -191,6 +191,14 @@ Categories
 
 <button
 class="tab-btn"
+data-tab="daily">
+
+Daily
+
+</button>
+
+<button
+class="tab-btn"
 data-tab="customers">
 
 Customers
@@ -210,6 +218,14 @@ class="tab-btn"
 data-tab="traffic">
 
 Traffic
+
+</button>
+
+<button
+class="tab-btn"
+data-tab="live">
+
+Live
 
 </button>
 
@@ -332,7 +348,7 @@ Top Products
 </h2>
 
 <input
-id="productAnalyticsSearch"
+id="productPerformanceSearch"
 placeholder="Search Product">
 
 </div>
@@ -432,6 +448,152 @@ placeholder="Search Product">
 
 </table>
 
+</div>
+
+</div>
+
+</div>
+
+<!-- LIVE-->
+
+<div class="tab-content" id="liveTab">
+
+<div class="analytics-cards small">
+
+<div class="analytics-card">
+
+<h2 id="onlineVisitors">
+
+0
+
+</h2>
+
+<p>
+
+Visitors Online
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<h2 id="activeSessions">
+
+0
+
+</h2>
+
+<p>
+
+Active Sessions
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<h2 id="currentViews">
+
+0
+
+</h2>
+
+<p>
+
+Products Being Viewed
+
+</p>
+
+</div>
+
+</div>
+
+</div>
+
+
+<!--    DAILY-->
+
+<div class="tab-content" id="dailyTab">
+
+<div class="analytics-cards small">
+
+<div class="analytics-card">
+
+<h2 id="desktopUsers">
+
+0
+
+</h2>
+
+<p>
+
+Desktop
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<h2 id="mobileUsers">
+
+0
+
+</h2>
+
+<p>
+
+Mobile
+
+</p>
+
+</div>
+
+<div class="analytics-card">
+
+<h2 id="tabletUsers">
+
+0
+
+</h2>
+
+<p>
+
+Tablet
+
+</p>
+
+</div>
+
+</div>    
+
+<div class="analytics-cards small">
+
+<div class="analytics-card">
+<h2 id="todayVisitors">0</h2>
+<p>Today's Visitors</p>
+</div>
+
+<div class="analytics-card">
+<h2 id="todayViews">0</h2>
+<p>Today's Views</p>
+</div>
+
+<div class="analytics-card">
+<h2 id="todayOrders">0</h2>
+<p>Today's Orders</p>
+</div>
+
+<div class="analytics-card">
+<h2 id="todayRevenue">₹0</h2>
+<p>Today's Revenue</p>
+</div>
+
+<div class="analytics-card">
+<h2 id="todaySearches">0</h2>
+<p>Today's Searches</p>
 </div>
 
 </div>
@@ -724,9 +886,25 @@ Most Searched Keywords
 
 </h2>
 
-<div id="searchAnalyticsList">
+<table class="analytics-table">
 
-</div>
+<thead>
+
+<tr>
+
+<th>Keyword</th>
+
+<th>Searches</th>
+
+</tr>
+
+</thead>
+
+<tbody id="searchAnalyticsList">
+
+</tbody>
+
+</table>
 
 </div>
 
@@ -782,7 +960,11 @@ Reviews
 
 </div>
 
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<script
+type="module"
+src="/assets/js/analytics.js"></script>
 
 <script
 type="module"

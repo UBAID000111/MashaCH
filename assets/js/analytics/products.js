@@ -1,167 +1,166 @@
 import { db } from "../../firebase/firebase-config.js";
 
-import{
+import {
 collection,
 getDocs
-}from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
-
-
+} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 export async function loadProductsAnalytics(){
 
-const table=document.getElementById("productAnalyticsTable");
+const table = document.getElementById("productAnalyticsTable");
 
 if(!table) return;
 
-table.innerHTML="";
-
+table.innerHTML = "";
 
 let lowStock = 0;
- let outStock = 0;
+let outStock = 0;
 
 let bestSeller = {
-    name: "-",
-    sold: 0
+    name:"-",
+    sold:0
 };
 
 let highestRevenue = {
-    name: "-",
-    revenue: 0
+    name:"-",
+    revenue:0
 };
 
 let mostViewed = {
-    name: "-",
-    views: 0
+    name:"-",
+    views:0
 };
 
 let mostWishlisted = {
-    name: "-",
-    wishlist: 0
+    name:"-",
+    wishlist:0
 };
 
-const products=await getDocs(
-
+const products = await getDocs(
 collection(db,"products")
-
 );
-
-const orders=await getDocs(
-
-collection(db,"orders")
-
-);
-
-const revenueMap={};
-
-const soldMap={};
-
-orders.forEach(doc=>{
-
-const order=doc.data();
-
-(order.items||[]).forEach(item=>{
-
-soldMap[item.productId]=
-
-(soldMap[item.productId]||0)+
-
-item.quantity;
-
-revenueMap[item.productId]=
-
-(revenueMap[item.productId]||0)+
-
-(item.price*item.quantity);
-
-});
-
-});
 
 products.forEach(doc=>{
 
+const product = doc.data();
 
+const id = doc.id;
 
-const product=doc.data();
-
-const id=doc.id;
+/* ===========================
+TOTAL STOCK
+=========================== */
 
 let stock = 0;
 
-(product.variants || []).forEach(variant => {
+(product.variants || []).forEach(variant=>{
 
-    stock += Number(variant.stock || 0);
+    (variant.sizes || []).forEach(size=>{
+
+        stock += Number(size.stock || 0);
+
+    });
 
 });
 
-const views=product.views||0;
+/* ===========================
+PRODUCT ANALYTICS
+=========================== */
 
-const wishlist=product.wishlist||0;
+const views = Number(product.views || 0);
 
-if(views>mostViewed.views){
+const wishlist = Number(product.wishlist || 0);
 
-mostViewed.views=views;
+const cartAdds = Number(product.cartAdds || 0);
 
-mostViewed.name=product.name;
+const sold = Number(product.sold || 0);
 
-}
+const revenue = Number(product.revenue || 0);
 
-if(wishlist>mostWishlisted.wishlist){
+/* ===========================
+TOP PRODUCTS
+=========================== */
 
-mostWishlisted.wishlist=wishlist;
+if(views > mostViewed.views){
 
-mostWishlisted.name=product.name;
+    mostViewed.views = views;
 
-}
-
-const sold=soldMap[id]||0;
-
-if(sold>bestSeller.sold){
-
-bestSeller.sold=sold;
-
-bestSeller.name=product.name;
+    mostViewed.name = product.name;
 
 }
 
-const revenue=revenueMap[id]||0;
+if(wishlist > mostWishlisted.wishlist){
 
-if(revenue>highestRevenue.revenue){
+    mostWishlisted.wishlist = wishlist;
 
-highestRevenue.revenue=revenue;
-
-highestRevenue.name=product.name;
+    mostWishlisted.name = product.name;
 
 }
 
-if(stock==0){
+if(sold > bestSeller.sold){
 
-outStock++;
+    bestSeller.sold = sold;
 
-}
-
-else if(stock<=5){
-
-lowStock++;
+    bestSeller.name = product.name;
 
 }
 
-const badge = stock == 0
-? '<span class="badge danger">Out Of Stock</span>'
-: stock <= 5
-? '<span class="badge warning">Low Stock</span>'
-: '<span class="badge success">In Stock</span>';
+if(revenue > highestRevenue.revenue){
 
-table.innerHTML+=`
+    highestRevenue.revenue = revenue;
+
+    highestRevenue.name = product.name;
+
+}
+
+/* ===========================
+STOCK
+=========================== */
+
+if(stock === 0){
+
+    outStock++;
+
+}
+else if(stock <= 5){
+
+    lowStock++;
+
+}
+
+/* ===========================
+STATUS
+=========================== */
+
+const badge =
+
+stock===0
+
+?'<span class="badge danger">Out Of Stock</span>'
+
+:stock<=5
+
+?'<span class="badge warning">Low Stock</span>'
+
+:'<span class="badge success">In Stock</span>';
+
+/* ===========================
+TABLE
+=========================== */
+
+table.innerHTML += `
 
 <tr>
 
 <td>
 
 <img
-
-src="${product.variants?.[0]?.image || ''}"
-
-style="width:70px;height:70px;object-fit:cover;border-radius:12px;">
+src="${product.variants?.[0]?.image || ""}"
+style="
+width:70px;
+height:70px;
+object-fit:cover;
+border-radius:12px;
+">
 
 </td>
 
@@ -172,31 +171,32 @@ ${product.name}
 </td>
 
 <td>
-${product.views||0}
+
+${views}
 
 </td>
 
 <td>
 
-${product.wishlist||0}
+${wishlist}
 
 </td>
 
 <td>
 
-${product.cartAdds||0}
+${cartAdds}
 
 </td>
 
 <td>
 
-${soldMap[id]||0}
+${sold}
 
 </td>
 
 <td>
 
-₹${(revenueMap[id]||0).toLocaleString("en-IN")}
+₹${revenue.toLocaleString("en-IN")}
 
 </td>
 
@@ -207,38 +207,37 @@ ${stock}
 </td>
 
 <td>
+
 ${badge}
+
 </td>
-
-
 
 </tr>
 
 `;
 
-}
+});
 
+/* ===========================
+TOP CARDS
+=========================== */
 
-);
-
-document.getElementById("bestSellerProduct").textContent=
+document.getElementById("bestSellerProduct").textContent =
 bestSeller.name;
 
-document.getElementById("highestRevenueProduct").textContent=
+document.getElementById("highestRevenueProduct").textContent =
 highestRevenue.name;
 
-document.getElementById("mostViewedProduct").textContent=
+document.getElementById("mostViewedProduct").textContent =
 mostViewed.name;
 
-document.getElementById("mostWishlistedProduct").textContent=
+document.getElementById("mostWishlistedProduct").textContent =
 mostWishlisted.name;
 
-document.getElementById("lowStockProducts").textContent=
+document.getElementById("lowStockProducts").textContent =
 lowStock;
 
-document.getElementById("outStockProducts").textContent=
+document.getElementById("outStockProducts").textContent =
 outStock;
-
-
 
 }

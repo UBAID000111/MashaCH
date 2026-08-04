@@ -10,7 +10,7 @@ await initCharts();
 
 await loadProductsAnalytics();
 
-await loadProductsAnalytics();
+
 
 await loadCategoryAnalytics();
 

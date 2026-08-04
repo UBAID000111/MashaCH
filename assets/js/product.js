@@ -23,6 +23,12 @@ import {
 auth
 } from "../firebase/firebase-config.js";
 
+import {
+    trackProductView,
+    trackWishlist,
+    trackCart
+} from "./services/analyticsService.js";
+
 
 import {
 onAuthStateChanged
@@ -108,6 +114,10 @@ LOAD PRODUCT
 async function loadProduct(){
 
 productData = await getProduct(productId);
+
+
+
+await trackProductView(productId);
 
 
 
@@ -670,6 +680,8 @@ addedAt: serverTimestamp()
 
 setWishlistUI(true);
 
+await trackWishlist(productId);
+
 console.log("Added to wishlist");
 
 }catch(err){
@@ -913,8 +925,11 @@ createdAt:serverTimestamp()
 
 );
 
+await trackCart(productId);
 
 showAddedToCartPopup(productData.category, productId);
+
+
 
 const userSnap = await getDoc(
     doc(db, "users", currentUser.uid)
@@ -1189,11 +1204,11 @@ if (!selectedVariant) {
         onclick="location.href='product.html?id=${product.id}'">
 
             <img
-            src="${optimizeImage(variant.image,400)}">
+            src="${optimizeImage(selectedVariant.image,400)}">
 
             <h4>${product.name}</h4>
 
-            <p>₹${variant.price}</p>
+            <p>₹${selectedVariant.price}</p>
 
         </div>
 

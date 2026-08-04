@@ -40,9 +40,13 @@ stock:0
 
 categories[cat].products++;
 
-(p.variants||[]).forEach(v=>{
+(p.variants||[]).forEach(variant=>{
 
-categories[cat].stock += Number(v.stock||0);
+    (variant.sizes||[]).forEach(size=>{
+
+        categories[cat].stock += Number(size.stock||0);
+
+    });
 
 });
 

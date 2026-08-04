@@ -8,6 +8,11 @@ import { optimizeImage } from "./services/imageService.js";
 
 import { showToast } from "./services/toastService.js";
 
+import {
+    trackCategory,
+    trackSearch
+} from "./services/analyticsService.js";
+
 /* ==========================================
 DOM
 ========================================== */
@@ -33,6 +38,12 @@ URL CATEGORY
 const params=new URLSearchParams(window.location.search);
 
 let selectedCategory=params.get("category");
+
+if(selectedCategory){
+
+    trackCategory(selectedCategory);
+
+}
 
 
 if(selectedCategory){
@@ -260,7 +271,21 @@ title.innerText =
 SEARCH
 ========================================== */
 
-searchInput.addEventListener("input",applyFilters);
+let searchTimer;
+
+searchInput.addEventListener("input",()=>{
+
+    clearTimeout(searchTimer);
+
+    searchTimer=setTimeout(()=>{
+
+        applyFilters();
+
+        trackSearch(searchInput.value);
+
+    },700);
+
+});
 
 /* ==========================================
 SORT
@@ -343,15 +368,15 @@ const size=document.getElementById("sizeSelect")?.value;
 
 if(size){
 
-products=products.filter(product=>
 
-product.variants.some(v=>
 
-v.sizes.includes(size)
+products = products.filter(product=>
 
-)
+    product.variant.sizes.some(s=>s.name===size)
 
 );
+
+
 
 }
 
@@ -361,13 +386,9 @@ const color=document.getElementById("colorSelect")?.value;
 
 if(color){
 
-products=products.filter(product=>
+products = products.filter(product=>
 
-product.variants.some(v=>
-
-v.color.name===color
-
-)
+    product.variant.color.name===color
 
 );
 
@@ -377,56 +398,42 @@ v.color.name===color
 
 /* Price */
 
+/* ==========================================
+PRICE
+========================================== */
+
+/* ==========================================
+PRICE
+========================================== */
+
 const price=document.getElementById("priceSelect")?.value;
 
 if(price){
 
-products=products.filter(product=>{
+    products=products.filter(product=>{
 
-const hasPrice=product.variants.some(v=>{
+        const amount=product.variant.price;
 
-const amount=v.price;
+        switch(price){
 
-switch(price){
+            case "0-999":
+                return amount<=999;
 
-case "0-999":
-return amount<=999;
+            case "1000-1999":
+                return amount>=1000 && amount<=1999;
 
-case "1000-1999":
-return amount>=1000&&amount<=1999;
+            case "2000-2999":
+                return amount>=2000 && amount<=2999;
 
-case "2000-2999":
-return amount>=2000&&amount<=2999;
+            case "3000":
+                return amount>=3000;
 
-case "3000":
-return amount>=3000;
+            default:
+                return true;
 
-}
+        }
 
-});
-
-return hasPrice;
-
-switch(price){
-
-case "0-999":
-return amount<=999;
-
-case "1000-1999":
-return amount>=1000 && amount<=1999;
-
-case "2000-2999":
-return amount>=2000 && amount<=2999;
-
-case "3000":
-return amount>=3000;
-
-default:
-return true;
-
-}
-
-});
+    });
 
 }
 
@@ -436,13 +443,21 @@ switch(sortProducts.value){
 
 case "low":
 
-products.sort((a,b)=>a.variants[0].price-b.variants[0].price);
+products.sort((a,b)=>
+
+a.variant.price-b.variant.price
+
+);
 
 break;
 
 case "high":
 
-products.sort((a,b)=>b.variants[0].price-a.variants[0].price);
+products.sort((a,b)=>
+
+b.variant.price-a.variant.price
+
+);
 
 break;
 
@@ -506,9 +521,15 @@ const categorySelect=document.getElementById("categorySelect");
 
 categorySelect.addEventListener("change",()=>{
 
-selectedCategory = categorySelect.value || null;
+    selectedCategory = categorySelect.value || null;
 
-applyFilters();
+    if(selectedCategory){
+
+        trackCategory(selectedCategory);
+
+    }
+
+    applyFilters();
 
 });
 
@@ -524,19 +545,15 @@ const sizes=[];
 
 allProducts.forEach(product=>{
 
-product.variants.forEach(variant=>{
+    product.variant.sizes.forEach(size=>{
 
-variant.sizes.forEach(size=>{
+        if(!sizes.includes(size.name)){
 
-if(!sizes.includes(size)){
+            sizes.push(size.name);
 
-sizes.push(size);
+        }
 
-}
-
-});
-
-});
+    });
 
 });
 
@@ -576,19 +593,19 @@ function createColorFilter(){
 
 const colors=[];
 
+
+
 allProducts.forEach(product=>{
 
-product.variants.forEach(variant=>{
+    if(!colors.includes(product.variant.color.name)){
 
-if(!colors.includes(variant.color.name)){
+        colors.push(product.variant.color.name);
 
-colors.push(variant.color.name);
-
-}
+    }
 
 });
 
-});
+
 
 colorFilters.innerHTML=`
 

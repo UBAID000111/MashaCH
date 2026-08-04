@@ -5,6 +5,10 @@ httpsCallable
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-functions.js";
 
 import {
+    trackPurchase
+} from "./services/analyticsService.js";
+
+import {
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
@@ -255,6 +259,24 @@ async function saveOrder(payment){
         });
 
     });
+
+    /* ===========================
+PURCHASE ANALYTICS
+=========================== */
+
+for(const item of items){
+
+    await trackPurchase(
+
+        item.productId,
+
+        Number(item.quantity),
+
+        Number(item.price) * Number(item.quantity)
+
+    );
+
+}
 
     // Save Order
     await addDoc(

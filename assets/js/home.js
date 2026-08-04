@@ -5,6 +5,14 @@ loadBestSeller,
 loadAllProducts
 } from "./services/homeService.js";
 
+import {
+trackVisitor,
+trackDevice
+} from "./services/analyticsService.js";
+
+trackVisitor();
+trackDevice();
+
 
 
 
