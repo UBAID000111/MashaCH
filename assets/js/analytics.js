@@ -3,6 +3,14 @@ import { initCharts } from "./analytics/charts.js";
 import { loadProductsAnalytics } from "./analytics/products.js";
 import { loadCategoryAnalytics } from "./analytics/categories.js";
 import { loadCustomerAnalytics } from "./analytics/customers.js";
+import { loadTrafficAnalytics } from "./analytics/traffic.js";
+import { loadLiveAnalytics } from "./analytics/live.js";
+
+loadLiveAnalytics();
+
+await loadTrafficAnalytics(
+    
+);
 
 await loadOverview();
 

@@ -6,6 +6,19 @@ loadAllProducts
 } from "./services/homeService.js";
 
 import {
+startSession,
+endSession
+} from "./services/analyticsService.js";
+
+startSession();
+
+window.addEventListener("beforeunload",()=>{
+
+    endSession();
+
+});
+
+import {
 trackVisitor,
 trackDevice
 } from "./services/analyticsService.js";

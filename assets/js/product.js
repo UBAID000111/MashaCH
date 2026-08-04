@@ -34,6 +34,19 @@ import {
 onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 
+import {
+startSession,
+endSession
+} from "./services/analyticsService.js";
+
+startSession();
+
+window.addEventListener("beforeunload",()=>{
+
+    endSession();
+
+});
+
 /* ===========================
 GET PRODUCT ID
 =========================== */
@@ -1334,3 +1347,21 @@ document.onkeydown=null;
 };
 
 }
+
+window.addEventListener("beforeunload",async()=>{
+
+    await setDoc(
+
+        doc(db,"analytics","overview"),
+
+        {
+
+            currentViews:increment(-1)
+
+        },
+
+        {merge:true}
+
+    );
+
+});

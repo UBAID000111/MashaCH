@@ -521,7 +521,7 @@ Products Being Viewed
 
 <div class="analytics-card">
 
-<h2 id="desktopUsers">
+<h2 id="dailyDesktopUsers">
 
 0
 
@@ -537,7 +537,7 @@ Desktop
 
 <div class="analytics-card">
 
-<h2 id="mobileUsers">
+<h2 id="dailyMobileUsers">
 
 0
 
@@ -553,7 +553,7 @@ Mobile
 
 <div class="analytics-card">
 
-<h2 id="tabletUsers">
+<h2 id="dailyTabletUsers">
 
 0
 
@@ -844,25 +844,22 @@ TRAFFIC
 
 <div class="chart-grid">
 
-<div class="chart-card">
+<div class="analytics-cards small">
 
-<h2>
-
-Traffic Sources
-
-</h2>
-
-<canvas id="trafficChart"></canvas>
-
+<div class="analytics-card">
+<h3 id="desktopUsers">0</h3>
+<p>Desktop</p>
 </div>
 
-<div class="chart-card">
+<div class="analytics-card">
+<h3 id="mobileUsers">0</h3>
+<p>Mobile</p>
+</div>
 
-<h2>
-
-Devices
-
-</h2>
+<div class="analytics-card">
+<h3 id="tabletUsers">0</h3>
+<p>Tablet</p>
+</div>
 
 <canvas id="deviceUsageChart"></canvas>
 
@@ -969,6 +966,22 @@ src="/assets/js/analytics.js"></script>
 <script
 type="module"
 src="/assets/js/analytics.js"></script>
+
+<script
+type="module"
+src="/assets/js/analytics/charts.js"></script>  
+
+<script
+type="module"
+src="/assets/js/analytics/products.js"></script>
+
+<script 
+type="module"
+src="/assets/js/analytics/traffic.js"></script>
+
+<script
+type="module"
+src="/assets/js/analytics/live.js"></script>
 
 
 </body>

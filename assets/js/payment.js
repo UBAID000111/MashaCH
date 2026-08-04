@@ -9,6 +9,19 @@ import {
 } from "./services/analyticsService.js";
 
 import {
+startSession,
+endSession
+} from "./services/analyticsService.js";
+
+startSession();
+
+window.addEventListener("beforeunload",()=>{
+
+    endSession();
+
+});
+
+import {
     onAuthStateChanged
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-auth.js";
 

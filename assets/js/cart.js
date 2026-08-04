@@ -12,6 +12,19 @@ deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 import {
+startSession,
+endSession
+} from "./services/analyticsService.js";
+
+startSession();
+
+window.addEventListener("beforeunload",()=>{
+
+    endSession();
+
+});
+
+import {
 
 onAuthStateChanged
 

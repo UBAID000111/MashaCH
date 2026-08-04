@@ -13,6 +13,19 @@ import {
     trackSearch
 } from "./services/analyticsService.js";
 
+import {
+startSession,
+endSession
+} from "./services/analyticsService.js";
+
+startSession();
+
+window.addEventListener("beforeunload",()=>{
+
+    endSession();
+
+});
+
 /* ==========================================
 DOM
 ========================================== */

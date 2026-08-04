@@ -3,10 +3,11 @@ import { db } from "../../firebase/firebase-config.js";
 import {
 doc,
 setDoc,
+updateDoc,
 increment,
+decrement,
 serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
-
 /* ===================================
 TODAY
 =================================== */
@@ -14,6 +15,50 @@ TODAY
 function todayKey(){
 
     return new Date().toISOString().split("T")[0];
+
+}
+
+export async function startSession(){
+
+    await setDoc(
+
+        doc(db,"analytics","overview"),
+
+        {
+
+            onlineVisitors:increment(1),
+
+            activeSessions:increment(1),
+
+            updatedAt:serverTimestamp()
+
+        },
+
+        {merge:true}
+
+    );
+
+}
+
+export async function endSession(){
+
+    await setDoc(
+
+        doc(db,"analytics","overview"),
+
+        {
+
+            onlineVisitors:increment(-1),
+
+            activeSessions:increment(-1),
+
+            updatedAt:serverTimestamp()
+
+        },
+
+        {merge:true}
+
+    );
 
 }
 
@@ -131,13 +176,17 @@ export async function trackProductView(productId){
 
         {
 
-            totalViews:increment(1)
+            totalViews:increment(1),
+            currentViews:increment(1),
+            updatedAt:serverTimestamp()
 
         },
 
         {merge:true}
 
     );
+
+    
 
 }
 
