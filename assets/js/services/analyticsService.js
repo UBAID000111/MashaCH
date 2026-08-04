@@ -41,26 +41,24 @@ export async function startSession(){
 
 export async function endSession(){
 
-    await setDoc(
+    const ref = doc(db,"analytics","overview");
 
-        doc(db,"analytics","overview"),
+    const snap = await getDoc(ref);
 
-        {
+    if(!snap.exists()) return;
 
-            onlineVisitors:increment(-1),
+    const data = snap.data();
 
-            activeSessions:increment(-1),
+    const online = Math.max((data.onlineVisitors || 0) - 1, 0);
+    const active = Math.max((data.activeSessions || 0) - 1, 0);
 
-            updatedAt:serverTimestamp()
-
-        },
-
-        {merge:true}
-
-    );
+    await updateDoc(ref,{
+        onlineVisitors: online,
+        activeSessions: active,
+        updatedAt: serverTimestamp()
+    });
 
 }
-
 /* ===================================
 VISITOR
 =================================== */
