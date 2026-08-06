@@ -15,6 +15,8 @@ const questionArea = document.getElementById("questionArea");
 const backBtn = document.getElementById("backBtn");
 const nextBtn = document.getElementById("nextBtn");
 
+const skipBtn = document.getElementById("skipBtn");
+
 const loadingScreen = document.getElementById("loadingScreen");
 const resultsSection = document.getElementById("resultsSection");
 
@@ -593,47 +595,8 @@ nextBtn.onclick=()=>{
 
 const step=questions[currentStep];
 
-/* SINGLE */
 
-if(step.type==="single"){
 
-    if(!answers[step.key]){
-
-        alert("Please select one option.");
-
-        return;
-
-    }
-
-}
-
-/* MULTIPLE BUDGET */
-
-if(step.key==="budget"){
-
-    if(answers.budget.length===0){
-
-        alert("Select at least one budget.");
-
-        return;
-
-    }
-
-}
-
-/* MULTIPLE COLORS */
-
-if(step.key==="colors"){
-
-    if(answers.colors.length===0){
-
-        alert("Select at least one colour.");
-
-        return;
-
-    }
-
-}
 
 if(currentStep<questions.length-1){
 
@@ -839,36 +802,68 @@ FIND PRODUCTS
 ========================================== */
 
 function findProducts(){
-
+let products = [...allProducts];
     
 console.log("All Products:", allProducts.length);
 
-
+if(answers.occasion){
 const categories =
 
 occasionMap[answers.occasion] || [];
 
 console.log("Mapped Categories:", categories);
 
-let products = [...allProducts];
-
-/* Active */
-
-products = products.filter(product =>
-
-    (product.status || "Active") === "Active"
-
-);
-
-console.log("After Active:", products.length);
-
-/* Category */
-
 products = products.filter(product =>
 
     categories.includes(product.category)
 
 );
+}
+
+
+
+
+/* Active */
+
+
+if(answers.budget.length){
+
+products = products.filter(product=>{
+
+const price=Number(product.variants[0].price);
+
+return answers.budget.some(range=>{
+
+switch(range){
+
+case "0-999":
+return price<=999;
+
+case "1000-1999":
+return price>=1000 && price<=1999;
+
+case "2000-2999":
+return price>=2000 && price<=2999;
+
+case "3000+":
+return price>=3000;
+
+default:
+return true;
+
+}
+
+});
+
+});
+
+}
+
+console.log("After Active:", products.length);
+
+/* Category */
+
+
 
 console.log("After Category:", products.length);
 
@@ -876,39 +871,7 @@ console.log("After Category:", products.length);
 
 /* Budget */
 
-products = products.filter(product=>{
 
-const price = Number(product.variants[0].price);
-
-return answers.budget.some(range=>{
-
-switch(range){
-
-case "0-999":
-
-return price<=999;
-
-case "1000-1999":
-
-return price>=1000 && price<=1999;
-
-case "2000-2999":
-
-return price>=2000 && price<=2999;
-
-case "3000+":
-
-return price>=3000;
-
-default:
-
-return false;
-
-}
-
-});
-
-});
 
 /* Match */
 
@@ -966,35 +929,33 @@ let why=[];
 
 if(
 
-answers.colors.includes(
-
-variant.color.name
-
-)
-
+answers.colors.length===0 || 
+answers.colors.includes(variant.color.name)
 ){
 
 variantScore+=25;
 
-why.push(
-
-"Favourite colour"
+why.push("Matches your favourite colour"
 
 );
-
 }
 
 /* Size */
 
-const hasSize=
+let hasSize=true;
+
+if(answers.size){
+
+hasSize=
 
 variant.sizes.some(size=>
 
 size.name===answers.size &&
-
 size.stock>0
 
 );
+
+}
 
 if(hasSize){
 
@@ -1284,5 +1245,21 @@ reasons:[
 
 }
 
+//SKipBtn
 
+skipBtn.onclick=()=>{
+    const step=questions[currentStep];
 
+    if(step.type==="single"){
+       answers[step.key]=null;
+    }else{
+        answers[step.key]=[];
+}
+if(currentStep<questions.length-1){
+
+    currentStep++;
+    renderStep();
+}else{
+    startFinding();
+}
+};
