@@ -26,6 +26,14 @@ window.addEventListener("beforeunload",()=>{
 
 });
 
+import {
+
+startLiveSession
+
+} from "./services/liveService.js";
+
+startLiveSession();
+
 /* ==========================================
 DOM
 ========================================== */
@@ -95,25 +103,7 @@ lastFirestoreDoc=result.lastDoc;
 
 finishedLoading=result.finished;
 
-const flattened = [];
-
-result.products.forEach(product => {
-
-    product.variants.forEach(variant => {
-
-        flattened.push({
-
-            ...product,
-
-            variant
-
-        });
-
-    });
-
-});
-
-allProducts.push(...flattened);
+allProducts.push(...result.products);
 
 /* Build Filters */
 
@@ -168,7 +158,7 @@ console.log(products);
 
 products.forEach(product=>{
 
-    const variant = product.variant;
+    const variant = product.variants[0];
 
     const colorDots = product.variants.map((v,index)=>`
 
@@ -179,7 +169,8 @@ data-image="${optimizeImage(v.image,500)}"
 data-price="${v.price}"
 data-oldprice="${v.oldPrice}"
 data-color="${v.color.name}"
-data-name="${product.name}">
+data-name="${product.name}"
+data-url="product.html?id=${product.id}&color=${encodeURIComponent(v.color.name)}">
 </span>
 
 `).join("");
@@ -245,6 +236,8 @@ document.querySelectorAll(".product-card").forEach(card=>{
 
 const image=card.querySelector(".product-image");
 
+const link=card.querySelector("a");
+
 const currentPrice=card.querySelector(".current-price");
 
 const oldPrice=card.querySelector(".old-price");
@@ -271,6 +264,8 @@ const title = card.querySelector(".product-title");
 
 title.innerText =
 `${dot.dataset.color} ${dot.dataset.name}`;
+
+link.href=dot.dataset.url;
 
 });
 
@@ -385,7 +380,7 @@ if(size){
 
 products = products.filter(product=>
 
-    product.variant.sizes.some(s=>s.name===size)
+    product.variants.some(v => v.sizes.some(s => s.name === size))
 
 );
 
@@ -401,7 +396,7 @@ if(color){
 
 products = products.filter(product=>
 
-    product.variant.color.name===color
+    product.variants.some(v => v.color.name === color)
 
 );
 
@@ -425,7 +420,7 @@ if(price){
 
     products=products.filter(product=>{
 
-        const amount=product.variant.price;
+        const amount = Math.min(...product.variants.map(v=>v.price));
 
         switch(price){
 
@@ -458,7 +453,7 @@ case "low":
 
 products.sort((a,b)=>
 
-a.variant.price-b.variant.price
+Math.min(...a.variants.map(v=>v.price))-Math.min(...b.variants.map(v=>v.price))
 
 );
 
@@ -468,7 +463,7 @@ case "high":
 
 products.sort((a,b)=>
 
-b.variant.price-a.variant.price
+Math.max(...b.variants.map(v=>v.price))-Math.max(...a.variants.map(v=>v.price))
 
 );
 
@@ -558,15 +553,14 @@ const sizes=[];
 
 allProducts.forEach(product=>{
 
-    product.variant.sizes.forEach(size=>{
+product.variants.forEach(variant=>{
+variant.sizes.forEach(size=>{
 
-        if(!sizes.includes(size.name)){
-
-            sizes.push(size.name);
-
-        }
-
-    });
+if(!sizes.includes(size.name)){
+sizes.push(size.name);
+}
+});
+});
 
 });
 
@@ -610,11 +604,14 @@ const colors=[];
 
 allProducts.forEach(product=>{
 
-    if(!colors.includes(product.variant.color.name)){
+    
 
-        colors.push(product.variant.color.name);
+product.variants.forEach(variant=>{
 
-    }
+        if(!colors.includes(variant.color.name)){
+            colors.push(variant.color.name);
+        }
+    });
 
 });
 

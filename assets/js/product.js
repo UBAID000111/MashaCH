@@ -41,6 +41,14 @@ endSession
 
 startSession();
 
+import {
+
+startLiveSession
+
+} from "./services/liveService.js";
+
+startLiveSession();
+
 window.addEventListener("beforeunload",()=>{
 
     endSession();

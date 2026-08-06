@@ -6,6 +6,7 @@ import { loadCustomerAnalytics } from "./analytics/customers.js";
 import { loadTrafficAnalytics } from "./analytics/traffic.js";
 import { loadLiveAnalytics } from "./analytics/live.js";
 
+
 loadLiveAnalytics();
 
 await loadTrafficAnalytics(

@@ -9,6 +9,8 @@ import { getStorage } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-
 
 import { getFunctions } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-functions.js";
 
+import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
+
 const firebaseConfig = {
 
     apiKey: "AIzaSyC8R4_HTFbXATzv-OSclhVvJKdZfgB7JMk",
@@ -35,5 +37,8 @@ export const db = getFirestore(app);
 
 export const storage = getStorage(app);
 
+export const database = getDatabase(app);
+
+export const rtdb = getDatabase(app);
 // Cloud Functions
 export const functions = getFunctions(app, "us-central1");

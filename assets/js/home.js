@@ -10,6 +10,14 @@ startSession,
 endSession
 } from "./services/analyticsService.js";
 
+import {
+
+startLiveSession
+
+} from "./services/liveService.js";
+
+startLiveSession();
+
 startSession();
 
 window.addEventListener("beforeunload",()=>{

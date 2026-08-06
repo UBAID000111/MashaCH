@@ -1,29 +1,43 @@
-import { db } from "../../firebase/firebase-config.js";
-
 import {
-doc,
-onSnapshot
-} from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+watchLiveUsers
+
+} from "../services/liveService.js";
 
 export function loadLiveAnalytics(){
 
-    const ref = doc(db,"analytics","overview");
+watchLiveUsers(users=>{
 
-    onSnapshot(ref,(snap)=>{
+const list=
 
-        if(!snap.exists()) return;
+Object.values(users);
 
-        const data = snap.data();
+document.getElementById(
 
-        document.getElementById("onlineVisitors").textContent =
-            data.onlineVisitors || 0;
+"onlineVisitors"
 
-        document.getElementById("activeSessions").textContent =
-            data.activeSessions || 0;
+).textContent=list.length;
 
-        document.getElementById("currentViews").textContent =
-            data.currentViews || 0;
+document.getElementById(
 
-    });
+"activeSessions"
+
+).textContent=list.length;
+
+const viewing=
+
+list.filter(
+
+u=>u.page=="product.html"
+
+).length;
+
+document.getElementById(
+
+"currentViews"
+
+).textContent=viewing;
+
+});
 
 }

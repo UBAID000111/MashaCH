@@ -31,6 +31,14 @@ window.addEventListener("beforeunload",()=>{
 
 });
 
+import {
+
+startLiveSession
+
+} from "./services/liveService.js";
+
+startLiveSession();
+
 /* ===========================
 DOM
 =========================== */
