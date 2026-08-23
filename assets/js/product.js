@@ -132,54 +132,138 @@ LOAD PRODUCT
 =========================== */
 
 
-async function loadProduct(){
+async function loadProduct() {
 
-productData = await getProduct(productId);
+    if (!productId) {
 
+        document.body.innerHTML = `
+            <h2 style="padding:50px;text-align:center;">
+                Product ID Missing
+            </h2>
+        `;
 
-
-await trackProductView(productId);
-
-
-
-if(!productData){
-
-document.body.innerHTML = `
-<h2 style="padding:50px;text-align:center;">
-Product Not Found
-</h2>
-`;
-
-return;
-
-}
-
-productCategory.innerText = productData.category;
-
-productDescription.innerText = productData.description;
-
-/* Find variant from URL */
-
-if(selectedColor){
-
-    const index = productData.variants.findIndex(v =>
-        v.color.name.toLowerCase() === selectedColor.toLowerCase()
-    );
-
-    if(index !== -1){
-
-        currentVariantIndex = index;
-
+        return;
     }
 
-}
+    try {
 
-/* Load selected variant */
+        if (imageLoader) {
+            imageLoader.style.display = "block";
+        }
 
-loadVariant(currentVariantIndex);
+        // Get product from Firebase
+        productData = await getProduct(productId);
 
-loadColorButtons();
-await loadReviews();
+        if (!productData) {
+
+            document.body.innerHTML = `
+                <h2 style="padding:50px;text-align:center;">
+                    Product Not Found
+                </h2>
+            `;
+
+            return;
+        }
+
+        // =========================
+        // RENDER PRODUCT IMMEDIATELY
+        // =========================
+
+        productCategory.innerText =
+            productData.category || "";
+
+        productDescription.innerText =
+            productData.description || "";
+
+        // =========================
+        // FIND SELECTED VARIANT
+        // =========================
+
+        if (
+            selectedColor &&
+            Array.isArray(productData.variants)
+        ) {
+
+            const index =
+                productData.variants.findIndex(v =>
+                    v.color?.name?.toLowerCase() ===
+                    selectedColor.toLowerCase()
+                );
+
+            if (index !== -1) {
+                currentVariantIndex = index;
+            }
+        }
+
+        // =========================
+        // LOAD PRODUCT
+        // =========================
+
+        loadVariant(currentVariantIndex);
+
+        loadColorButtons();
+
+        // =========================
+        // BACKGROUND TASKS
+        // =========================
+
+        Promise.allSettled([
+
+            trackProductView(productId),
+
+            loadReviews()
+
+        ]).then(results => {
+
+            console.log(
+                "Background tasks completed:",
+                results
+            );
+
+        });
+
+    } catch (error) {
+
+        console.error(
+            "Product loading error:",
+            error
+        );
+
+        document.body.innerHTML = `
+            <div style="
+                padding:50px;
+                text-align:center;
+                font-family:Arial;
+            ">
+
+                <h2>
+                    Unable to load product
+                </h2>
+
+                <p>
+                    Please check your internet connection
+                    and try again.
+                </p>
+
+                <button
+                    onclick="location.reload()"
+                    style="
+                        padding:12px 24px;
+                        border:none;
+                        border-radius:8px;
+                        background:#c2185b;
+                        color:white;
+                        font-weight:bold;
+                        cursor:pointer;
+                    "
+                >
+                    Try Again
+                </button>
+
+            </div>
+        `;
+
+    }
 
 }
 
