@@ -83,9 +83,13 @@ let filteredProducts=[];
 
 let lastFirestoreDoc=null;
 
-let loadingProducts=false;
+let loadingProducts = false;
+let finishedLoading = false;
 
-let finishedLoading=false;
+const loadMoreLoader = document.getElementById("loadMoreLoader");
+const productsEnd = document.getElementById("productsEnd");
+
+
 
 /* ==========================================
 LOAD PRODUCTS
@@ -93,34 +97,84 @@ LOAD PRODUCTS
 
 async function loadProducts(){
 
-if(loadingProducts || finishedLoading) return;
+    if(loadingProducts || finishedLoading) return;
 
-loadingProducts=true;
+    loadingProducts = true;
 
-const result=await getProductsPage(lastFirestoreDoc,24);
+    /* SHOW LOADER */
 
-lastFirestoreDoc=result.lastDoc;
+    if(loadMoreLoader){
+        loadMoreLoader.style.display = "flex";
+    }
 
-finishedLoading=result.finished;
+    if(productsEnd){
+        productsEnd.style.display = "none";
+    }
 
-allProducts.push(...result.products);
+    try{
 
-/* Build Filters */
+        const result = await getProductsPage(
+            lastFirestoreDoc,
+            24
+        );
 
-createCategoryFilter();
+        lastFirestoreDoc = result.lastDoc;
 
-createSizeFilter();
+        finishedLoading = result.finished;
 
-createColorFilter();
+        allProducts.push(...result.products);
 
-document.getElementById("priceSelect")
-.onchange=applyFilters;
+        /* Build Filters */
 
-/* Apply Filters */
+        createCategoryFilter();
 
-applyFilters();
+        createSizeFilter();
 
-loadingProducts=false;
+        createColorFilter();
+
+        document.getElementById("priceSelect")
+        .onchange = applyFilters;
+
+        /* Apply Filters */
+
+        applyFilters();
+
+        /* NO MORE PRODUCTS */
+
+        if(finishedLoading){
+
+            if(loadMoreLoader){
+                loadMoreLoader.style.display = "none";
+            }
+
+            if(productsEnd){
+                productsEnd.style.display = "block";
+            }
+
+        }
+
+    }catch(error){
+
+        console.error(
+            "Error loading products:",
+            error
+        );
+
+        showToast(
+            "Unable to load more products. Please try again."
+        );
+
+    }finally{
+
+        loadingProducts = false;
+
+        if(!finishedLoading && loadMoreLoader){
+
+            loadMoreLoader.style.display = "none";
+
+        }
+
+    }
 
 }
 
@@ -761,26 +815,37 @@ document.getElementById("clearFiltersBtn")
 /* ===========================
 INFINITE SCROLL
 =========================== */
+/* ===========================
+INFINITE SCROLL
+=========================== */
 
-let loadingMore = false;
+let scrollTimeout;
 
-window.addEventListener("scroll",async()=>{
+window.addEventListener("scroll", () => {
 
-if(
+    clearTimeout(scrollTimeout);
 
-window.innerHeight+
+    scrollTimeout = setTimeout(() => {
 
-window.scrollY
+        if(loadingProducts || finishedLoading){
+            return;
+        }
 
->=
+        const scrollPosition =
+            window.innerHeight + window.scrollY;
 
-document.body.offsetHeight-400
+        const pageHeight =
+            document.documentElement.scrollHeight;
 
-){
+        /* Start loading BEFORE reaching footer */
 
-await loadProducts();
+        if(scrollPosition >= pageHeight - 800){
 
-}
+            loadProducts();
+
+        }
+
+    }, 100);
 
 });
 
