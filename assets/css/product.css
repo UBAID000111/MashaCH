@@ -1625,6 +1625,45 @@ color:#fff;
 
 }
 
+#cartSuggestionPopup {
+    position: fixed;
+    inset: 0;
+    width: 100%;
+    height: 100dvh;
+    z-index: 99999;
+
+    overflow: hidden;
+
+    display: none;
+    align-items: center;
+    justify-content: center;
+}
+
+#cartSuggestionPopup.show {
+    display: flex;
+}
+
+#closeSuggestionPopup {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1000;
+
+    width: 40px;
+    height: 40px;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+#suggestionProducts {
+    max-height: 70dvh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    -webkit-overflow-scrolling: touch;
+}
+
 .quantity-box input{
 
 flex:1;
