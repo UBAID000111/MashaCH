@@ -39,10 +39,12 @@ trackDevice();
 
 async function initHome(){
 
-    await loadCategories();
-    await loadNewArrival();
-    await loadBestSeller();
-    await loadAllProducts();
+    await Promise.all([
+        loadCategories(),
+        loadNewArrival(),
+        loadBestSeller(),
+        loadAllProducts()
+    ]);
 
     if(window.location.hash === "#bestSellerSection"){
 
@@ -54,7 +56,7 @@ async function initHome(){
                     block:"start"
                 });
 
-        },1200); // wait until products are rendered
+        },1200);
 
     }
 
