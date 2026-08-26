@@ -812,6 +812,10 @@ INFINITE SCROLL
 INFINITE SCROLL
 =========================== */
 
+/* ===========================
+INFINITE SCROLL
+=========================== */
+
 let scrollTimeout;
 
 window.addEventListener("scroll", () => {
@@ -830,9 +834,9 @@ window.addEventListener("scroll", () => {
         const pageHeight =
             document.documentElement.scrollHeight;
 
-        /* Start loading BEFORE reaching footer */
+        if(scrollPosition >= pageHeight - 1000){
 
-        if(scrollPosition >= pageHeight - 800){
+            console.log("Loading next 24 products...");
 
             loadProducts();
 
@@ -841,5 +845,9 @@ window.addEventListener("scroll", () => {
     }, 100);
 
 });
+
+/* ===========================
+INITIAL LOAD
+=========================== */
 
 loadProducts();
