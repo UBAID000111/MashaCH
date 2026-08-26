@@ -106,26 +106,35 @@ let currentUser = null;
 const wishlistBtn = document.getElementById("wishlistBtn");
 const mobileWishlist = document.getElementById("mobileWishlist");
 
-const mobileCart=document.querySelector(".mobile-cart");
-const mobileBuy=document.querySelector(".mobile-buy");
+const mobileCart = document.querySelector(".mobile-cart");
+const mobileBuy = document.querySelector(".mobile-buy");
 
-mobileCart.onclick=()=>{
+mobileCart?.addEventListener("click", async (e) => {
 
-document.getElementById("addCartBtn").click();
+    e.preventDefault();
+    e.stopPropagation();
 
-};
+    await addToCart();
 
-mobileBuy.onclick=()=>{
+});
 
-document.querySelector(".buy-now").click();
+mobileBuy?.addEventListener("click", (e) => {
 
-};
+    e.preventDefault();
+    e.stopPropagation();
 
-mobileWishlist.onclick=()=>{
+    document.querySelector(".buy-now")?.click();
 
-document.getElementById("wishlistBtn").click();
+});
 
-};
+mobileWishlist?.addEventListener("click", (e) => {
+
+    e.preventDefault();
+    e.stopPropagation();
+
+    document.getElementById("wishlistBtn")?.click();
+
+});
 
 /* ===========================
 LOAD PRODUCT
@@ -939,11 +948,7 @@ if(addCartBtn.disabled) return;
 addCartBtn.disabled = true;
 addCartBtn.innerText = "Adding...";
 
-const mobileBtn = document.getElementById("mobileAddCartBtn");
-if (mobileBtn) {
-    mobileBtn.disabled = true;
-    mobileBtn.innerText = "Adding...";
-}  
+
 
 if(!currentUser){
 
@@ -1032,8 +1037,12 @@ createdAt:serverTimestamp()
 
 await trackCart(productId);
 
-showAddedToCartPopup(productData.category, productId);
+showToast("Added to Cart ✓");
 
+showAddedToCartPopup(productData.category, productId)
+    .catch(error => {
+        console.error("Suggestion popup error:", error);
+    });
 
 
 const userSnap = await getDoc(
@@ -1072,11 +1081,7 @@ lastUpdated:serverTimestamp()
 addCartBtn.disabled = false;
 addCartBtn.innerText = "🛒 Add To Cart";
 
-const mobileBtn = document.getElementById("mobileAddCartBtn");
-if (mobileBtn) {
-    mobileBtn.disabled = false;
-    mobileBtn.innerText = "🛒 Cart";
-}
+
 
 }
 }
