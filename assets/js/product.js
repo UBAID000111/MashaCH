@@ -948,6 +948,8 @@ if(addCartBtn.disabled) return;
 addCartBtn.disabled = true;
 addCartBtn.innerText = "Adding...";
 
+await new Promise(resolve => requestAnimationFrame(resolve));
+
 
 
 if(!currentUser){
