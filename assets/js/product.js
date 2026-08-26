@@ -910,182 +910,204 @@ const addCartBtn=document.getElementById("addCartBtn");
 
 addCartBtn?.addEventListener("click",addToCart);
 
-async function addToCart(){
+async function addToCart() {
 
-    const variantIndex =
-Number(
-document.querySelector(".color-dot.active")
-?.dataset.index || 0
-);
+    // Prevent double click
+    if (addCartBtn?.disabled) return;
 
-const variant =
-productData.variants[variantIndex];
+    const mobileBtn =
+        document.querySelector(".mobile-cart");
 
-const selectedSize =
+    // =========================
+    // SHOW LOADING IMMEDIATELY
+    // =========================
 
-document.querySelector(".size-btn.active")?.innerText;
+    if (addCartBtn) {
+        addCartBtn.disabled = true;
+        addCartBtn.innerText = "Adding...";
+    }
 
-const sizeData=
+    if (mobileBtn) {
+        mobileBtn.disabled = true;
+        mobileBtn.innerText = "Adding...";
+    }
 
-variant.sizes.find(
+    // Give browser time to show Adding...
+    await new Promise(resolve =>
+        setTimeout(resolve, 50)
+    );
 
-s=>s.name===selectedSize
+    try {
 
-);
+        if (!currentUser) {
+            location.href = "login.html";
+            return;
+        }
 
-if(!sizeData || sizeData.stock<=0){
+        const variantIndex = Number(
+            document.querySelector(".color-dot.active")
+                ?.dataset.index || 0
+        );
 
-showToast("Product is Out of Stock");
+        const variant =
+            productData.variants[variantIndex];
 
-return;
+        const selectedSize =
+            document.querySelector(".size-btn.active")
+                ?.innerText;
 
-}
+        const sizeData =
+            variant.sizes.find(
+                s => s.name === selectedSize
+            );
 
-    try{
+        if (!sizeData || sizeData.stock <= 0) {
 
-if(addCartBtn.disabled) return;
+            showToast("Product is Out of Stock");
 
-addCartBtn.disabled = true;
-addCartBtn.innerText = "Adding...";
+            return;
+        }
 
-await new Promise(resolve => requestAnimationFrame(resolve));
+        const size =
+            document.querySelector(".size-btn.active")
+                ?.innerText || "";
 
+        const qty =
+            Number(
+                document.getElementById("quantity").value
+            ) || 1;
 
+        await addDoc(
+            collection(
+                db,
+                "users",
+                currentUser.uid,
+                "cart"
+            ),
+            {
+                productId: productId,
 
-if(!currentUser){
+                productName:
+                    `${variant.color.name} ${productData.name}`,
 
-location.href="login.html";
+                category: productData.category,
 
-return;
+                description: productData.description,
 
-}
+                image: variant.image,
 
-const variantIndex=
+                price: variant.price,
 
-Number(
+                oldPrice: variant.oldPrice,
 
-document.querySelector(".color-dot.active")
+                quantity: qty,
 
-?.dataset.index
+                selectedSize: size,
 
-||0
+                selectedColor: variant.color,
 
-);
+                variantIndex,
 
-const variant=
+                sizeStock:
+                    variant.sizes.find(
+                        s => s.name === size
+                    )?.stock || 0,
 
-productData.variants[variantIndex];
+                createdAt: serverTimestamp()
+            }
+        );
 
-const size=
+        await trackCart(productId);
 
-document.querySelector(".size-btn.active")
+        showToast("Added to Cart ✓");
 
-?.innerText
+        showAddedToCartPopup(
+            productData.category,
+            productId
+        ).catch(error => {
 
-||"";
+            console.error(
+                "Suggestion popup error:",
+                error
+            );
 
-const qty=
+        });
 
-Number(document.getElementById("quantity").value);
+        const userSnap = await getDoc(
+            doc(
+                db,
+                "users",
+                currentUser.uid
+            )
+        );
 
-await addDoc(
+        const userData =
+            userSnap.exists()
+                ? userSnap.data()
+                : {};
 
-collection(
+        await setDoc(
+            doc(
+                db,
+                "adminCart",
+                currentUser.uid
+            ),
+            {
+                userId: currentUser.uid,
 
-db,
+                userName:
+                    userData.name || "",
 
-"users",
+                email:
+                    userData.email || "",
 
-currentUser.uid,
+                phone:
+                    userData.phone || "",
 
-"cart"
+                status: "New",
 
-),
+                contacted: false,
 
-{
+                lastUpdated:
+                    serverTimestamp()
+            },
+            {
+                merge: true
+            }
+        );
 
-productId:productId,
+    } catch (error) {
 
-productName: `${variant.color.name} ${productData.name}`,
+        console.error(
+            "Add to cart error:",
+            error
+        );
 
-category:productData.category,
+        showToast(
+            "Unable to add to cart"
+        );
 
-description:productData.description,
+    } finally {
 
-image:variant.image,
+        if (addCartBtn) {
 
-price:variant.price,
+            addCartBtn.disabled = false;
 
-oldPrice:variant.oldPrice,
+            addCartBtn.innerText =
+                "🛒 Add To Cart";
 
-quantity:qty,
+        }
 
-selectedSize:size,
+        if (mobileBtn) {
 
-selectedColor:variant.color,
+            mobileBtn.disabled = false;
 
-variantIndex,
+            mobileBtn.innerText =
+                "🛒 Cart";
 
-sizeStock:
-variant.sizes.find(
-s=>s.name===size
-)?.stock || 0,
+        }
 
-createdAt:serverTimestamp()
-
-}
-
-);
-
-await trackCart(productId);
-
-showToast("Added to Cart ✓");
-
-showAddedToCartPopup(productData.category, productId)
-    .catch(error => {
-        console.error("Suggestion popup error:", error);
-    });
-
-
-const userSnap = await getDoc(
-    doc(db, "users", currentUser.uid)
-);
-
-const userData = userSnap.exists()
-    ? userSnap.data()
-    : {};
-
-await setDoc(
-doc(db,"adminCart",currentUser.uid),
-{
-
-userId:currentUser.uid,
-
-userName:userData.name || "",
-
-email:userData.email || "",
-
-phone:userData.phone || "",
-
-status:"New",
-
-contacted:false,
-
-lastUpdated:serverTimestamp()
-
-},
-
-{merge:true}
-
-);
-    }finally{
-
-addCartBtn.disabled = false;
-addCartBtn.innerText = "🛒 Add To Cart";
-
-
-
-}
+    }
 }
 
 const buyNowBtn = document.querySelector(".buy-now");
