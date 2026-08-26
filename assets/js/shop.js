@@ -118,28 +118,24 @@ async function loadProducts(){
             24
         );
 
+        console.log("Products loaded:", result.products.length);
+        console.log("Finished:", result.finished);
+        console.log("Last Doc:", result.lastDoc);
+
         lastFirestoreDoc = result.lastDoc;
 
         finishedLoading = result.finished;
 
         allProducts.push(...result.products);
 
-        /* Build Filters */
-
         createCategoryFilter();
-
         createSizeFilter();
-
         createColorFilter();
 
         document.getElementById("priceSelect")
-        .onchange = applyFilters;
-
-        /* Apply Filters */
+            .onchange = applyFilters;
 
         applyFilters();
-
-        /* NO MORE PRODUCTS */
 
         if(finishedLoading){
 
@@ -155,10 +151,7 @@ async function loadProducts(){
 
     }catch(error){
 
-        console.error(
-            "Error loading products:",
-            error
-        );
+        console.error("Error loading products:",error);
 
         showToast(
             "Unable to load more products. Please try again."
