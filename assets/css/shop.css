@@ -46,6 +46,41 @@ background:#d62d4c;
 
 }
 
+.load-more-loader {
+    display: none;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    padding: 30px 20px;
+    width: 100%;
+    box-sizing: border-box;
+    color: #555;
+    font-size: 14px;
+}
+
+.loader-spinner {
+    width: 22px;
+    height: 22px;
+    border: 3px solid #eee;
+    border-top: 3px solid #c2185b;
+    border-radius: 50%;
+    animation: shopLoaderSpin .8s linear infinite;
+}
+
+@keyframes shopLoaderSpin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.products-end {
+    display: none;
+    text-align: center;
+    padding: 30px 20px;
+    color: #888;
+    font-size: 14px;
+}
+
 .toast.info{
 
 background:#111;
