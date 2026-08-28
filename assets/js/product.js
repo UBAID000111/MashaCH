@@ -1282,6 +1282,113 @@ ${review.images.map(img=>`
 
 }
 
+/* ===========================
+BUY THROUGH WHATSAPP
+=========================== */
+
+const whatsappBuyBtn =
+    document.getElementById("whatsappBuyBtn");
+
+whatsappBuyBtn?.addEventListener("click", () => {
+
+    if (!productData) {
+        showToast("Product is still loading.");
+        return;
+    }
+
+    const variant =
+        productData.variants[currentVariantIndex];
+
+    if (!variant) {
+        showToast("Please select a color.");
+        return;
+    }
+
+    const selectedSize =
+        document.querySelector(".size-btn.active")?.innerText || "";
+
+    const sizeData =
+        variant.sizes.find(
+            s => s.name === selectedSize
+        );
+
+    if (!sizeData || Number(sizeData.stock) <= 0) {
+
+        showToast("Please select an available size.");
+
+        return;
+    }
+
+    const qty =
+        Number(
+            document.getElementById("quantity")?.value
+        ) || 1;
+
+    if (qty > Number(sizeData.stock)) {
+
+        showToast(
+            `Only ${sizeData.stock} item(s) available.`
+        );
+
+        return;
+    }
+
+    const productUrl =
+        window.location.href;
+
+    const message = `
+Hello MASHA 👋
+
+I want to buy this product:
+
+🛍 Product:
+${variant.color?.name || ""} ${productData.name}
+
+🆔 Product ID:
+${productId}
+
+🎨 Color:
+${variant.color?.name || "N/A"}
+
+📏 Size:
+${selectedSize || "N/A"}
+
+🔢 Quantity:
+${qty}
+
+💰 Price:
+₹${variant.price} × ${qty} = ₹${variant.price * qty}
+
+🔗 Product:
+${productUrl}
+
+Please share the payment details and confirm my order.
+`;
+
+    const adminWhatsApp =
+        "91XXXXXXXXXX";
+
+    const whatsappUrl =
+        `https://wa.me/${adminWhatsApp}?text=${encodeURIComponent(message)}`;
+
+    window.open(
+        whatsappUrl,
+        "_blank"
+    );
+
+});
+
+const mobileWhatsappBuy =
+    document.getElementById("mobileWhatsappBuy");
+
+mobileWhatsappBuy?.addEventListener("click", () => {
+
+    document
+        .getElementById("whatsappBuyBtn")
+        ?.click();
+
+});
+
 async function showAddedToCartPopup(category, currentProductId){
 
     const popup = document.getElementById("cartSuggestionPopup");
