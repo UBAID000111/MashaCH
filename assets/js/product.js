@@ -1366,7 +1366,7 @@ Please share the payment details and confirm my order.
 `;
 
     const adminWhatsApp =
-        "91XXXXXXXXXX";
+        "917827407735";
 
     const whatsappUrl =
         `https://wa.me/${adminWhatsApp}?text=${encodeURIComponent(message)}`;
