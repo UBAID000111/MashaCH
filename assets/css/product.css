@@ -26,6 +26,58 @@ z-index:999999;
 
 }
 
+.mobile-whatsapp {
+    border: none;
+    background: #25D366;
+    color: #fff;
+
+    height: 52px;
+    min-width: 92px;
+    padding: 4px 8px;
+
+    border-radius: 8px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 1px;
+
+    font-family: inherit;
+    cursor: pointer;
+}
+
+.mobile-whatsapp-main {
+    font-size: 12px;
+    font-weight: 700;
+    line-height: 16px;
+}
+
+.mobile-whatsapp-sub {
+    font-size: 8px;
+    font-weight: 400;
+    opacity: 0.85;
+    line-height: 11px;
+    white-space: nowrap;
+}
+
+@media (max-width: 380px) {
+
+    .mobile-whatsapp {
+        min-width: 82px;
+        padding: 3px 5px;
+    }
+
+    .mobile-whatsapp-main {
+        font-size: 11px;
+    }
+
+    .mobile-whatsapp-sub {
+        font-size: 7.5px;
+    }
+
+}
 /* =========================================
    WHATSAPP BUY BUTTON
 ========================================= */
