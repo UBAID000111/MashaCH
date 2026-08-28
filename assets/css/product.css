@@ -202,27 +202,116 @@ z-index:999999;
    MOBILE
 ========================================= */
 
+/* =========================================
+   MOBILE BOTTOM ACTION BAR
+========================================= */
+
 @media (max-width: 768px) {
 
-    .whatsapp-buy {
-        min-height: 56px;
-
-        border-radius: 9px;
-    }
-
-    .whatsapp-main {
-        font-size: 14px;
-    }
-
-    .whatsapp-sub {
-        font-size: 10px;
-    }
-
-    .button-group {
+    .mobile-action-bar {
+        display: flex;
+        align-items: center;
         gap: 8px;
+        padding: 8px 10px;
+
+        width: 100%;
+        box-sizing: border-box;
+    }
+
+    /* Wishlist */
+    .mobile-action-bar #mobileWishlist {
+        flex: 0 0 64px;
+        height: 58px;
+
+        border-radius: 12px;
+    }
+
+    /* Cart */
+    .mobile-action-bar .mobile-cart {
+        flex: 1;
+        min-width: 0;
+        height: 58px;
+
+        border-radius: 14px;
+
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    /* Buy Now */
+    .mobile-action-bar .mobile-buy {
+        flex: 1;
+        min-width: 0;
+        height: 58px;
+
+        border-radius: 14px;
+
+        font-size: 16px;
+        font-weight: 700;
+    }
+
+    /* WhatsApp */
+    .mobile-action-bar .mobile-whatsapp {
+        flex: 0 0 92px;
+        width: 92px;
+        min-width: 92px;
+
+        height: 58px;
+
+        padding: 4px 5px;
+        margin: 0;
+
+        border: none;
+        border-radius: 14px;
+
+        background: #25D366;
+        color: #fff;
+
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+
+        gap: 1px;
+
+        box-sizing: border-box;
+
+        overflow: hidden;
+    }
+
+    .mobile-whatsapp-main {
+        display: block;
+
+        width: 100%;
+
+        font-size: 11px;
+        font-weight: 700;
+        line-height: 14px;
+
+        text-align: center;
+
+        white-space: normal;
+    }
+
+    .mobile-whatsapp-sub {
+        display: block;
+
+        width: 100%;
+
+        font-size: 7px;
+        font-weight: 400;
+        line-height: 9px;
+
+        text-align: center;
+
+        opacity: 0.85;
+
+        white-space: nowrap;
     }
 
 }
+
+    
 
 
 /* =========================================
