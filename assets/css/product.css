@@ -26,6 +26,179 @@ z-index:999999;
 
 }
 
+/* =========================================
+   WHATSAPP BUY BUTTON
+========================================= */
+
+.whatsapp-buy {
+    width: 100%;
+    min-height: 58px;
+
+    border: none;
+    border-radius: 10px;
+
+    background: #25D366;
+    color: #ffffff;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    gap: 2px;
+
+    cursor: pointer;
+
+    font-family: inherit;
+
+    transition:
+        transform 0.2s ease,
+        box-shadow 0.2s ease,
+        background 0.2s ease;
+
+    box-shadow: 0 4px 12px rgba(37, 211, 102, 0.20);
+}
+
+.whatsapp-buy:hover {
+    background: #20bd5a;
+    transform: translateY(-1px);
+
+    box-shadow:
+        0 6px 18px rgba(37, 211, 102, 0.28);
+}
+
+.whatsapp-buy:active {
+    transform: scale(0.98);
+}
+
+
+/* Main text */
+
+.whatsapp-main {
+    font-size: 15px;
+    font-weight: 700;
+    line-height: 20px;
+}
+
+
+/* Small subtitle */
+
+.whatsapp-sub {
+    font-size: 11px;
+    font-weight: 400;
+
+    opacity: 0.82;
+
+    line-height: 15px;
+}
+
+
+/* =========================================
+   DESKTOP BUTTON GROUP
+========================================= */
+
+.button-group {
+    display: flex;
+    flex-direction: column;
+
+    gap: 10px;
+
+    width: 100%;
+}
+
+.button-group .add-cart,
+.button-group .buy-now,
+.button-group .whatsapp-buy {
+    width: 100%;
+}
+
+
+/* =========================================
+   MOBILE BOTTOM BAR
+========================================= */
+
+.mobile-whatsapp {
+    border: none;
+
+    background: #25D366;
+    color: #fff;
+
+    min-width: 90px;
+    height: 46px;
+
+    border-radius: 8px;
+
+    font-family: inherit;
+    font-size: 13px;
+    font-weight: 700;
+
+    cursor: pointer;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    transition: 0.2s ease;
+}
+
+.mobile-whatsapp:active {
+    transform: scale(0.96);
+}
+
+
+/* =========================================
+   MOBILE
+========================================= */
+
+@media (max-width: 768px) {
+
+    .whatsapp-buy {
+        min-height: 56px;
+
+        border-radius: 9px;
+    }
+
+    .whatsapp-main {
+        font-size: 14px;
+    }
+
+    .whatsapp-sub {
+        font-size: 10px;
+    }
+
+    .button-group {
+        gap: 8px;
+    }
+
+}
+
+
+/* =========================================
+   SMALL PHONES
+========================================= */
+
+@media (max-width: 480px) {
+
+    .whatsapp-buy {
+        min-height: 54px;
+    }
+
+    .whatsapp-main {
+        font-size: 13px;
+    }
+
+    .whatsapp-sub {
+        font-size: 9.5px;
+    }
+
+    .mobile-whatsapp {
+        min-width: 82px;
+        padding: 0 8px;
+        font-size: 12px;
+    }
+
+}
+
 .toast.show{
 
 opacity:1;
