@@ -4,7 +4,8 @@ import {
     collection,
     doc,
     updateDoc,
-    onSnapshot
+    onSnapshot,
+    getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const table = document.getElementById("cartTable");
@@ -174,18 +175,21 @@ MARK CONTACTED
 
 window.markDone = async (uid) => {
 
-    await updateDoc(
+    try {
 
-        doc(db, "adminCart", uid),
+        await updateDoc(
+            doc(db, "adminCart", uid),
+            {
+                contacted: true,
+                status: "Contacted"
+            }
+        );
 
-        {
-            contacted: true,
-            status: "Contacted"
-        }
+    } catch(error) {
 
-    );
+        console.error("Mark contacted error:", error);
 
-    loadCartLeads();
+    }
 
 };
 
