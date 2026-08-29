@@ -1019,7 +1019,9 @@ async function addToCart() {
             }
         );
 
-        await trackCart(productId);
+        trackCart(productId).catch(error => {
+    console.error("Cart analytics error:", error);
+});
 
         showToast("Added to Cart ✓");
 
