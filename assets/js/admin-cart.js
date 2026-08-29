@@ -15,7 +15,7 @@ const cartDetails = document.getElementById("cartDetails");
 
 const closeBtn = document.getElementById("closeCartModal");
 
-/* ===========================
+/* ===========================*/
 function loadCartLeads() {
 
     const mobileList = document.getElementById("mobileCartList");
