@@ -1049,34 +1049,18 @@ async function addToCart() {
                 : {};
 
         await setDoc(
-            doc(
-                db,
-                "adminCart",
-                currentUser.uid
-            ),
-            {
-                userId: currentUser.uid,
-
-                userName:
-                    userData.name || "",
-
-                email:
-                    userData.email || "",
-
-                phone:
-                    userData.phone || "",
-
-                status: "New",
-
-                contacted: false,
-
-                lastUpdated:
-                    serverTimestamp()
-            },
-            {
-                merge: true
-            }
-        );
+    doc(db, "adminCart", currentUser.uid),
+    {
+        userId: currentUser.uid,
+        userName: userData.name || "",
+        email: userData.email || currentUser.email || "",
+        phone: userData.phone || "",
+        status: "New",
+        contacted: false,
+        lastUpdated: serverTimestamp()
+    },
+    { merge: true }
+);
 
     } catch (error) {
 
