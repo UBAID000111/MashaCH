@@ -170,22 +170,102 @@ export async function endSession() {
 
 export async function trackVisitor() {
 
-  const visitorId = getVisitorId();
+    const today = todayKey();
 
-  const today = todayKey();
+    const overviewRef =
+        doc(db, "analytics", "overview");
 
-  const visitorRef =
-    doc(db, "analytics_visitors", visitorId);
+    const dailyRef =
+        doc(db, "analytics_daily", today);
 
-  const visitorSnap =
-    await getDoc(visitorRef);
 
-  const overviewRef =
-    doc(db, "analytics", "overview");
+    try {
 
-  const dailyRef =
-    doc(db, "analytics_daily", today);
+        console.log("1. Testing analytics/overview...");
 
+        await setDoc(
+            overviewRef,
+            {
+                totalVisits: increment(1),
+                updatedAt: serverTimestamp()
+            },
+            { merge: true }
+        );
+
+        console.log("✅ 2. analytics/overview SUCCESS");
+
+
+        console.log("3. Testing analytics_daily...");
+
+        await setDoc(
+            dailyRef,
+            {
+                visits: increment(1),
+                updatedAt: serverTimestamp()
+            },
+            { merge: true }
+        );
+
+        console.log("✅ 4. analytics_daily SUCCESS");
+
+
+        const visitorKey =
+            "masha_unique_visitor_" + today;
+
+        if (
+            localStorage.getItem(visitorKey) === "1"
+        ) {
+
+            console.log(
+                "Already counted as today's visitor"
+            );
+
+            return;
+        }
+
+
+        localStorage.setItem(
+            visitorKey,
+            "1"
+        );
+
+
+        console.log("5. Testing unique visitor...");
+
+        await setDoc(
+            overviewRef,
+            {
+                totalVisitors: increment(1),
+                updatedAt: serverTimestamp()
+            },
+            { merge: true }
+        );
+
+        console.log("✅ 6. Total visitor SUCCESS");
+
+
+        await setDoc(
+            dailyRef,
+            {
+                visitors: increment(1),
+                updatedAt: serverTimestamp()
+            },
+            { merge: true }
+        );
+
+        console.log("✅ 7. Daily visitor SUCCESS");
+
+
+    } catch (error) {
+
+        console.error(
+            "❌ ANALYTICS FAILED:",
+            error
+        );
+
+    }
+
+}
 
   /* =================================
      FIRST EVER VISIT
