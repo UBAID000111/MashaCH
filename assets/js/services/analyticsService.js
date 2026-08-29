@@ -1,436 +1,688 @@
 import { db } from "../../firebase/firebase-config.js";
 
 import {
-doc,
-setDoc,
-updateDoc,
-increment,
-serverTimestamp
+  doc,
+  setDoc,
+  updateDoc,
+  getDoc,
+  increment,
+  serverTimestamp
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
+
+
 /* ===================================
-TODAY
+   DATE HELPERS
 =================================== */
 
-function todayKey(){
+function todayKey() {
 
-    return new Date().toISOString().split("T")[0];
+  const d = new Date();
+
+  const year = d.getFullYear();
+  const month = String(d.getMonth() + 1).padStart(2, "0");
+  const day = String(d.getDate()).padStart(2, "0");
+
+  return `${year}-${month}-${day}`;
 
 }
 
-export async function startSession(){
+
+/* ===================================
+   UNIQUE VISITOR ID
+=================================== */
+
+function getVisitorId() {
+
+  let visitorId =
+    localStorage.getItem("masha_visitor_id");
+
+  if (!visitorId) {
+
+    visitorId = crypto.randomUUID();
+
+    localStorage.setItem(
+      "masha_visitor_id",
+      visitorId
+    );
+
+  }
+
+  return visitorId;
+
+}
+
+
+/* ===================================
+   SESSION ID
+=================================== */
+
+function getVisitId() {
+
+  let visitId =
+    sessionStorage.getItem("masha_visit_id");
+
+  if (!visitId) {
+
+    visitId = crypto.randomUUID();
+
+    sessionStorage.setItem(
+      "masha_visit_id",
+      visitId
+    );
+
+  }
+
+  return visitId;
+
+}
+
+
+/* ===================================
+   START SESSION
+=================================== */
+
+export async function startSession() {
+
+  const visitId = getVisitId();
+
+  const sessionRef =
+    doc(db, "analytics_sessions", visitId);
+
+  const snap = await getDoc(sessionRef);
+
+  // Already recorded this browsing session
+  if (snap.exists()) return;
+
+  const visitorId = getVisitorId();
+  const today = todayKey();
+
+  await setDoc(sessionRef, {
+
+    visitorId,
+
+    startedAt: serverTimestamp(),
+
+    date: today
+
+  });
+
+  const overviewRef =
+    doc(db, "analytics", "overview");
+
+  const dailyRef =
+    doc(db, "analytics_daily", today);
+
+  await setDoc(
+
+    overviewRef,
+
+    {
+
+      totalVisits: increment(1),
+
+      updatedAt: serverTimestamp()
+
+    },
+
+    { merge: true }
+
+  );
+
+  await setDoc(
+
+    dailyRef,
+
+    {
+
+      visits: increment(1),
+
+      updatedAt: serverTimestamp()
+
+    },
+
+    { merge: true }
+
+  );
+
+}
+
+
+/* ===================================
+   END SESSION
+
+   Historical sessions are NOT reduced
+   when user leaves.
+
+   Live sessions are handled by
+   liveService.js.
+=================================== */
+
+export async function endSession() {
+
+  // Intentionally empty.
+
+}
+
+
+/* ===================================
+   UNIQUE VISITOR
+=================================== */
+
+export async function trackVisitor() {
+
+  const visitorId = getVisitorId();
+
+  const today = todayKey();
+
+  const visitorRef =
+    doc(db, "analytics_visitors", visitorId);
+
+  const visitorSnap =
+    await getDoc(visitorRef);
+
+  const overviewRef =
+    doc(db, "analytics", "overview");
+
+  const dailyRef =
+    doc(db, "analytics_daily", today);
+
+
+  /* =================================
+     FIRST EVER VISIT
+  ================================= */
+
+  if (!visitorSnap.exists()) {
 
     await setDoc(
 
-        doc(db,"analytics","overview"),
+      visitorRef,
 
-        {
+      {
 
-            onlineVisitors:increment(1),
+        firstVisit: serverTimestamp(),
 
-            activeSessions:increment(1),
+        lastVisit: serverTimestamp(),
 
-            updatedAt:serverTimestamp()
+        lastVisitDate: today
 
-        },
-
-        {merge:true}
+      }
 
     );
 
-}
+    await setDoc(
 
-export async function endSession(){
+      overviewRef,
 
-    const ref = doc(db,"analytics","overview");
+      {
 
-    const snap = await getDoc(ref);
+        totalVisitors: increment(1),
 
-    if(!snap.exists()) return;
-
-    const data = snap.data();
-
-    const online = Math.max((data.onlineVisitors || 0) - 1, 0);
-    const active = Math.max((data.activeSessions || 0) - 1, 0);
-
-    await updateDoc(ref,{
-        onlineVisitors: online,
-        activeSessions: active,
         updatedAt: serverTimestamp()
-    });
 
-}
-/* ===================================
-VISITOR
-=================================== */
+      },
 
-export async function trackVisitor(){
+      { merge: true }
 
-    const today=todayKey();
+    );
 
-    const overviewRef=
-    doc(db,"analytics","overview");
+  }
 
-    const dailyRef=
-    doc(db,"analytics_daily",today);
+  /* =================================
+     EXISTING VISITOR
+  ================================= */
 
-    /* Every page load */
+  else {
 
-    await setDoc(overviewRef,{
+    await updateDoc(
 
-        totalVisits:increment(1),
+      visitorRef,
 
-        updatedAt:serverTimestamp()
+      {
 
-    },{merge:true});
+        lastVisit: serverTimestamp(),
 
-    await setDoc(dailyRef,{
+        lastVisitDate: today
 
-        visits:increment(1),
+      }
 
-        updatedAt:serverTimestamp()
+    );
 
-    },{merge:true});
+  }
 
-    /* Unique visitor once/day */
 
-    if(localStorage.getItem("masha_visit")==today){
+  /* =================================
+     DAILY UNIQUE VISITOR
+     
+     Same visitor can count once
+     per day for daily statistics.
+  ================================= */
 
-        return;
+  const dailyVisitorRef = doc(
 
-    }
+    db,
 
-    localStorage.setItem("masha_visit",today);
+    "analytics_daily_visitors",
 
-    await setDoc(overviewRef,{
+    `${today}_${visitorId}`
 
-        totalVisitors:increment(1),
+  );
 
-        updatedAt:serverTimestamp()
+  const dailyVisitorSnap =
+    await getDoc(dailyVisitorRef);
 
-    },{merge:true});
-
-    await setDoc(dailyRef,{
-
-        visitors:increment(1),
-
-        updatedAt:serverTimestamp()
-
-    },{merge:true});
-
-}
-
-/* ===================================
-PRODUCT VIEW
-=================================== */
-
-export async function trackProductView(productId){
-
-    if(!productId) return;
-
-    const key="view_"+productId;
-
-    if(sessionStorage.getItem(key)){
-
-        return;
-
-    }
-
-    sessionStorage.setItem(key,"1");
+  if (!dailyVisitorSnap.exists()) {
 
     await setDoc(
 
-        doc(db,"products",productId),
+      dailyVisitorRef,
 
-        {
+      {
 
-            views:increment(1)
+        visitorId,
 
-        },
+        date: today
 
-        {merge:true}
+      }
 
     );
 
     await setDoc(
 
-        doc(db,"analytics_products",productId),
+      dailyRef,
 
-        {
+      {
 
-            views:increment(1),
+        visitors: increment(1),
 
-            updatedAt:serverTimestamp()
+        updatedAt: serverTimestamp()
 
-        },
+      },
 
-        {merge:true}
-
-    );
-
-    await setDoc(
-
-        doc(db,"analytics","overview"),
-
-        {
-
-            totalViews:increment(1),
-            currentViews:increment(1),
-            updatedAt:serverTimestamp()
-
-        },
-
-        {merge:true}
+      { merge: true }
 
     );
 
-    
+  }
 
 }
 
+
 /* ===================================
-CATEGORY VIEW
+   PRODUCT VIEW
 =================================== */
 
-export async function trackCategory(category){
+export async function trackProductView(productId) {
 
-    if(!category) return;
+  if (!productId) return;
 
-    await setDoc(
+  const key = "view_" + productId;
 
-        doc(db,"analytics_categories",category),
+  if (sessionStorage.getItem(key)) {
 
-        {
+    return;
 
-            views:increment(1),
+  }
 
-            updatedAt:serverTimestamp()
+  sessionStorage.setItem(key, "1");
 
-        },
+  const today = todayKey();
 
-        {merge:true}
 
-    );
+  await setDoc(
+
+    doc(db, "products", productId),
+
+    {
+
+      views: increment(1)
+
+    },
+
+    { merge: true }
+
+  );
+
+
+  await setDoc(
+
+    doc(db, "analytics_products", productId),
+
+    {
+
+      views: increment(1),
+
+      updatedAt: serverTimestamp()
+
+    },
+
+    { merge: true }
+
+  );
+
+
+  await setDoc(
+
+    doc(db, "analytics", "overview"),
+
+    {
+
+      totalViews: increment(1),
+
+      updatedAt: serverTimestamp()
+
+    },
+
+    { merge: true }
+
+  );
+
+
+  /* DAILY VIEWS */
+
+  await setDoc(
+
+    doc(db, "analytics_daily", today),
+
+    {
+
+      views: increment(1),
+
+      updatedAt: serverTimestamp()
+
+    },
+
+    { merge: true }
+
+  );
 
 }
 
+
 /* ===================================
-SEARCH
+   CATEGORY
 =================================== */
 
-export async function trackSearch(keyword){
+export async function trackCategory(category) {
 
-    keyword=keyword.trim().toLowerCase();
+  if (!category) return;
 
-    if(keyword.length<2) return;
+  await setDoc(
 
-    await setDoc(
+    doc(db, "analytics_categories", category),
 
-        doc(db,"analytics_search",keyword),
+    {
 
-        {
+      views: increment(1),
 
-            count:increment(1),
+      updatedAt: serverTimestamp()
 
-            updatedAt:serverTimestamp()
+    },
 
-        },
+    { merge: true }
 
-        {merge:true}
-
-    );
+  );
 
 }
 
+
 /* ===================================
-DEVICE
+   SEARCH
 =================================== */
 
-export async function trackDevice(){
+export async function trackSearch(keyword) {
 
-    const today=todayKey();
+  keyword =
+    keyword.trim().toLowerCase();
 
-    const key="device_"+today;
+  if (keyword.length < 2) return;
 
-    if(localStorage.getItem(key)){
+  await setDoc(
 
-        return;
+    doc(db, "analytics_search", keyword),
 
-    }
+    {
 
-    localStorage.setItem(key,"1");
+      count: increment(1),
 
-    let device="desktop";
+      updatedAt: serverTimestamp()
 
-    if(/Tablet|iPad/i.test(navigator.userAgent)){
+    },
 
-        device="tablet";
+    { merge: true }
 
-    }
-    else if(/Mobile/i.test(navigator.userAgent)){
-
-        device="mobile";
-
-    }
-
-    await setDoc(
-
-        doc(db,"analytics_devices","overview"),
-
-        {
-
-            [device]:increment(1),
-
-            updatedAt:serverTimestamp()
-
-        },
-
-        {merge:true}
-
-    );
+  );
 
 }
 
+
 /* ===================================
-WISHLIST
+   DEVICE
 =================================== */
 
-export async function trackWishlist(productId){
+export async function trackDevice() {
 
-    if(!productId) return;
+  const visitorId = getVisitorId();
 
-    await setDoc(
+  const today = todayKey();
 
-        doc(db,"products",productId),
+  const key =
+    `device_${today}_${visitorId}`;
 
-        {
+  if (localStorage.getItem(key)) {
 
-            wishlist:increment(1)
+    return;
 
-        },
+  }
 
-        {merge:true}
+  localStorage.setItem(key, "1");
 
-    );
+  let device = "desktop";
 
-    await setDoc(
+  if (/Tablet|iPad/i.test(navigator.userAgent)) {
 
-        doc(db,"analytics","overview"),
+    device = "tablet";
 
-        {
+  }
 
-            wishlist:increment(1),
-            updatedAt:serverTimestamp()
+  else if (/Mobile/i.test(navigator.userAgent)) {
 
-        },
+    device = "mobile";
 
-        {merge:true}
+  }
 
-    );
+
+  await setDoc(
+
+    doc(db, "analytics_devices", "overview"),
+
+    {
+
+      [device]: increment(1),
+
+      updatedAt: serverTimestamp()
+
+    },
+
+    { merge: true }
+
+  );
 
 }
 
+
 /* ===================================
-ADD TO CART
+   WISHLIST
 =================================== */
 
-export async function trackCart(productId){
+export async function trackWishlist(productId) {
 
-    if(!productId) return;
+  if (!productId) return;
 
-    await setDoc(
+  await setDoc(
 
-        doc(db,"products",productId),
+    doc(db, "products", productId),
 
-        {
+    {
 
-            cartAdds:increment(1),
-            updatedAt:serverTimestamp()
+      wishlist: increment(1)
 
-        },
+    },
 
-        {merge:true}
+    { merge: true }
 
-    );
+  );
 
-    await setDoc(
+  await setDoc(
 
-        doc(db,"analytics","overview"),
+    doc(db, "analytics", "overview"),
 
-        {
+    {
 
-            cartAdds:increment(1)
+      wishlist: increment(1),
 
-        },
+      updatedAt: serverTimestamp()
 
-        {merge:true}
+    },
 
-    );
+    { merge: true }
+
+  );
 
 }
 
+
 /* ===================================
-PURCHASE
+   CART
 =================================== */
 
-export async function trackPurchase(productId, qty, amount){
+export async function trackCart(productId) {
 
-    if(!productId) return;
+  if (!productId) return;
 
-    // Product document
-    await setDoc(
+  await setDoc(
 
-        doc(db,"products",productId),
+    doc(db, "products", productId),
 
-        {
+    {
 
-            sold:increment(qty),
+      cartAdds: increment(1),
 
-            revenue:increment(amount)
+      updatedAt: serverTimestamp()
 
-        },
+    },
 
-        {merge:true}
+    { merge: true }
 
-    );
+  );
 
-    // Analytics product document
-    await setDoc(
+  await setDoc(
 
-        doc(db,"analytics_products",productId),
+    doc(db, "analytics", "overview"),
 
-        {
+    {
 
-            sold:increment(qty),
+      cartAdds: increment(1),
 
-            revenue:increment(amount),
+      updatedAt: serverTimestamp()
 
-            updatedAt:serverTimestamp()
+    },
 
-        },
+    { merge: true }
 
-        {merge:true}
+  );
 
-    );
+}
 
-    // Overview
-    await setDoc(
 
-        doc(db,"analytics","overview"),
+/* ===================================
+   PURCHASE
+=================================== */
 
-        {
+export async function trackPurchase(
+  productId,
+  qty,
+  amount
+) {
 
-            totalRevenue:increment(amount),
+  if (!productId) return;
 
-            totalOrders:increment(1),
+  await setDoc(
 
-            soldProducts:increment(qty),
+    doc(db, "products", productId),
 
-            updatedAt:serverTimestamp()
+    {
 
-        },
+      sold: increment(qty),
 
-        {merge:true}
+      revenue: increment(amount)
 
-    );
+    },
+
+    { merge: true }
+
+  );
+
+
+  await setDoc(
+
+    doc(db, "analytics_products", productId),
+
+    {
+
+      sold: increment(qty),
+
+      revenue: increment(amount),
+
+      updatedAt: serverTimestamp()
+
+    },
+
+    { merge: true }
+
+  );
+
+
+  await setDoc(
+
+    doc(db, "analytics", "overview"),
+
+    {
+
+      totalRevenue: increment(amount),
+
+      totalOrders: increment(1),
+
+      soldProducts: increment(qty),
+
+      updatedAt: serverTimestamp()
+
+    },
+
+    { merge: true }
+
+  );
+
+
+  const today = todayKey();
+
+  await setDoc(
+
+    doc(db, "analytics_daily", today),
+
+    {
+
+      revenue: increment(amount),
+
+      orders: increment(1),
+
+      soldProducts: increment(qty),
+
+      updatedAt: serverTimestamp()
+
+    },
+
+    { merge: true }
+
+  );
 
 }
