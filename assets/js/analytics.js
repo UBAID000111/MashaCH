@@ -13,7 +13,7 @@ await loadTrafficAnalytics(
     
 );
 
-await loadOverview();
+await loadOverview("today");
 
 await initCharts();
 
@@ -23,6 +23,30 @@ await loadProductsAnalytics();
 
 await loadCategoryAnalytics();
 
+const filters =
+  document.querySelectorAll(
+    ".analytics-filter button"
+  );
+
+
+filters.forEach(button => {
+
+  button.addEventListener("click", async () => {
+
+    filters.forEach(btn =>
+      btn.classList.remove("active")
+    );
+
+    button.classList.add("active");
+
+    const filter =
+      button.dataset.filter;
+
+    await loadOverview(filter);
+
+  });
+
+});
 
 
 // ==============================
