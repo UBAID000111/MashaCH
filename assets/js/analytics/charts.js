@@ -1,309 +1,461 @@
 import { db } from "../../firebase/firebase-config.js";
 
 import {
-collection,
-getDocs,
-query,
-orderBy
+    collection,
+    getDocs
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
-let revenueChart;
-let ordersChart;
-let visitorChart;
 
-export async function initCharts(){
+let revenueChart = null;
 
-    await loadRevenueChart();
+let ordersChart = null;
 
-    await loadOrdersChart();
+let visitorChart = null;
 
-    await loadVisitorsChart();
 
-}
+/* =========================================
+   INITIAL CHARTS
+========================================= */
 
-async function loadRevenueChart(){
+export async function initCharts() {
 
-    const snap = await getDocs(
-
-query(
-
-collection(db,"analytics_daily"),
-
-orderBy("updatedAt","asc")
-
-)
-
-);
-
-    const labels=[];
-    const revenue=[];
-
-    snap.forEach(doc=>{
-
-        const d=doc.data();
-
-        labels.push(doc.id.substring(5)); // MM-DD
-
-        revenue.push(d.revenue || 0);
-
-    });
-
-    createRevenueChart(labels,revenue);
-
-}
-
-async function loadOrdersChart(){
-
-    const snap=await getDocs(
-        collection(db,"analytics_daily")
+    await loadChartsForRange(
+        getDateDaysAgo(29),
+        getTodayKey()
     );
 
-    const labels=[];
-    const orders=[];
+}
 
-    snap.forEach(doc=>{
 
-        const d=doc.data();
+/* =========================================
+   DATE HELPERS
+========================================= */
 
-        labels.push(doc.id.substring(5));
+function getTodayKey() {
 
-        orders.push(d.orders||0);
+    const d = new Date();
 
-    });
-
-    createOrdersChart(labels,orders);
+    return formatDate(d);
 
 }
 
-async function loadVisitorsChart(){
 
-    const snap=await getDocs(
-        collection(db,"analytics_daily")
+function getDateDaysAgo(days) {
+
+    const d = new Date();
+
+    d.setDate(
+        d.getDate() - days
     );
 
-    const labels=[];
-    const visitors=[];
+    return formatDate(d);
 
-    snap.forEach(doc=>{
+}
 
-        const d=doc.data();
 
-        labels.push(doc.id.substring(5));
+function formatDate(date) {
 
-        visitors.push(d.visitors||0);
+    const year =
+        date.getFullYear();
+
+    const month =
+        String(
+            date.getMonth() + 1
+        ).padStart(2, "0");
+
+    const day =
+        String(
+            date.getDate()
+        ).padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+
+}
+
+
+/* =========================================
+   LOAD CHARTS FOR SELECTED RANGE
+========================================= */
+
+export async function loadChartsForRange(
+    start,
+    end
+) {
+
+    const snap =
+        await getDocs(
+            collection(
+                db,
+                "analytics_daily"
+            )
+        );
+
+
+    const rows = [];
+
+
+    snap.forEach(docSnap => {
+
+        const id =
+            docSnap.id;
+
+        if (
+            id >= start &&
+            id <= end
+        ) {
+
+            rows.push({
+
+                date: id,
+
+                data:
+                    docSnap.data()
+
+            });
+
+        }
 
     });
 
-    createVisitorsChart(labels,visitors);
+
+    /* Sort dates */
+
+    rows.sort(
+        (a, b) =>
+            a.date.localeCompare(
+                b.date
+            )
+    );
+
+
+    const labels = [];
+
+    const revenue = [];
+
+    const orders = [];
+
+    const visitors = [];
+
+
+    rows.forEach(row => {
+
+        labels.push(
+            row.date.substring(5)
+        );
+
+
+        revenue.push(
+            Number(
+                row.data.revenue || 0
+            )
+        );
+
+
+        orders.push(
+            Number(
+                row.data.orders || 0
+            )
+        );
+
+
+        visitors.push(
+            Number(
+                row.data.visitors || 0
+            )
+        );
+
+    });
+
+
+    createRevenueChart(
+        labels,
+        revenue
+    );
+
+
+    createOrdersChart(
+        labels,
+        orders
+    );
+
+
+    createVisitorsChart(
+        labels,
+        visitors
+    );
 
 }
 
-function createRevenueChart(labels,data){
 
-const ctx=document.getElementById("revenueChart");
+/* =========================================
+   REVENUE
+========================================= */
 
-if(!ctx) return;
+function createRevenueChart(
+    labels,
+    data
+) {
 
-if(revenueChart){
+    const canvas =
+        document.getElementById(
+            "revenueChart"
+        );
 
-revenueChart.destroy();
+    if (!canvas) return;
 
-}
 
-revenueChart=new Chart(ctx,{
+    if (revenueChart) {
 
-type:"line",
+        revenueChart.destroy();
 
-data:{
+    }
 
-labels,
 
-datasets:[{
+    revenueChart =
+        new Chart(
+            canvas,
+            {
 
-label:"Revenue",
+                type: "line",
 
-data,
+                data: {
 
-borderColor:"#7b1632",
+                    labels,
 
-backgroundColor:"rgba(123,22,50,.15)",
+                    datasets: [{
 
-fill:true,
+                        label:
+                            "Revenue",
 
-tension:.35,
+                        data,
 
-borderWidth:3
+                        borderColor:
+                            "#7b1632",
 
-}]
+                        backgroundColor:
+                            "rgba(123,22,50,.15)",
 
-},
+                        fill: true,
 
-options:{
+                        tension: .35,
 
-responsive:true,
+                        borderWidth: 3
 
-maintainAspectRatio:false,
+                    }]
 
-plugins:{
+                },
 
-legend:{
+                options: {
 
-display:false
+                    responsive: true,
 
-}
+                    maintainAspectRatio:
+                        false,
 
-},
+                    plugins: {
 
-scales:{
+                        legend: {
 
-y:{
+                            display: false
 
-beginAtZero:true
+                        }
 
-}
+                    },
 
-}
+                    scales: {
 
-}
+                        y: {
 
-});
+                            beginAtZero: true
 
-}
+                        }
 
-function createOrdersChart(labels,data){
+                    }
 
-const ctx=document.getElementById("ordersChart");
+                }
 
-if(!ctx) return;
-
-if(ordersChart){
-
-ordersChart.destroy();
-
-}
-
-ordersChart=new Chart(ctx,{
-
-type:"bar",
-
-data:{
-
-labels,
-
-datasets:[{
-
-label:"Orders",
-
-data,
-
-backgroundColor:"#B09246",
-
-borderRadius:8
-
-}]
-
-},
-
-options:{
-
-responsive:true,
-
-maintainAspectRatio:false,
-
-plugins:{
-
-legend:{
-
-display:false
+            }
+        );
 
 }
 
-},
 
-scales:{
+/* =========================================
+   ORDERS
+========================================= */
 
-y:{
+function createOrdersChart(
+    labels,
+    data
+) {
 
-beginAtZero:true
+    const canvas =
+        document.getElementById(
+            "ordersChart"
+        );
+
+    if (!canvas) return;
+
+
+    if (ordersChart) {
+
+        ordersChart.destroy();
+
+    }
+
+
+    ordersChart =
+        new Chart(
+            canvas,
+            {
+
+                type: "bar",
+
+                data: {
+
+                    labels,
+
+                    datasets: [{
+
+                        label:
+                            "Orders",
+
+                        data,
+
+                        backgroundColor:
+                            "#B09246",
+
+                        borderRadius: 8
+
+                    }]
+
+                },
+
+                options: {
+
+                    responsive: true,
+
+                    maintainAspectRatio:
+                        false,
+
+                    plugins: {
+
+                        legend: {
+
+                            display: false
+
+                        }
+
+                    },
+
+                    scales: {
+
+                        y: {
+
+                            beginAtZero: true
+
+                        }
+
+                    }
+
+                }
+
+            }
+
+        );
 
 }
 
-}
 
-}
+/* =========================================
+   VISITORS
+========================================= */
 
-});
+function createVisitorsChart(
+    labels,
+    data
+) {
 
-}
+    const canvas =
+        document.getElementById(
+            "visitorChart"
+        );
 
-function createVisitorsChart(labels,data){
+    if (!canvas) return;
 
-const ctx=document.getElementById("visitorChart");
 
-if(!ctx) return;
+    if (visitorChart) {
 
-if(visitorChart){
+        visitorChart.destroy();
 
-visitorChart.destroy();
+    }
 
-}
 
-visitorChart=new Chart(ctx,{
+    visitorChart =
+        new Chart(
+            canvas,
+            {
 
-type:"line",
+                type: "line",
 
-data:{
+                data: {
 
-labels,
+                    labels,
 
-datasets:[{
+                    datasets: [{
 
-label:"Visitors",
+                        label:
+                            "Visitors",
 
-data,
+                        data,
 
-borderColor:"#16a34a",
+                        borderColor:
+                            "#16a34a",
 
-backgroundColor:"rgba(22,163,74,.15)",
+                        backgroundColor:
+                            "rgba(22,163,74,.15)",
 
-fill:true,
+                        fill: true,
 
-tension:.35,
+                        tension: .35,
 
-borderWidth:3
+                        borderWidth: 3
 
-}]
+                    }]
 
-},
+                },
 
-options:{
+                options: {
 
-responsive:true,
+                    responsive: true,
 
-maintainAspectRatio:false,
+                    maintainAspectRatio:
+                        false,
 
-plugins:{
+                    plugins: {
 
-legend:{
+                        legend: {
 
-display:false
+                            display: false
 
-}
+                        }
 
-},
+                    },
 
-scales:{
+                    scales: {
 
-y:{
+                        y: {
 
-beginAtZero:true
+                            beginAtZero: true
 
-}
+                        }
 
-}
+                    }
 
-}
+                }
 
-});
+            }
+
+        );
 
 }
