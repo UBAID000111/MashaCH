@@ -2,9 +2,9 @@ import { db } from "../firebase/firebase-config.js";
 
 import {
     collection,
-    getDocs,
     doc,
-    updateDoc
+    updateDoc,
+    onSnapshot
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-firestore.js";
 
 const table = document.getElementById("cartTable");
@@ -16,124 +16,151 @@ const cartDetails = document.getElementById("cartDetails");
 const closeBtn = document.getElementById("closeCartModal");
 
 /* ===========================
-LOAD CART LEADS
-=========================== */
-
-async function loadCartLeads() {
-
-    table.innerHTML = "";
+function loadCartLeads() {
 
     const mobileList = document.getElementById("mobileCartList");
 
-    mobileList.innerHTML = "";
+    const cartRef = collection(db, "adminCart");
 
-    const snap = await getDocs(collection(db, "adminCart"));
+    onSnapshot(cartRef, (snap) => {
 
-    if (snap.empty) {
+        table.innerHTML = "";
+        mobileList.innerHTML = "";
 
-        table.innerHTML = `
-        <tr>
-            <td colspan="5" style="text-align:center;padding:30px;">
-                No Customer Carts
-            </td>
-        </tr>
-        `;
+        if (snap.empty) {
 
-        mobileList.innerHTML = `
-        <div class="lead-card">
-            <h3>No Customer Carts</h3>
-        </div>
-        `;
+            table.innerHTML = `
+                <tr>
+                    <td colspan="5" style="text-align:center;padding:30px;">
+                        No Customer Carts
+                    </td>
+                </tr>
+            `;
 
-        return;
+            mobileList.innerHTML = `
+                <div class="lead-card">
+                    <h3>No Customer Carts</h3>
+                </div>
+            `;
 
-    }
+            return;
+        }
 
-    snap.forEach(d => {
+        snap.forEach(d => {
 
-        const user = d.data();
+            const user = d.data();
 
-        /* ---------- Desktop Table ---------- */
+            /* DESKTOP */
 
-        table.innerHTML += `
+            table.innerHTML += `
 
-<tr>
+            <tr>
 
-<td>${user.contacted ? "🟢 Contacted" : "🟠 New"}</td>
+                <td>
+                    ${user.contacted
+                        ? "🟢 Contacted"
+                        : "🟠 New"}
+                </td>
 
-<td>${user.userName || "-"}</td>
+                <td>
+                    ${user.userName || "-"}
+                </td>
 
-<td>${user.phone || "-"}</td>
+                <td>
+                    ${user.phone || "-"}
+                </td>
 
-<td>${user.email || "-"}</td>
+                <td>
+                    ${user.email || "-"}
+                </td>
 
-<td>
+                <td>
 
-<button class="view-btn"
-onclick="viewCart('${user.userId}')">
+                    <button
+                        class="view-btn"
+                        onclick="viewCart('${user.userId}')">
+                        View
+                    </button>
 
-View
+                    <button
+                        class="done-btn"
+                        onclick="markDone('${user.userId}')">
+                        ✓
+                    </button>
 
-</button>
+                </td>
 
-<button class="done-btn"
-onclick="markDone('${user.userId}')">
+            </tr>
 
-✓
+            `;
 
-</button>
 
-</td>
+            /* MOBILE */
 
-</tr>
+            mobileList.innerHTML += `
 
-`;
+            <div class="lead-card">
 
-        /* ---------- Mobile Card ---------- */
+                <div class="lead-top">
 
-        mobileList.innerHTML += `
+                    <div>
 
-<div class="lead-card">
+                        <h3>
+                            ${user.userName || "Customer"}
+                        </h3>
 
-<div class="lead-top">
+                        <p>
+                            ${user.email || "-"}
+                        </p>
 
-<div>
+                        <p>
+                            ${user.phone || "-"}
+                        </p>
 
-<h3>${user.userName || "Customer"}</h3>
+                    </div>
 
-<p>${user.email || "-"}</p>
+                    <div class="${
+                        user.contacted
+                        ? "status-green"
+                        : "status-orange"
+                    }">
 
-<p>${user.phone || "-"}</p>
+                        ${
+                            user.contacted
+                            ? "✓ Contacted"
+                            : "New"
+                        }
 
-</div>
+                    </div>
 
-<div class="${user.contacted ? "status-green" : "status-orange"}">
+                </div>
 
-${user.contacted ? "✓ Contacted" : "New"}
+                <div class="lead-actions">
 
-</div>
+                    <button
+                        onclick="viewCart('${user.userId}')">
+                        View Cart
+                    </button>
 
-</div>
+                    <button
+                        onclick="markDone('${user.userId}')">
+                        ✓ Done
+                    </button>
 
-<div class="lead-actions">
+                </div>
 
-<button onclick="viewCart('${user.userId}')">
+            </div>
 
-View Cart
+            `;
 
-</button>
+        });
 
-<button onclick="markDone('${user.userId}')">
+    }, (error) => {
 
-✓ Done
-
-</button>
-
-</div>
-
-</div>
-
-`;
+        console.error(
+            "Admin cart listener error:",
+            error
+        );
 
     });
 
