@@ -14,6 +14,7 @@ query,
 where,
 getDocs,
 setDoc,
+updateDoc,
 deleteDoc,
 serverTimestamp,
 limit
