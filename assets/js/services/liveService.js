@@ -1,93 +1,100 @@
 import { rtdb } from "../../firebase/firebase-config.js";
 
 import {
-
-ref,
-set,
-onDisconnect,
-remove,
-onValue
-
+  ref,
+  set,
+  update,
+  onDisconnect,
+  remove,
+  onValue,
+  onChildRemoved
 } from "https://www.gstatic.com/firebasejs/10.12.5/firebase-database.js";
 
-const sessionId =
-
-crypto.randomUUID();
+const sessionId = crypto.randomUUID();
 
 const page =
-
-window.location.pathname
-.split("/")
-.pop();
+  window.location.pathname.split("/").pop();
 
 let device = "Desktop";
 
-if(/Mobile/i.test(navigator.userAgent)){
-
-device="Mobile";
-
+if (/Mobile/i.test(navigator.userAgent)) {
+  device = "Mobile";
 }
 
-if(/Tablet|iPad/i.test(navigator.userAgent)){
-
-device="Tablet";
-
+if (/Tablet|iPad/i.test(navigator.userAgent)) {
+  device = "Tablet";
 }
-
-export async function startLiveSession(){
 
 const sessionRef =
+  ref(rtdb, "liveUsers/" + sessionId);
 
-ref(
+export async function startLiveSession() {
 
-rtdb,
+  const now = Date.now();
 
-"liveUsers/"+sessionId
+  await set(sessionRef, {
+    page,
+    device,
+    startedAt: now,
+    lastSeen: now
+  });
 
-);
+  // Remove immediately when Firebase detects disconnect
+  onDisconnect(sessionRef).remove();
 
-await set(sessionRef,{
+  // Heartbeat every 20 seconds
+  setInterval(async () => {
 
-page,
+    try {
 
-device,
+      await update(sessionRef, {
+        lastSeen: Date.now()
+      });
 
-startedAt:Date.now()
+    } catch (error) {
 
-});
+      console.log("Heartbeat failed:", error);
 
-onDisconnect(sessionRef).remove();
+    }
+
+  }, 20000);
+}
+
+export async function stopLiveSession() {
+
+  try {
+    await remove(sessionRef);
+  } catch (error) {
+    console.log("Stop session error:", error);
+  }
 
 }
 
-export async function stopLiveSession(){
+export function watchLiveUsers(callback) {
 
-const sessionRef=
+  const liveRef =
+    ref(rtdb, "liveUsers");
 
-ref(
+  onValue(liveRef, snap => {
 
-rtdb,
+    const data = snap.val() || {};
 
-"liveUsers/"+sessionId
+    const now = Date.now();
 
-);
+    // Only count users seen within the last 60 seconds
+    const activeUsers = Object.fromEntries(
 
-await remove(sessionRef);
+      Object.entries(data).filter(([id, user]) => {
 
-}
+        return user.lastSeen &&
+               now - user.lastSeen < 60000;
 
-export function watchLiveUsers(callback){
+      })
 
-const liveRef=
+    );
 
-ref(rtdb,"liveUsers");
+    callback(activeUsers);
 
-onValue(liveRef,snap=>{
-
-const data=snap.val()||{};
-
-callback(data);
-
-});
+  });
 
 }
