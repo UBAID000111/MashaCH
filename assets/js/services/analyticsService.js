@@ -81,30 +81,13 @@ function getVisitId() {
    START SESSION
 =================================== */
 
+/* ===================================
+   START SESSION
+=================================== */
+
 export async function startSession() {
 
-  const visitId = getVisitId();
-
-  const sessionRef =
-    doc(db, "analytics_sessions", visitId);
-
-  const snap = await getDoc(sessionRef);
-
-  // Already recorded this browsing session
-  if (snap.exists()) return;
-
-  const visitorId = getVisitorId();
   const today = todayKey();
-
-  await setDoc(sessionRef, {
-
-    visitorId,
-
-    startedAt: serverTimestamp(),
-
-    date: today
-
-  });
 
   const overviewRef =
     doc(db, "analytics", "overview");
@@ -112,36 +95,24 @@ export async function startSession() {
   const dailyRef =
     doc(db, "analytics_daily", today);
 
+  // Total visits
   await setDoc(
-
     overviewRef,
-
     {
-
       totalVisits: increment(1),
-
       updatedAt: serverTimestamp()
-
     },
-
     { merge: true }
-
   );
 
+  // Daily visits
   await setDoc(
-
     dailyRef,
-
     {
-
       visits: increment(1),
-
       updatedAt: serverTimestamp()
-
     },
-
     { merge: true }
-
   );
 
 }
@@ -168,218 +139,81 @@ export async function endSession() {
    UNIQUE VISITOR
 =================================== */
 
+/* ===================================
+   UNIQUE VISITOR
+=================================== */
+
 export async function trackVisitor() {
 
-    const today = todayKey();
+  const today = todayKey();
 
-    const overviewRef =
-        doc(db, "analytics", "overview");
+  const overviewRef =
+    doc(db, "analytics", "overview");
 
-    const dailyRef =
-        doc(db, "analytics_daily", today);
+  const dailyRef =
+    doc(db, "analytics_daily", today);
 
+  try {
 
-    try {
+    const visitorKey =
+      "masha_unique_visitor_" + today;
 
-        console.log("1. Testing analytics/overview...");
+    // Already counted today
+    if (
+      localStorage.getItem(visitorKey) === "1"
+    ) {
 
-        await setDoc(
-            overviewRef,
-            {
-                totalVisits: increment(1),
-                updatedAt: serverTimestamp()
-            },
-            { merge: true }
-        );
+      console.log(
+        "Visitor already counted today"
+      );
 
-        console.log("✅ 2. analytics/overview SUCCESS");
-
-
-        console.log("3. Testing analytics_daily...");
-
-        await setDoc(
-            dailyRef,
-            {
-                visits: increment(1),
-                updatedAt: serverTimestamp()
-            },
-            { merge: true }
-        );
-
-        console.log("✅ 4. analytics_daily SUCCESS");
-
-
-        const visitorKey =
-            "masha_unique_visitor_" + today;
-
-        if (
-            localStorage.getItem(visitorKey) === "1"
-        ) {
-
-            console.log(
-                "Already counted as today's visitor"
-            );
-
-            return;
-        }
-
-
-        localStorage.setItem(
-            visitorKey,
-            "1"
-        );
-
-
-        console.log("5. Testing unique visitor...");
-
-        await setDoc(
-            overviewRef,
-            {
-                totalVisitors: increment(1),
-                updatedAt: serverTimestamp()
-            },
-            { merge: true }
-        );
-
-        console.log("✅ 6. Total visitor SUCCESS");
-
-
-        await setDoc(
-            dailyRef,
-            {
-                visitors: increment(1),
-                updatedAt: serverTimestamp()
-            },
-            { merge: true }
-        );
-
-        console.log("✅ 7. Daily visitor SUCCESS");
-
-
-    } catch (error) {
-
-        console.error(
-            "❌ ANALYTICS FAILED:",
-            error
-        );
+      return;
 
     }
 
-
-
-  /* =================================
-     FIRST EVER VISIT
-  ================================= */
-
-  if (!visitorSnap.exists()) {
-
-    await setDoc(
-
-      visitorRef,
-
-      {
-
-        firstVisit: serverTimestamp(),
-
-        lastVisit: serverTimestamp(),
-
-        lastVisitDate: today
-
-      }
-
+    // Mark visitor as counted today
+    localStorage.setItem(
+      visitorKey,
+      "1"
     );
 
-    await setDoc(
+    console.log(
+      "Counting unique visitor..."
+    );
 
+    // Total unique visitors
+    await setDoc(
       overviewRef,
-
       {
-
         totalVisitors: increment(1),
-
         updatedAt: serverTimestamp()
-
       },
-
       { merge: true }
-
     );
 
-  }
-
-  /* =================================
-     EXISTING VISITOR
-  ================================= */
-
-  else {
-
-    await updateDoc(
-
-      visitorRef,
-
-      {
-
-        lastVisit: serverTimestamp(),
-
-        lastVisitDate: today
-
-      }
-
+    console.log(
+      "✅ Total visitor SUCCESS"
     );
 
-  }
-
-
-  /* =================================
-     DAILY UNIQUE VISITOR
-     
-     Same visitor can count once
-     per day for daily statistics.
-  ================================= */
-
-  const dailyVisitorRef = doc(
-
-    db,
-
-    "analytics_daily_visitors",
-
-    `${today}_${visitorId}`
-
-  );
-
-  const dailyVisitorSnap =
-    await getDoc(dailyVisitorRef);
-
-  if (!dailyVisitorSnap.exists()) {
-
+    // Daily unique visitors
     await setDoc(
-
-      dailyVisitorRef,
-
-      {
-
-        visitorId,
-
-        date: today
-
-      }
-
-    );
-
-    await setDoc(
-
       dailyRef,
-
       {
-
         visitors: increment(1),
-
         updatedAt: serverTimestamp()
-
       },
-
       { merge: true }
+    );
 
+    console.log(
+      "✅ Daily visitor SUCCESS"
+    );
+
+  } catch (error) {
+
+    console.error(
+      "❌ VISITOR ANALYTICS FAILED:",
+      error
     );
 
   }
