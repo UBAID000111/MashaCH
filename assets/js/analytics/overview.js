@@ -239,8 +239,8 @@ export async function loadOverview(
   ================================= */
 
   document.getElementById(
-    "totalVisitors"
-  ).textContent =
+  "totalVisits"
+).textContent =
 
     filter === "today" ||
     filter === "week" ||
