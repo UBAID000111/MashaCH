@@ -14,7 +14,7 @@ OPEN QUICK VIEW
 
 import {
 trackProductView
-} from "./services/analyticsService.js";
+} from "./analyticsService.js";
 
 export async function quickView(productId){
 
