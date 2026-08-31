@@ -846,6 +846,15 @@ window.addEventListener("scroll", () => {
 
 });
 
+const filterHeader = document.getElementById("filterMobileHeader");
+const filtersBox = document.querySelector(".filters");
+
+filterHeader?.addEventListener("click", () => {
+
+    filtersBox.classList.toggle("open");
+
+});
+
 /* ===========================
 INITIAL LOAD
 =========================== */
