@@ -26,6 +26,65 @@ z-index:999999;
 
 }
 
+/* =========================
+   MOBILE FILTER DROPDOWN
+========================= */
+
+.filter-mobile-header {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    .filters {
+        padding: 0 !important;
+        margin-bottom: 25px;
+        overflow: hidden;
+    }
+
+    .filter-mobile-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+
+        padding: 18px 22px;
+
+        font-size: 22px;
+        font-weight: 700;
+
+        color: #d4145a;
+
+        cursor: pointer;
+
+        background: #fff;
+    }
+
+    .filter-arrow {
+        font-size: 30px;
+        line-height: 1;
+
+        transition: transform 0.25s ease;
+    }
+
+    .filter-content {
+        display: none;
+        padding: 0 22px 22px;
+    }
+
+    .filters.open .filter-content {
+        display: block;
+    }
+
+    .filters.open .filter-arrow {
+        transform: rotate(180deg);
+    }
+
+    .filters h3 {
+        display: none;
+    }
+
+}
+
 .toast.show{
 
 opacity:1;
