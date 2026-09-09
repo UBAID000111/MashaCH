@@ -55,6 +55,8 @@ document.getElementById("discountRow");
 
 const payBtn = document.getElementById("payNowBtn");
 
+const codBtn = document.getElementById("codBtn");
+
 let currentUser = null;
 let grandTotal = 0;
 let discount = 0;
@@ -228,7 +230,7 @@ totalEl.textContent = `₹${grandTotal-discount}`;
 
 }
 
-async function saveOrder(payment){
+async function saveOrder(payment = null, paymentMethod = "Razorpay"){
 
     // Get selected address
     const userDoc = await getDoc(
@@ -324,15 +326,18 @@ promotion: appliedPromotion
 }
 :null,
 
-            paymentId:
-            payment.razorpay_payment_id,
+            paymentMethod: paymentMethod,
 
-            razorpayOrderId:
-            payment.razorpay_order_id,
+paymentId:
+payment?.razorpay_payment_id || null,
 
-            paymentStatus:"Paid",
+razorpayOrderId:
+payment?.razorpay_order_id || null,
 
-            status:"Pending",
+paymentStatus:
+paymentMethod === "COD" ? "Pending" : "Paid",
+
+status:"Pending",
 
             createdAt:serverTimestamp()
 
@@ -495,6 +500,102 @@ collection(db,"users",currentUser.uid,"cart")
 
 };
 
+/* ===========================
+   CASH ON DELIVERY
+=========================== */
+
+codBtn?.addEventListener("click", async () => {
+
+    if (!currentUser) return;
+
+    if (!grandTotal || grandTotal <= 0) {
+
+        showToast("Your cart is empty.");
+
+        return;
+
+    }
+
+    const confirmed = confirm(
+        "Place this order with Cash on Delivery?"
+    );
+
+    if (!confirmed) return;
+
+    codBtn.disabled = true;
+
+    codBtn.innerHTML = "Placing Order...";
+
+    processing.classList.add("active");
+
+    processingStep.innerText =
+        "Saving your COD order...";
+
+    try {
+
+        await saveOrder(
+            null,
+            "COD"
+        );
+
+        processingStep.innerText =
+            "Updating inventory...";
+
+        await updateProductStock();
+
+        if (appliedPromotion) {
+
+            processingStep.innerText =
+                "Applying coupon...";
+
+            await updateDoc(
+                doc(
+                    db,
+                    "promotions",
+                    appliedPromotion.code
+                ),
+                {
+                    used: increment(1)
+                }
+            );
+
+        }
+
+        processingStep.innerText =
+            "Cleaning your cart...";
+
+        await clearCart();
+
+        sessionStorage.removeItem("promotion");
+        sessionStorage.removeItem("discount");
+
+        processingStep.innerText =
+            "Order placed successfully...";
+
+        window.location.replace("success.html");
+
+    } catch (err) {
+
+        console.error(
+            "COD order error:",
+            err
+        );
+
+        processing.classList.remove("active");
+
+        codBtn.disabled = false;
+
+        codBtn.innerHTML =
+            "📦 Place Order with COD";
+
+        alert(
+            "Unable to place COD order. Please try again."
+        );
+
+    }
+
+});
+
 
 async function updateProductStock(){
 
@@ -562,6 +663,7 @@ async function updateProductStock(){
     localStorage.removeItem("mashach_products_time");
 
 }
+
 
 
 async function clearCart(){
