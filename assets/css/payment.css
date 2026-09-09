@@ -36,6 +36,29 @@ display:flex;
 
 }
 
+.cod-method {
+    margin-top: 20px;
+    cursor: default;
+}
+
+.cod-btn {
+    width: 100%;
+    margin-top: 12px;
+    padding: 15px;
+    border: none;
+    border-radius: 10px;
+    background: #222;
+    color: #fff;
+    font-size: 16px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.cod-btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
 .processing-box{
 
 text-align:center;
